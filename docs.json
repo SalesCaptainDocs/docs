@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "Mint Starter Kit",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#2563EB",
+    "light": "#3B82F6",
+    "dark": "#1E3A8A"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -14,13 +14,42 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Getting started onboarding",
+            "icon": "book",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              {
+                "group": "Account Setup",
+                "pages": [
+                  "General/Getting-Started/Introduction/Signing-In",
+                  "General/Getting-Started/Introduction/Plans",
+                  "General/Getting-Started/Introduction/Account-Setup"
+                ]
+              },
+              {
+                "group":"Migration",
+                "pages":[
+                  "General/Getting-Started/Introduction/Migration/From-Podium",
+                  "General/Getting-Started/Introduction/Migration/From-Birdeye",
+                  "General/Getting-Started/Introduction/Migration/From-Dialpad",
+                  "General/Getting-Started/Introduction/Migration/From-Nextiva",
+                  "General/Getting-Started/Introduction/Migration/From-Openphone",
+                  "General/Getting-Started/Introduction/Migration/From-RingCentral"
+                ]
+              }
             ]
           },
+          {
+            "group":"Core Features",
+            "pages":[
+              {
+                "group":"Calling",
+                "pages":[
+                  "Core-Features/Calls/Calling/Receiving-Calls"
+                ]
+              }
+            ]
+          }
+          ,
           {
             "group": "Customization",
             "pages": [
@@ -67,30 +96,11 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/Salescaptain-black.png",
+    "dark": "/logo/Salescaptain-white.png"
   },
   "navbar": {
     "links": [
@@ -107,15 +117,15 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
