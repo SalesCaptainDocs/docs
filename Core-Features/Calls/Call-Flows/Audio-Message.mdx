@@ -1,0 +1,28 @@
+---
+title: "Audio Message"
+description: "Audio Message elements let you play pre-recorded or dynamically generated messages (via text-to-speech or uploaded MP3) to the caller at specific points during an incoming call. This could be a greeting, an announcement, or any audio you want to present before further routing or action."
+---
+
+### **Why Audio Messages Matter**
+
+- Creates a more polished, branded caller experience.
+- Can communicate useful info (e.g. “We may record this call”, “Due to high volume there may be a wait”, etc.).
+- Helps set expectations, reduce frustration, and guide callers correctly.
+- Works well before other steps such as IVR, Ring to User/Team, or even before sending callers to voicemail.
+
+### **How to Configure Audio Messages in a Call Flow**
+
+1. **Add the Audio Message element** into your Canvas at the desired point.
+2. **Choose message type**: upload an MP3 file or use text-to-speech.
+
+   ![Audiomessage Web](/images/audiomessage.webp)
+3. **Determine when to play**: immediately after incoming call, before IVR, before transfer to agent/team, etc.
+4. **Define what happens after the audio**: route to IVR, ring to user/team, or a fallback like voicemail or escalation.
+
+### **Best Practices**
+
+- Keep audio messages short and focused. Overlong messages can frustrate callers.
+- Use high quality audio (for MP3 versions). If using text-to-speech, test for clarity.
+- Ensure the tone and content of the message aligns with your overall brand.
+- Use audio to clarify service hours, whether calls are recorded, expected wait times, etc.
+- Test the audio branches in your flow, including transitions following the message.
