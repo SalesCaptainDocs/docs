@@ -1,16 +1,6 @@
-/* Title */
 #page-title {
   font-size: 30px !important;
 }
-
-/* Description */
-.page-description,
-.docs-description,
-.description,
-[data-testid="description"],
-h2 + p {
+.markdown p:first-of-type {
   font-size: 16px !important;
-  font-family: "YourFontName", sans-serif !important;
-  color: #555 !important;
-  line-height: 1.5 !important;
 }
