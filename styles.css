@@ -1,5 +1,5 @@
 #page-title {
-  font-size: 50px !important;
+  font-size: 30px !important;
 }
 
 #page-title + p,
@@ -8,7 +8,7 @@
 [id*="description"],
 [class*="description"],
 .markdown p:first-of-type {
-  font-size: 30px !important;
+  font-size: 16px !important;
   font-family: "YourFontName", sans-serif !important;
   color: #555 !important;
   line-height: 1.5 !important;
