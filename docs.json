@@ -57,6 +57,16 @@
                 "pages":[
                   "Core-Features/Calls/Calling/Receiving-Calls"  
                 ]
+              },
+              {
+                "group":"Contacts",
+                "page":[
+                  "Core-Features/Contacts/Adding-Contacts",
+                  "Core-Features/Contacts/Custom-Fields",
+                  "Core-Features/Contacts/Importing-Contacts",
+                  "Core-Features/Contacts/Managing-Contacts",
+                  "Core-Features/Contacts/Using-Tags"
+                ]
               }
             ]
           }
