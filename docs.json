@@ -44,7 +44,7 @@
               {
                 "group":"Call Flow",
                 "pages":[
-                  "Core-Features/Calls/Call-Flows/After-HourRouting",
+                  "Core-Features/Calls/Call-Flows/After-Hours-Routing",
                   "Core-Features/Calls/Call-Flows/Audio-Message",
                   "Core-Features/Calls/Call-Flows/Creating-Call-Flows",
                   "Core-Features/Calls/Call-Flows/IVR",
