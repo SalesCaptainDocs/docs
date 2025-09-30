@@ -60,7 +60,7 @@
               },
               {
                 "group":"Contacts",
-                "page":[
+                "pages":[
                   "Core-Features/Contacts/Adding-Contacts",
                   "Core-Features/Contacts/Custom-Fields",
                   "Core-Features/Contacts/Importing-Contacts",
