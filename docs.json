@@ -42,11 +42,11 @@
           },
           {
             "group":"Core Features",
-             "icon": "box-open",
+             "icon": "gears",
             "pages":[
               {
                 "group":"Call Flow",
-                "icon": "arrow-trend-down",
+                "icon": "arrow-right-arrow-left",
                 "pages":[
                   "Core-Features/Calls/Call-Flows/After-Hours-Routing",
                   "Core-Features/Calls/Call-Flows/Audio-Message",
