@@ -55,7 +55,10 @@
               {
                 "group":"Calling",
                 "pages":[
-                  "Core-Features/Calls/Calling/Receiving-Calls"  
+                  "Core-Features/Calls/Calling/AI-Summaries-and-Transcription",
+                  "Core-Features/Calls/Calling/Making-Calls",
+                  "Core-Features/Calls/Calling/Phone-Systems",
+                  "Core-Features/Calls/Calling/Receiving-Calls"
                 ]
               },
               {
