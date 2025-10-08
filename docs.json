@@ -42,7 +42,7 @@
           },
           {
             "group":"Core Features",
-             "icon": "gears",
+             "icon": "gear",
             "pages":[
               {
                 "group":"Call Flow",
