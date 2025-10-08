@@ -28,7 +28,7 @@
               },
               {
                 "group":"Migration",
-                "icon": "trending-up",
+                "icon": "arrow-trend-up",
                 "pages":[
                   "General/Getting-Started/Introduction/Migration/From-Podium",
                   "General/Getting-Started/Introduction/Migration/From-Birdeye",
@@ -42,7 +42,7 @@
           },
           {
             "group":"Core Features",
-             "icon": "boxes",
+             "icon": "box-open",
             "pages":[
               {
                 "group":"Call Flow",
@@ -58,7 +58,7 @@
               },
               {
                 "group":"Calling",
-                "icon": "phone-call",
+                "icon": "phone-volume",
                 "pages":[
                   "Core-Features/Calls/Calling/AI-Summaries-and-Transcription",
                   "Core-Features/Calls/Calling/Making-Calls",
@@ -68,7 +68,7 @@
               },
               {
                 "group":"Contacts",
-                "icon": "contact",
+                "icon": "address-book",
                 "pages":[
                   "Core-Features/Contacts/Adding-Contacts",
                   "Core-Features/Contacts/Custom-Fields",
