@@ -19,7 +19,7 @@
             "pages": [
               {
                 "group": "Account Setup",
-                 "icon": "bolt",
+                "icon":"bolt",
                 "pages": [
                   "General/Getting-Started/Introduction/Signing-In",
                   "General/Getting-Started/Introduction/Plans",
