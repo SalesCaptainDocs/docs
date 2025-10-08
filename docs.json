@@ -46,7 +46,7 @@
             "pages":[
               {
                 "group":"Call Flow",
-                "icon": "arrow-down-up",
+                "icon": "arrow-trend-down",
                 "pages":[
                   "Core-Features/Calls/Call-Flows/After-Hours-Routing",
                   "Core-Features/Calls/Call-Flows/Audio-Message",
