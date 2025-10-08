@@ -19,6 +19,7 @@
             "pages": [
               {
                 "group": "Account Setup",
+                 "icon": "bolt",
                 "pages": [
                   "General/Getting-Started/Introduction/Signing-In",
                   "General/Getting-Started/Introduction/Plans",
@@ -27,6 +28,7 @@
               },
               {
                 "group":"Migration",
+                "icon": "trending-up",
                 "pages":[
                   "General/Getting-Started/Introduction/Migration/From-Podium",
                   "General/Getting-Started/Introduction/Migration/From-Birdeye",
@@ -40,9 +42,11 @@
           },
           {
             "group":"Core Features",
+             "icon": "boxes",
             "pages":[
               {
                 "group":"Call Flow",
+                "icon": "arrow-down-up",
                 "pages":[
                   "Core-Features/Calls/Call-Flows/After-Hours-Routing",
                   "Core-Features/Calls/Call-Flows/Audio-Message",
@@ -54,6 +58,7 @@
               },
               {
                 "group":"Calling",
+                "icon": "phone-call",
                 "pages":[
                   "Core-Features/Calls/Calling/AI-Summaries-and-Transcription",
                   "Core-Features/Calls/Calling/Making-Calls",
@@ -63,6 +68,7 @@
               },
               {
                 "group":"Contacts",
+                "icon": "contact",
                 "pages":[
                   "Core-Features/Contacts/Adding-Contacts",
                   "Core-Features/Contacts/Custom-Fields",
