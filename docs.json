@@ -31,7 +31,7 @@
               },
               {
                 "group":"Migration",
-                "icon": "arrow-trend-up",
+                "icon": "trending-up",
                 "pages":[
                   "General/Getting-Started/Introduction/Migration/From-Podium",
                   "General/Getting-Started/Introduction/Migration/From-Birdeye",
@@ -49,7 +49,7 @@
             "pages":[
               {
                 "group":"Call Flow",
-                "icon": "phone-call",
+                "icon": "phone-outgoing",
                 "pages":[
                   "Core-Features/Calls/Call-Flows/After-Hours-Routing",
                   "Core-Features/Calls/Call-Flows/Audio-Message",
