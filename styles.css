@@ -3,13 +3,13 @@
 }
 /* Increase the left sidebar width */
 .mintlify .Sidebar_root__ {
-  width: 350px !important;
-  min-width: 350px !important;
+  width: 500px !important;
+  min-width: 650px !important;
 }
 
 /* Adjust main content so it aligns properly */
 .mintlify .Content_root__ {
-  margin-left: 350px !important;
+  margin-left: 500px !important;
 }
 
 /* Make sidebar group titles and icons align in one line */
@@ -20,8 +20,8 @@
 }
 
 .mintlify .Sidebar_group__ svg {
-  width: 16px;
-  height: 16px;
+  width: 50px;
+  height: 50px;
   flex-shrink: 0;
 }
 
