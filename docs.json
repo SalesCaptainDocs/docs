@@ -8,7 +8,7 @@
     "dark": "#2563EB"
   },
     "icons": {
-    "library": "fontawesome"
+    "library": "lucide"
   },
   "favicon": "/logo/logo_chatbot.svg",
   "navigation": {
@@ -18,11 +18,11 @@
         "groups": [
           {
             "group": "Getting started",
-            "icon": "book",
+            "icon": "book-text",
             "pages": [
               {
                 "group": "Account Setup",
-                "icon":"bolt",
+                "icon":"user-cog",
                 "pages": [
                   "General/Getting-Started/Introduction/Signing-In",
                   "General/Getting-Started/Introduction/Plans",
@@ -45,11 +45,11 @@
           },
           {
             "group":"Core Features",
-             "icon": "gear",
+             "icon": "settings",
             "pages":[
               {
                 "group":"Call Flow",
-                "icon": "a-arrow-down",
+                "icon": "phone-call",
                 "pages":[
                   "Core-Features/Calls/Call-Flows/After-Hours-Routing",
                   "Core-Features/Calls/Call-Flows/Audio-Message",
@@ -61,7 +61,7 @@
               },
               {
                 "group":"Calling",
-                "icon": "phone-volume",
+                "icon": "phone-call",
                 "pages":[
                   "Core-Features/Calls/Calling/AI-Summaries-and-Transcription",
                   "Core-Features/Calls/Calling/Making-Calls",
@@ -71,7 +71,7 @@
               },
               {
                 "group":"Contacts",
-                "icon": "address-book",
+                "icon": "book-user",
                 "pages":[
                   "Core-Features/Contacts/Adding-Contacts",
                   "Core-Features/Contacts/Custom-Fields",
