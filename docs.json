@@ -7,6 +7,9 @@
     "light": "#60A5FA",
     "dark": "#2563EB"
   },
+    "icons": {
+    "library": "lucide"
+  },
   "favicon": "/logo/logo_chatbot.svg",
   "navigation": {
     "tabs": [
