@@ -7,11 +7,8 @@
     "light": "#60A5FA",
     "dark": "#2563EB"
   },
-  "custom": {
-  "css": ["/styles.css"]
-},
     "icons": {
-    "library": "lucide"
+    "library": "fontawesome"
   },
   "favicon": "/logo/logo_chatbot.svg",
   "navigation": {
