@@ -11,3 +11,24 @@
 .mintlify .Content_root__ {
   margin-left: 350px !important;
 }
+
+/* Make sidebar group titles and icons align in one line */
+.mintlify .Sidebar_group__ {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between icon and text */
+}
+
+.mintlify .Sidebar_group__ svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* Optional: make spacing uniform and text aligned */
+.mintlify .Sidebar_group__ span,
+.mintlify .Sidebar_group__ div {
+  display: inline-flex;
+  align-items: center;
+}
+
