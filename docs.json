@@ -79,6 +79,14 @@
                   "Core-Features/Contacts/Managing-Contacts",
                   "Core-Features/Contacts/Using-Tags"
                 ]
+              },
+              {
+                "group":"Website",
+                "icon":"panels-top-left",
+                "pages":[
+                  "Core-Features/Website/Webchat-Setup",
+                  "Core-Features/Website/Website-Toolkit"              
+                ]
               }
             ]
           },
