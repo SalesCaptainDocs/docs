@@ -42,6 +42,87 @@
                 ]
               }
             ]
+          },
+          {
+            "group":"Core Features",
+             "icon": "settings",
+            "pages":[
+              {
+                "group":"Call Flow",
+                "icon": "phone-outgoing",
+                "pages":[
+                  "Core-Features/Calls/Call-Flows/After-Hours-Routing",
+                  "Core-Features/Calls/Call-Flows/Audio-Message",
+                  "Core-Features/Calls/Call-Flows/Creating-Call-Flows",
+                  "Core-Features/Calls/Call-Flows/IVR",
+                  "Core-Features/Calls/Call-Flows/Time-Rules",
+                  "Core-Features/Calls/Call-Flows/Voicemail"
+                ]
+              },
+              {
+                "group":"Calling",
+                "icon": "phone-call",
+                "pages":[
+                  "Core-Features/Calls/Calling/AI-Summaries-and-Transcription",
+                  "Core-Features/Calls/Calling/Making-Calls",
+                  "Core-Features/Calls/Calling/Phone-Systems",
+                  "Core-Features/Calls/Calling/Receiving-Calls"
+                ]
+              },
+              {
+                "group":"Contacts",
+                "icon": "book-user",
+                "pages":[
+                  "Core-Features/Contacts/Adding-Contacts",
+                  "Core-Features/Contacts/Custom-Fields",
+                  "Core-Features/Contacts/Importing-Contacts",
+                  "Core-Features/Contacts/Managing-Contacts",
+                  "Core-Features/Contacts/Using-Tags"
+                ]
+              },
+              {
+                "group":"Messaging and Inbox",
+                "icon":"inbox",
+                "pages":[
+                  "Core-Features/Messaging-and-Inbox/Inbox/Inbox-Overview",
+                  "Core-Features/Messaging-and-Inbox/Inbox/Managing-Conversations",
+                  "Core-Features/Messaging-and-Inbox/Inbox/Sending-Emails",
+                  "Core-Features/Messaging-and-Inbox/Inbox/Sending-Messages"
+                ] 
+              },
+              {
+                "group":"Website",
+                "icon":"panels-top-left",
+                "pages":[
+                  "Core-Features/Website/Webchat-Setup",
+                  "Core-Features/Website/Website-Toolkit"              
+                ]
+              }
+            ]
+          },
+          {
+             "group": "Customization",
+            "pages": [
+              "essentials/settings",
+              "essentials/navigation"
+            ]
+          },
+          {
+            "group": "Writing content",
+            "pages": [
+              "essentials/markdown",
+              "essentials/code",
+              "essentials/images",
+              "essentials/reusable-snippets"
+            ]
+          },
+          {
+            "group": "AI tools",
+            "pages": [
+              "ai-tools/cursor",
+              "ai-tools/claude-code",
+              "ai-tools/windsurf"
+            ]
           }
         ]
       },
@@ -90,24 +171,5 @@
       "github": "https://github.com/mintlify",
       "linkedin": "https://linkedin.com/company/mintlify"
     }
-  },
-  "sidebar": {
-    "extra": [
-      {
-        "title": "Emoji Legend",
-        "items": [
-          { "icon": "globe", "label": "Indexes" },
-          { "icon": "refresh-cw", "label": "Storage Links" },
-          { "icon": "star", "label": "Recommendations" }
-        ]
-      },
-      {
-        "title": "Options",
-        "items": [
-          { "type": "toggle", "label": "Toggle Starred" },
-          { "type": "colorPicker", "label": "Theme Color", "options": ["#60A5FA", "#EF4444", "#10B981", "#F59E0B", "#6366F1", "#EC4899"] }
-        ]
-      }
-    ]
   }
 }
