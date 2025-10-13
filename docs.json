@@ -81,6 +81,16 @@
                 ]
               },
               {
+                "group":"Messaging and Inbox",
+                "icon":"inbox",
+                "pages":[
+                  "Core-Features/Messaging-and-Inbox/Inbox/Inbox-Overview",
+                  "Core-Features/Messaging-and-Inbox/Inbox/Managing-Conversations",
+                  "Core-Features/Messaging-and-Inbox/Inbox/Sending-Emails",
+                  "Core-Features/Messaging-and-Inbox/Inbox/Sending-Messages"
+                ] 
+              },
+              {
                 "group":"Website",
                 "icon":"panels-top-left",
                 "pages":[
