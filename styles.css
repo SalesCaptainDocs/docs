@@ -1,6 +1,14 @@
-#page-title {
+/* Main Page Title */
+.mdx h1 {
   font-size: 30px !important;
+  font-weight: 700 !important;
 }
-#description {
-  font-size:30px !important;
+
+/* Description or Subtitle (like “Call Flow”) */
+.mdx h3,
+.mdx h4,
+.mdx p:first-child {
+  font-size: 20px !important;
+  color: #3B82F6 !important;
+  font-weight: 600 !important;
 }
