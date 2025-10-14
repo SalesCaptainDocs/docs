@@ -1,14 +1,15 @@
-/* Main Page Title */
+/* Force consistent heading size in Mintlify */
+.prose h1,
 .mdx h1 {
   font-size: 30px !important;
   font-weight: 700 !important;
+  line-height: 1.2 !important;
 }
 
-/* Description or Subtitle (like “Call Flow”) */
-.mdx h3,
-.mdx h4,
-.mdx p:first-child {
-  font-size: 20px !important;
-  color: #3B82F6 !important;
+.prose h3,
+.mdx h3 {
+  font-size: 24px !important;
   font-weight: 600 !important;
+  color: #3B82F6 !important;
+  margin-bottom: 0.25em !important;
 }
