@@ -81,6 +81,16 @@
                 ]
               },
               {
+                "group":"Marketing",
+                "icon":"store",
+                "pages":[
+                  "Core-Features/Marketing/Call-Templates",
+                  "Core-Features/Marketing/Campaigns",
+                  "Core-Features/Marketing/Email-Templates",
+                  "Core-Features/Marketing/SMS-Templates"
+                ]
+              },
+              {
                 "group":"Messaging and Inbox",
                 "icon":"inbox",
                 "pages":[
