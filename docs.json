@@ -138,12 +138,13 @@
       "linkedin": "https://linkedin.com/company/mintlify"
     }
   },
-    "seo": {
-    "metatags": {
-      "og:title": "Sales Captain Documentation",
-      "og:description": "Learn how to use Sales Captain tools to automate and scale your business.",
-      "og:image": "/logo/Meta-image.jpg",
-      "keywords": "Sales Captain, AI automation, lead generation, customer engagement, business growth, marketing automation, CRM software, chat automation, local SEO, reputation management, review generation, workflow automation, Playwright integration, n8n automation, website chat assistant"
-    }
+"seo": {
+  "metatags": {
+    "og:title": "SalesCaptain Documentation",
+    "og:description": "Learn how to use SalesCaptain tools to automate and scale your business.",
+    "og:image": "/logo/Meta-image.jpg",
+    "indexing": "all",
+    "keywords": "AI automation, lead generation, customer engagement, business growth, marketing automation, CRM software, chat automation, local SEO, reputation management, review generation, workflow automation, Playwright integration, n8n automation, website chat assistant"
   }
+}
 }
