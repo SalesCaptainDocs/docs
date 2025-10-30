@@ -142,7 +142,7 @@
     "metatags": {
       "og:title": "Sales Captain Documentation",
       "og:description": "Learn how to use Sales Captain tools to automate and scale your business.",
-      "og:image": "https://cdn.salescaptain.com/docs/preview.png",
+      "og:image": "/logo/og-Metaimage.jpg",
       "keywords": "Sales Captain, AI automation, lead generation, customer engagement, business growth, marketing automation, CRM software, chat automation, local SEO, reputation management, review generation, workflow automation, Playwright integration, n8n automation, website chat assistant"
     }
   }
