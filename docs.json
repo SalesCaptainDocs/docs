@@ -133,10 +133,12 @@
   },
   "footer": {
     "socials": {
+      "website": "https://salescaptain.com/",
       "x": "https://twitter.com/SalesCaptainInc",
       "linkedin": "https://www.linkedin.com/company/salescaptainhq",
       "instagram": "https://www.instagram.com/salescaptainhq/",
-      "facebook": "https://www.facebook.com/SalesCaptainHQ"
+      "facebook": "https://www.facebook.com/SalesCaptainHQ",
+      "reddit": "https://www.reddit.com/r/SalesCaptain/"
     }
   },
 "seo": {
