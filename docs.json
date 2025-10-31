@@ -119,16 +119,10 @@
     "dark": "/logo/Salescaptain-white.png"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:support@salescaptain.com"
-      }
-    ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://app.salescaptain.com/login"
     }
   },
   "footer": {
