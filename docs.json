@@ -31,15 +31,13 @@
                 ]
               },
               {
-                "group":"Migration",
+                "group":"Marketplace",
                 "icon": "trending-up",
                 "pages":[
-                  "General/Getting-Started/Introduction/Migration/From-Podium",
-                  "General/Getting-Started/Introduction/Migration/From-Birdeye",
-                  "General/Getting-Started/Introduction/Migration/From-Dialpad",
-                  "General/Getting-Started/Introduction/Migration/From-Nextiva",
-                  "General/Getting-Started/Introduction/Migration/From-Openphone",
-                  "General/Getting-Started/Introduction/Migration/From-RingCentral"
+                  "Marketplace-and-Integrations/Applications/Payments",
+                  "Marketplace-and-Integrations/Applications/Referrals",
+                  "Marketplace-and-Integrations/Applications/Reviews",
+                  "Marketplace-and-Integrations/Applications/Stages"
                 ]
               }
             ]
