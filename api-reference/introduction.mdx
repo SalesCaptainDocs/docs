@@ -1,28 +1,26 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "Introduction"
+description: "Welcome to the SalesCaptain API Reference — your gateway to integrating powerful CRM, automation, and lead management features directly into your applications."
 ---
 
+Our APIs are designed for developers to seamlessly access SalesCaptain’s suite of tools, including lead capture, customer communication, analytics, and campaign automation.
+
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+  Tip: Use this API documentation to explore, test, and integrate SalesCaptain features into your platform efficiently.
 </Note>
 
-## Welcome
+There are two primary ways to use our API:
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
-
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+- **OpenAPI Specification** — for direct endpoint testing and integration.
+- **MDX Components** — for interactive documentation and embedded code examples.
 
 ## Authentication
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+All API requests to SalesCaptain are authenticated using **Bearer tokens**.\
+To access our endpoints:
+
+1. Generate your API key from your **SalesCaptain Developer Dashboard**.
+2. Include the token in the header of every request as shown below.
 
 ```json
 "security": [
@@ -31,3 +29,31 @@ All API endpoints are authenticated using Bearer tokens and picked up from the s
   }
 ]
 ```
+
+## **Lead Management**
+
+Use the Lead API to create, fetch, and manage leads from any source — website forms, campaigns, or integrations.
+
+### **Endpoints**
+
+- `GET /leads` — Retrieve all leads
+- `POST /leads` — Create a new lead
+- `GET /leads/{id}` — Get lead details by ID
+- `PATCH /leads/{id}` — Update lead details
+- `DELETE /leads/{id}` — Delete a lead
+
+Example response:
+
+```
+{
+  "id": "12345",
+  "name": "John Doe",
+  "email": "john@example.com",
+  "status": "new",
+  "source": "Website Form"
+}
+```
+
+<Note>
+  You can filter leads by date, status, or source using query parameters.
+</Note>
