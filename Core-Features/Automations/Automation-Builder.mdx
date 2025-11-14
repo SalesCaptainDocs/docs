@@ -15,34 +15,44 @@ Flow controls determine how your automation behaves — when to act, who to incl
 
 The **If/Else** element checks a condition and splits your automation path based on whether it’s true or false.Specify your conditions using the drop-down menus and select **Add**. Once all relevant conditions are set, select **Apply Filters**.
 
-<Frame>
-  ![Automationbuilder1 Jp](/images/automationbuilder1.jpg)
+<Frame caption="Workflow Condition Configuration for If/Else element in SalesCaptain automation builder">
+  ![Workflow Condition Configuration for If/Else element in SalesCaptain automation builder](/images/automationbuilder1.jpg)
 </Frame>
 
 This creates two branches in your workflow: one **IF** the contact meets all conditions, and **ELSE** if they do not. Use this to personalize your workflows, such as sending unique messages or routing leads based on tags or location.
-<Frame>
-![automation builder 2.jpg](/images/automationbuilder2.jpg)
+
+<Frame caption="Canvas view with If/Else element in SalesCaptain automation builder">
+  ![Canvas view with If/Else element in SalesCaptain automation builder](/images/automationbuilder2.jpg)
 </Frame>
+
 ### **Filter**
 
 The **Filter** element narrows your audience using tags, contact attributes, or custom fields. You can use it to include only specific groups of contacts, such as new leads, customers in a certain region, or those inactive for a set period.
-<Frame>
-![automation builder 3.jpg](/images/automationbuilder3.jpg)
+
+<Frame caption="Filter element condition configuration in SalesCaptain automation builder">
+  ![Filter element condition configuration in SalesCaptain automation builder](/images/automationbuilder3.jpg)
 </Frame>
+
 When you apply filters, only contacts who meet all the specified conditions continue through the workflow. Unlike **If/Else**, this does not create a secondary path — it simply excludes contacts who don’t qualify.
-<Frame>
-![automation builder 4.jpg](/images/automationbuilder4.jpg)
+
+<Frame caption="Canvas view with Filter element in SalesCaptain automation builder">
+  ![Canvas view with Filter element in SalesCaptain automation builder](/images/automationbuilder4.jpg)
 </Frame>
+
 ### **Delay**
 
 The **Delay** element adds a waiting period between steps in your automation. You can delay by minutes, hours, or days, or schedule an exact time for the next action. Delays help space out communication naturally and maintain consistent timing between messages.
-<Frame>
-![automation builder 5.jpg](/images/automationbuilder5.jpg)
+
+<Frame caption="Automation delay configuration in SalesCaptain automation builder">
+  ![Automation delay configuration in SalesCaptain automation builder](/images/automationbuilder5.jpg)
 </Frame>
+
 For example, send a follow-up 24 hours after a form submission or a reminder one day before an appointment.
-<Frame>
-![automation builder 6.jpg](/images/automationbuilder6.jpg)
+
+<Frame caption="Canvas view with Delay element in SalesCaptain automation builder">
+  ![Canvas view with Delay element in SalesCaptain automation builder](/images/automationbuilder6.jpg)
 </Frame>
+
 ## **Actions**
 
 Actions are the tasks your automation performs after a condition is met. You can add one or multiple actions to create your desired workflow.
@@ -50,81 +60,111 @@ Actions are the tasks your automation performs after a condition is met. You can
 ### **Send SMS**
 
 Automatically send a personalized text message to a contact when the trigger occurs. Use this for instant confirmations, reminders, or promotional follow-ups without leaving the platform. 
-<Frame>
-![automation builder 7.jpg](/images/automationbuilder7.jpg)
+
+<Frame caption="SMS template configuration in SalesCaptain automation builder">
+  ![SMS template configuration in SalesCaptain automation builder](/images/automationbuilder7.jpg)
 </Frame>
+
 You can use templates, merge fields, and timing options to fit your workflow needs.
-<Frame>
-![automation builder 8.jpg](/images/automationbuilder8.jpg)
+
+<Frame caption="Cavnas view with Send SMS element in SalesCaptain automation builder">
+  ![Cavnas view with Send SMS element in SalesCaptain automation builder](/images/automationbuilder8.jpg)
 </Frame>
+
 ### **Send Email**
 
 Send a pre-written or templated email directly to a contact or team member. This action is ideal for sending appointment confirmations, thank-you messages, or regular follow-ups. 
-<Frame>
-![automation builder 9.jpg](/images/automationbuilder9.jpg)
+
+<Frame caption="Email Template Configuration options in SalesCaptain automation builder">
+  ![Email Template Configuration options in SalesCaptain automation builder](/images/automationbuilder9.jpg)
 </Frame>
+
 Emails can include dynamic content and personalization tokens for a more tailored experience.
-<Frame>
-![automation builder 10.jpg](/images/automationbuilder10.jpg)
+
+<Frame caption="Canvas view with Send Email element in SalesCaptain automation builder">
+  ![Canvas view with Send Email element in SalesCaptain automation builder](/images/automationbuilder10.jpg)
 </Frame>
+
 ### **Make a Call**
 
 Automatically initiate a phone call through your connected SalesCaptain phone system. Use it to trigger reminders, connect sales calls, or re-engage with customers after a specific event.
-<Frame>
-![automation builder 11.jpg](/images/automationbuilder11.jpg)
+
+<Frame caption="Call template configuration options in SalesCaptain automation builder">
+  ![Call template configuration options in Salescaptain automation builder](/images/automationbuilder11.jpg)
 </Frame>
-Choose from your pre-built list of <u>call templates</u>, or schedule calls as part of a multi-step follow-up.
+
+Choose from your pre-built list of [call templates](/Core-Features/Marketing/Call-Templates), or schedule calls as part of a multi-step follow-up.
 
 ### **Add Tags**
 
 Apply tags to contacts for easy tracking and segmentation in future workflows. Tags help categorize leads by behavior, interest, or source for better automation control.
-<Frame>
-![automation builder 13.jpg](/images/automationbuilder13.jpg)
+
+<Frame caption="Tags configuration options in SalesCaptain automation builder">
+  ![Tags configuration options in SalesCaptain automation builder](/images/automationbuilder13.jpg)
 </Frame>
+
 This keeps your contact list organized and makes targeting specific audiences simple.
-<Frame>
-![automation builder 14.jpg](/images/automationbuilder14.jpg)
+
+<Frame caption="Canvas view with Add Tags element in SalesCaptain automation builder">
+  ![Canvas view with Add Tags element in SalesCaptain automation builder](/images/automationbuilder14.jpg)
 </Frame>
+
 ### **AI Agent**
 
 Activate your AI assistant using voice or test to send automated replies, qualify leads, or continue conversations.
-<Frame>
-![automation builder 15.jpg](/images/automationbuilder15.jpg)
+
+<Frame caption="AI Agent configuration options in SalesCaptain automation builder">
+  ![AI Agent configuration options in SalesCaptain automation builder](/images/automationbuilder15.jpg)
 </Frame>
+
 This action helps handle inquiries outside of business hours or maintain engagement during high volume. The AI agent can respond intelligently based on previous messages and your documentation. 
-<Frame>
-![automation builder 16.jpg](/images/automationbuilder16.jpg)
+
+<Frame caption="Canvas view with AI Agent element  in SalesCaptain automation builder">
+  ![Canvas view with AI Agent element in SalesCaptain automation builder](/images/automationbuilder16.jpg)
 </Frame>
+
 ### **Assign To**
 
 Automatically assign a contact or conversation to a specific user, team, or stage. Use this to route new leads, incoming messages, or support requests to the right person.
-<Frame>
-![automation builder 17.jpg](/images/automationbuilder17.jpg)
+
+<Frame caption="Assign To configuration options in SalesCaptain automation builder">
+  ![Assign to configuration options in SalesCaptain automation builder](/images/automationbuilder17.jpg)
 </Frame>
+
 Assignments help ensure that every contact receives prompt attention from your team.
-<Frame>
-![automation builder 18.jpg](/images/automationbuilder18.jpg)
+
+<Frame caption="Canvas view with Assign To element in SalesCaptain automation builder">
+  ![Canvas view with Assign To element in SalesCaptain automation builder](/images/automationbuilder18.jpg)
 </Frame>
+
 ### **Add Notes**
 
 Add an internal note to a contact record for future reference or team visibility. Notes can include details about a conversation, next steps, or lead qualification info.
-<Frame>
-![automation builder 24.jpg](/images/automationbuilder24.jpg)
+
+<Frame caption="Add Notes configuration options in SalesCaptain automation builder">
+  ![Add Notes Configuration options in SalesCaptain automation builder](/images/automationbuilder24.jpg)
 </Frame>
+
 They appear within the contact’s activity history for easy access by your team.
-<Frame>
-![automation builder 25.jpg](/images/automationbuilder25.jpg)
+
+<Frame caption="Canvas view with Add Notes element in SalesCaptain automation builder">
+  ![Canvas view with Add Notes element in SalesCaptain automation builder](/images/automationbuilder25.jpg)
 </Frame>
+
 ### **Form Leads**
 
 The **Form Leads** action creates or updates a contact record using data collected from a form submission. You can configure up to 20 form fields, using either static values or dynamic data pulled from trigger keys.
-<Frame>
-![automation builder 19.jpg](/images/automationbuilder19.jpg)
+
+<Frame caption="Form Leads configuration options in SalesCaptain automation builder">
+  ![Form Leads configuration options in SalesCaptain automation builder](/images/automationbuilder19.jpg)
 </Frame>
+
 This is useful when your automation needs to generate new leads directly from incoming form data or webhook events.
-<Frame>
-![automation builder 20.jpg](/images/automationbuilder20.jpg)
+
+<Frame caption="Canvas view with Form Leads element in SalesCaptain automation builder">
+  ![Canvas view with Form Leads element in SalesCaptain automation builder](/images/automationbuilder20.jpg)
 </Frame>
+
 For example:
 
 - Create a new contact when someone fills out a “Book a Demo” form.
@@ -139,17 +179,21 @@ This ensures your stages always reflect the most recent progress in your custome
 ### **Custom Fields**
 
 The **Custom Fields** action allows you to set or update data stored in a contact’s custom fields. You can map these to dynamic values from previous automation steps, form inputs, or trigger data.
-<Frame>
-![automation builder  21.jpg](/images/automationbuilder21.jpg)
+
+<Frame caption="Custom Fields configuration options in SalesCaptain automation builder">
+  ![Custom Fields configuration options in SalesCaptain automation builder](/images/automationbuilder21.jpg)
 </Frame>
+
 For example, record a contact’s “Preferred Service,” “Appointment Date,” or “Lead Source” automatically during a workflow.
 
 ### **AI Extract**
 
 The **AI Extract** action uses artificial intelligence to identify, extract, and structure data from previous steps in your workflow. This helps convert unstructured text — such as a message, transcript, or note — into organized fields or tags.
-<Frame>
-![automation builder 23.jpg](/images/automationbuilder23.jpg)
+
+<Frame caption="AI Extract configuration options in SalesCaptain automation builder">
+  ![AI Extract configuration options in SalesCaptain automation builder](/images/automationbuilder23.jpg)
 </Frame>
+
 You can specify the prompt that defines what to extract (for example, “Extract the customer’s name, appointment date, and service type from the message”). The extracted data can then be stored in custom fields or used in later automation steps for personalization or reporting.
 
 ## **Best Practices**
