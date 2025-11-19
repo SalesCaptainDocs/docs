@@ -9,37 +9,67 @@ When a call comes in after your business hours, you can decide how it should be 
 
 - **Voicemail**: Route after-hours calls directly to voicemail. A custom greeting can let callers know you’re closed and when to expect a callback.
 
-  <Frame>![Voicemail Web](/voicemail.webp)</Frame>
+  <Frame caption="Configuring Voicemail ">
+    <img
+      src="/voicemail.webp"
+      alt="Voicemail configuration options for after-hours routing in SalesCaptain"
+      title=""
+      style={{ width:"100%" }}
+    />
+  </Frame>
 - **Audio Message**: Play a message that explains your after-hours status, office hours, or alternate contact information before routing the call further.
 
-  <Frame>![Audiomessage Web](/images/audiomessage.webp)</Frame>
+  <Frame caption="Configuring Audio Messages">
+    <img
+      src="/images/audiomessage.webp"
+      alt="Audio message configuration options for after-hours routing in SalesCaptain"
+      style={{ width:"100%" }}
+      title=""
+    />
+  </Frame>
 - **IVR**: Continue offering menu options even outside business hours if needed (for example, “Press 1 for Emergency Support”). This gives flexibility while limiting unnecessary routing.
 
- <Frame> ![IVR1 Web](/images/IVR1.webp)</Frame>
+<Frame caption="IVR Configuration Menu ">
+  ![IVR configuration options for after-hours routing in SalesCaptain](/images/IVR1.webp)
+</Frame>
+
 - **AI Agent**: Use an AI-powered voice agent to greet callers, answer FAQs, or collect important information while your team is unavailable. This helps capture leads or handle urgent cases.
 
-  <Frame>![AI Agent Web](/images/AIAgent.webp)</Frame>
+  <Frame caption="Selecting an AI Agent">
+    ![AI Agent configuration options for after-hours routing in SalesCaptain](/images/AIAgent.webp)
+  </Frame>
 - **Forwarding**: Forward after-hours calls to an on-call team member, backup number, or alternate user if someone is available to respond outside business hours.
 
-  <Frame>![Callforwarding Web](/images/callforwarding.webp)</Frame>
+  <Frame caption="Forward calls to any number">
+    ![Call forwarding configuration options for after-hours routing in SalesCaptain](/images/callforwarding.webp)
+  </Frame>
 - **Custom Time Rules**: Define special schedules for weekends, holidays, or unique scenarios so after-hours handling is tailored to your business needs.
 
-  <Frame>![Customtimerule1 Web](/images/customtimerule1.webp)</Frame>
+  <Frame caption="Adding a new Custom Time Rule">
+    ![Custom Time Rule configuration options for after-hours routing in SalesCaptain](/images/customtimerule1.webp)
+  </Frame>
 
 ### **How to Set Up After-Hours Handling in a Call Flow**
 
 1. **Define business hours** using Profile Time Rules in Settings → Business Profile → Business Hours.
 
-   <Frame>![Businesshourstimerule Web](/images/businesshourstimerule.webp)</Frame>
+   <Frame caption="Defining Business Hours">
+     ![Defining business hours for after-hours routing in SalesCaptain](/images/businesshourstimerule.webp)
+   </Frame>
 2. **Add a Time Rule element** to your Call Flow. This splits calls between “in-hours” and “after-hours.”
 
-   <Frame>![Profiletimerule Web](/images/profiletimerule.webp)</Frame>
+   <Frame caption="Canvas view with Time Rule Element">
+     ![Canvas view with TIme Rule Element in SalesCaptain Call Flow builder](/images/profiletimerule.webp)
+   </Frame>
 3. **Design separate branches**:
    - The In-Hours branch can follow your normal path (IVR → Ring to Team/User → fallback to voicemail).
    - The After-Hours branch can play a greeting, then route to voicemail, AI Agent, or forwarding options.
 4. **Configure greetings and follow-ups**: Use clear messages to let callers know they’ve reached you after hours. Add voicemail prompts or automated SMS follow-ups.
 
-  <Frame> ![SMS Web](/images/SMS.webp)</Frame>
+<Frame caption="Choosing the right SMS template">
+  ![SMS configuration options for after-hours routing in SalesCaptain](/images/SMS.webp)
+</Frame>
+
 5. **Test the flow**: Save and activate. Simulate calls during in-hours and after-hours to confirm everything works as expected. Visit our step-by-step breakdown on setting up [call flows](Creating-Call-Flows) in SalesCaptain.
 
 ### **Best Practices**
