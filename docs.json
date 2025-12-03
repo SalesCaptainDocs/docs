@@ -106,6 +106,13 @@
                   "Core-Features/Website/Webchat-Setup",
                   "Core-Features/Website/Website-Toolkit"              
                 ]
+              },
+              {
+                "group": "Endpoint examples",
+                "pages":[
+                  "api-reference/endpoint/get",
+                  "api-reference/endpoint/Get-companines"    
+                ]
               }
             ]
           }
