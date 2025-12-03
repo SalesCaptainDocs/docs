@@ -124,8 +124,7 @@
             "group": "Endpoint examples",
             "pages":[
               "api-reference/endpoint/get",
-              "api-reference/endpoint/Get-companines",
-              "api-reference/endpoint/webhook"
+              "api-reference/endpoint/Get-companines"
             ]
           }
         ] 
