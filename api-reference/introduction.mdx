@@ -22,6 +22,14 @@ To access our endpoints:
 1. Generate your API key from your **SalesCaptain Developer Dashboard**.
 2. Include the token in the header of every request as shown below.
 
+Or, as a raw HTTP header:
+
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+OpenAPI Security Block:
+
 ```json
 "security": [
   {
@@ -30,30 +38,78 @@ To access our endpoints:
 ]
 ```
 
-## **Lead Management**
+## Company Management
 
-Use the Lead API to create, fetch, and manage leads from any source — website forms, campaigns, or integrations.
+The Companies API allows you to fetch all companies linked to the authenticated user.
 
-### **Endpoints**
+This includes:
 
-- `GET /leads` — Retrieve all leads
-- `POST /leads` — Create a new lead
-- `GET /leads/{id}` — Get lead details by ID
-- `PATCH /leads/{id}` — Update lead details
-- `DELETE /leads/{id}` — Delete a lead
-
-Example response:
-
-```
-{
-  "id": "12345",
-  "name": "John Doe",
-  "email": "john@example.com",
-  "status": "new",
-  "source": "Website Form"
-}
-```
+- Company IDs
+- Company names
+- Relationship based on accounts
+- Permission-bound access
 
 <Note>
   You can filter leads by date, status, or source using query parameters.
 </Note>
+
+### **GET /v1 — Health Check**
+
+The Health Check endpoint allows developers and monitoring systems to verify that the **SalesCaptain API Documentation Service** is running correctly.\
+It returns the current service version, uptime status, and ensures that the gateway is responsive before making further API calls.
+
+This is especially useful for:
+
+- Automated monitoring systems
+- CI/CD pipelines
+- Internal dashboards
+- Integration testing
+
+### **What It Does**
+
+- Confirms that the API is reachable
+- Returns the current API version
+- Helps prevent unnecessary requests if the service is down
+
+### Response Example
+
+```
+{
+  "message": "SalesCaptain API [Service version - 0.1]"
+}
+```
+
+### **GET /v1/fetch-companies — Fetch Companies**
+
+This endpoint retrieves all companies associated with the authenticated user.\
+SalesCaptain users often manage multiple accounts/locations, and each account is linked to a company.\
+This API collects all those company records and returns them in a clean, structured format.
+
+### **What This Endpoint Does**
+
+- Authenticates the request using the user’s Bearer token
+- Identifies which accounts the user belongs to
+- Extracts the company IDs from those accounts
+- Fetches full company details
+- Returns all companies the user has access to
+
+### **Example Use Cases**
+
+- Building a dashboard showing all organizations the user manages
+- Multi-tenant SaaS applications pulling business profiles
+- CRM systems syncing company metadata
+- Showing users a list of their locations or franchises
+
+### **Response Example**
+
+```
+{
+  "message": "Companies fetched successfully!",
+  "companies": [
+    {
+      "company_id": "00000000-0000-0000-0000-000000000000",
+      "name": "salescaptain"
+    }
+  ]
+}
+```
