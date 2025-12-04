@@ -15,10 +15,6 @@
   },
   "servers": [
     {
-      "url": "http://localhost:6754",
-      "description": "Local development server"
-    },
-    {
       "url": "https://api.salescaptain.com",
       "description": "Production server"
     }
@@ -29,7 +25,7 @@
     }
   ],
   "paths": {
-    "/": {
+    "/v1": {
       "get": {
         "summary": "Health check endpoint",
         "description": "Returns basic service information and health status",
@@ -46,12 +42,12 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "SalesCaptain API gateway [Service version - 0.1]"
+                      "example": "SalesCaptain API [Service version - 0.1]"
                     }
                   }
                 },
                 "example": {
-                  "message": "SalesCaptain API gateway [Service version - 0.1]"
+                  "message": "SalesCaptain API [Service version - 0.1]"
                 }
               }
             }
@@ -59,7 +55,7 @@
         }
       }
     },
-    "/fetch-companies": {
+    "/v1/fetch-companies": {
       "get": {
         "summary": "Fetch companies for authenticated user",
         "description": "Retrieves a list of companies associated with the authenticated user's accounts.\nThis endpoint fetches company information from the main SalesCaptain API based on \nthe company IDs associated with the user's accounts.\n",
@@ -94,11 +90,8 @@
                   "message": "Companies fetched successfully!",
                   "companies": [
                     {
-                      "id": "123e4567-e89b-12d3-a456-426614174000",
-                      "name": "Acme Corporation",
-                      "industry": "Technology",
-                      "created_at": "2023-01-15T10:30:00Z",
-                      "status": "active"
+                      "company_id": "00000000-0000-0000-0000-000000000000",
+                      "name": "salescaptain"
                     }
                   ]
                 }
@@ -135,56 +128,19 @@
         "type": "object",
         "description": "Company information object",
         "properties": {
-          "id": {
+          "company_id": {
             "type": "string",
             "format": "uuid",
             "description": "Unique identifier for the company",
-            "example": "123e4567-e89b-12d3-a456-426614174000"
+            "example": "00000000-0000-0000-0000-000000000000"
           },
           "name": {
             "type": "string",
             "description": "Company name",
-            "example": "Acme Corporation"
-          },
-          "industry": {
-            "type": "string",
-            "description": "Industry sector of the company",
-            "example": "Technology"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "description": "Timestamp when the company was created",
-            "example": "2023-01-15T10:30:00Z"
-          },
-          "status": {
-            "type": "string",
-            "enum": ["active", "inactive", "suspended"],
-            "description": "Current status of the company",
-            "example": "active"
-          },
-          "website": {
-            "type": "string",
-            "format": "uri",
-            "description": "Company website URL",
-            "example": "https://www.acme.com"
-          },
-          "email": {
-            "type": "string",
-            "format": "email",
-            "description": "Company contact email",
-            "example": "contact@acme.com"
-          },
-          "phone": {
-            "type": "string",
-            "description": "Company contact phone number",
-            "example": "+1-555-123-4567"
-          },
-          "address": {
-            "$ref": "#/components/schemas/Address"
+            "example": "salescaptain"
           }
         },
-        "required": ["id", "name", "status"]
+        "required": ["company_id", "name"]
       },
       "Address": {
         "type": "object",
@@ -240,7 +196,7 @@
           "path": {
             "type": "string",
             "description": "API endpoint path where the error occurred",
-            "example": "/fetch-companies"
+            "example": "/v1/fetch-companies"
           }
         },
         "required": ["error"]
@@ -316,7 +272,7 @@
               "error": "Unauthorized access",
               "code": "UNAUTHORIZED",
               "timestamp": "2023-12-01T10:30:00Z",
-              "path": "/fetch-companies"
+              "path": "/v1/fetch-companies"
             }
           }
         }
@@ -332,7 +288,7 @@
               "error": "Forbidden access",
               "code": "FORBIDDEN",
               "timestamp": "2023-12-01T10:30:00Z",
-              "path": "/fetch-companies"
+              "path": "/v1/fetch-companies"
             }
           }
         }
@@ -348,7 +304,7 @@
               "error": "Too many requests, please try again later",
               "code": "RATE_LIMIT_EXCEEDED",
               "timestamp": "2023-12-01T10:30:00Z",
-              "path": "/fetch-companies"
+              "path": "/v1/fetch-companies"
             }
           }
         },
@@ -387,7 +343,7 @@
               "error": "Problem encountered while fetching companies!",
               "code": "INTERNAL_ERROR",
               "timestamp": "2023-12-01T10:30:00Z",
-              "path": "/fetch-companies"
+              "path": "/v1/fetch-companies"
             }
           }
         }
@@ -400,31 +356,8 @@
           "message": "Companies fetched successfully!",
           "companies": [
             {
-              "id": "123e4567-e89b-12d3-a456-426614174000",
-              "name": "Acme Corporation",
-              "industry": "Technology",
-              "status": "active",
-              "website": "https://www.acme.com",
-              "email": "contact@acme.com",
-              "phone": "+1-555-123-4567",
-              "created_at": "2023-01-15T10:30:00Z",
-              "address": {
-                "street": "123 Main Street",
-                "city": "New York",
-                "state": "NY",
-                "postal_code": "10001",
-                "country": "United States"
-              }
-            },
-            {
-              "id": "456e7890-f12b-34c5-d678-901234567890",
-              "name": "Beta Industries",
-              "industry": "Manufacturing",
-              "status": "active",
-              "website": "https://www.beta-industries.com",
-              "email": "info@beta-industries.com",
-              "phone": "+1-555-987-6543",
-              "created_at": "2023-02-20T14:45:00Z"
+              "company_id": "00000000-0000-0000-0000-000000000000",
+              "name": "salescaptain"
             }
           ]
         }
