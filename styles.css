@@ -1,5 +1,3 @@
 .text-lg.prose p { font-size: 17px !important; }
 
-.page-title{
-  font-size:28px !important;
-}
+h1#page-title.text-2xl { font-size: 50px !important; }
