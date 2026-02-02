@@ -22,18 +22,19 @@
             "pages": [
               {
                 "group": "Account Setup",
-                "icon":"user-cog",
+                "icon": "user-cog",
                 "pages": [
                   "General/Account/Account-Settings",
                   "General/Account/Managing-Users",
                   "General/Account/Notifications",
+                  "guides/getting-started/account-setup/gmail-integration",
                   "General/Account/Billing"
                 ]
               },
               {
-                "group":"Marketplace",
+                "group": "Marketplace",
                 "icon": "trending-up",
-                "pages":[
+                "pages": [
                   "Marketplace-and-Integrations/Applications/Payments",
                   "Marketplace-and-Integrations/Applications/Referrals",
                   "Marketplace-and-Integrations/Applications/Reviews",
@@ -43,13 +44,13 @@
             ]
           },
           {
-            "group":"Core Features",
-             "icon": "settings",
-            "pages":[
+            "group": "Core Features",
+            "icon": "settings",
+            "pages": [
               {
-                "group":"Call Flow",
+                "group": "Call Flow",
                 "icon": "phone-outgoing",
-                "pages":[
+                "pages": [
                   "Core-Features/Calls/Call-Flows/After-Hours-Routing",
                   "Core-Features/Calls/Call-Flows/Audio-Message",
                   "Core-Features/Calls/Call-Flows/Creating-Call-Flows",
@@ -59,9 +60,9 @@
                 ]
               },
               {
-                "group":"Calling",
+                "group": "Calling",
                 "icon": "phone-call",
-                "pages":[
+                "pages": [
                   "Core-Features/Calls/Calling/AI-Summaries-and-Transcription",
                   "Core-Features/Calls/Calling/Making-Calls",
                   "Core-Features/Calls/Calling/Phone-Systems",
@@ -69,9 +70,9 @@
                 ]
               },
               {
-                "group":"Contacts",
+                "group": "Contacts",
                 "icon": "book-user",
-                "pages":[
+                "pages": [
                   "Core-Features/Contacts/Adding-Contacts",
                   "Core-Features/Contacts/Custom-Fields",
                   "Core-Features/Contacts/Importing-Contacts",
@@ -80,9 +81,9 @@
                 ]
               },
               {
-                "group":"Marketing",
-                "icon":"store",
-                "pages":[
+                "group": "Marketing",
+                "icon": "store",
+                "pages": [
                   "Core-Features/Marketing/Call-Templates",
                   "Core-Features/Marketing/Campaigns",
                   "Core-Features/Marketing/Email-Templates",
@@ -90,21 +91,21 @@
                 ]
               },
               {
-                "group":"Messaging and Inbox",
-                "icon":"inbox",
-                "pages":[
+                "group": "Messaging and Inbox",
+                "icon": "inbox",
+                "pages": [
                   "Core-Features/Messaging-and-Inbox/Inbox/Inbox-Overview",
                   "Core-Features/Messaging-and-Inbox/Inbox/Managing-Conversations",
                   "Core-Features/Messaging-and-Inbox/Inbox/Sending-Emails",
                   "Core-Features/Messaging-and-Inbox/Inbox/Sending-Messages"
-                ] 
+                ]
               },
               {
-                "group":"Website",
-                "icon":"panels-top-left",
-                "pages":[
+                "group": "Website",
+                "icon": "panels-top-left",
+                "pages": [
                   "Core-Features/Website/Webchat-Setup",
-                  "Core-Features/Website/Website-Toolkit"              
+                  "Core-Features/Website/Website-Toolkit"
                 ]
               }
             ]
@@ -113,7 +114,7 @@
       },
       {
         "tab": "API reference",
-        "groups":[
+        "groups": [
           {
             "group": "API documentation",
             "pages": [
@@ -122,11 +123,11 @@
           },
           {
             "group": "Endpoint examples",
-            "pages":[
+            "pages": [
               "api-reference/endpoint/Get-companines"
             ]
           }
-        ] 
+        ]
       }
     ]
   },
