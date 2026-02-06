@@ -24,11 +24,11 @@
                 "group": "Account Setup",
                 "icon": "user-cog",
                 "pages": [
-                  "General/Account/conversation-profiles",
                   "General/Account/Account-Settings",
                   "General/Account/Managing-Users",
                   "General/Account/Notifications",
                   "guides/getting-started/account-setup/gmail-integration",
+                  "General/Account/conversation-profiles",
                   "General/Account/Billing"
                 ]
               },
