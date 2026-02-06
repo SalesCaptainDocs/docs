@@ -24,6 +24,7 @@
                 "group": "Account Setup",
                 "icon": "user-cog",
                 "pages": [
+                  "General/Account/conversation-profiles",
                   "General/Account/Account-Settings",
                   "General/Account/Managing-Users",
                   "General/Account/Notifications",
