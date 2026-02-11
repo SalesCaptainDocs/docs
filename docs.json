@@ -24,7 +24,7 @@
                 "group": "Account Setup",
                 "icon": "user-cog",
                 "pages": [
-                  "General/Account/untitled-page",
+                  "General/Account/Connecting-WhatsApp-to-SalesCaptain",
                   "General/Account/Account-Settings",
                   "General/Account/Managing-Users",
                   "General/Account/Notifications",
