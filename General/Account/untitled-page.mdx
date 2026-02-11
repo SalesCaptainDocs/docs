@@ -1,86 +1,66 @@
 ---
-title: "Conversation Profiles"
-description: "Conversation Profiles in SalesCaptain allow you to segment your communications based on teams, departments, or specific communication channels, ensuring that the right messages reach the right people without cluttering a general inbox."
+title: "Connecting WhatsApp to SalesCaptain"
 hidden: true
 ---
 
-## **Overview**
+Integrating WhatsApp with SalesCaptain allows you to manage customer conversations directly from your unified inbox. This integration utilizes the **Twilio API** to bridge communication between WhatsApp and our platform.
 
-A Conversation Profile acts as a dedicated account for a specific function of your business. It represents a team (e.g., Sales), a department (e.g., Support), or a distinct communication channel.
+<Danger>
+  **This can be a complicated process.** If you encounter any issues during setup, please email [<u>support@salescaptain.com</u>](mailto:support@salescaptain.com) for assistance.
+</Danger>
 
-Each profile houses its own:
+## **Requirements**
 
-- **Email Address:** Linked Gmail account or email routing addresses.
-- **Users**: The Manage Users tab allows you to decide which users have access to which profiles, as well as grant permissions for specific inboxes or applications within SalesCaptain.
+Before starting the integration, ensure you have the following:
 
-The goal is to decide exactly where conversations appear in the global inbox. By using profiles, you prevent critical support tickets from getting lost among sales inquiries, keeping your workspace organized and efficient.
+- **WhatsApp Business Account:** Standard personal WhatsApp accounts **cannot** be connected. You must use a registered Business account.
+- **Twilio Account:** You must have an active Twilio account to facilitate the API connection.
+- **A Phone Number:** A phone number that is not currently linked to another WhatsApp account.
 
-## **How It Works**
+## **Step 1: Configure the Channel in SalesCaptain**
 
-Profiles are the destination for incoming traffic. When you connect an email address to SalesCaptain, you create a specific profile unique to that email.
+To begin, you need to create the WhatsApp channel within your SalesCaptain dashboard:
 
-### **Inbox Access and Visibility**
+1. Navigate to **Settings** \> **Integrations**.
+2. Select **WhatsApp**.
+3. Click **Add WhatsApp Channel**.
+4. Enter a **Channel Name** (e.g., "Main Support Line") and the **Phone Number** you intend to use.
 
-Security and relevance are handled by linking users to profiles. A conversation that lands in a specific profile is **visible only** to users who have been granted access to that profile.
+   image
 
-This ensures that a Service technician sees service requests, but not sensitive billing emails intended for the Finance profile.
+## **Step 2: Configure Twilio **
 
-## **Setting up Gmail Integration**
+Once your Twilio account is set up with a WhatsApp-enabled number, you must point Twilio to the SalesCaptain server to receive messages.
 
-To fully utilize Conversation Profiles for email, you can connect specific Gmail accounts to specific profiles. Once connected, all incoming and outgoing emails from that address are automatically routed to the assigned profile in the SalesCaptain Inbox.
+1. Log in to your **Twilio Console**.
+2. Go to **Programmable Messaging** \> **Senders** \> **WhatsApp Senders**.
+3. Locate your WhatsApp Number and click **Configure**.
+4. In the **"A Message Comes In"** field, paste the following URL:\
+   https://app.salescaptain.com/api/v1/chat/receive-message
+5. **Save** your changes.
 
-### **Prerequisite: Connect Gmail**
+## **Step 3: Connect API Credentials**
 
-Before linking a profile, ensure you have already connected your Gmail account to SalesCaptain via **Settings → Integrations → Gmail**.
+To finalize the link, you must provide your Twilio credentials to SalesCaptain. You can find these in your Twilio Console under the **Account Settings** or **API Keys** section.
 
-### **Connect Your Conversation Profile**
+Image
 
-After connecting Gmail, you must link it to your conversation profile to start using email inside the Inbox.
+Once you enter your Twilio API credentials into SalesCaptain, you’re good to go! 
 
-1. Navigate to **Settings → Manage Inbox**.
+Now, incoming WhatsApp messages will appear in the Unified Inbox, with an icon below the date indicating that the message was received on WhatsApp.
 
+image
 
-2. Select Add New, and enter the details linked to the Conversation Profile.
-3. Assign the connected **Gmail account** to the profile.
+## **Understanding the 24-Hour Window**
 
+WhatsApp's Business API operates on a **24-hour session** logic. 
 
-4. Click **Save** to apply your changes.
+- **Temporary Chats:** A conversation session lasts for **24 hours** from the last message sent by the customer.
+- **Automatic Closure:** If there are no messages exchanged from either side for a full 24-hour period, the chat session will **close automatically.**
+- **Finding Past Conversations:** After a window closes, you can still access the conversation history in the **Closed **tab of the Universal Inbox.
 
-Once this is done, you can start using the **email feature directly from the Inbox** for customer conversations. See our page for more details on Gmail integration and setup.
+## **Policies & Compliance**
 
-**Note:** You can manage multiple Gmail inboxes within SalesCaptain by assigning different accounts to different profiles (e.g., sales@ to the Sales Profile and support@ to the Support Profile).
+All users must adhere to Meta’s official guidelines regarding business messaging. Please review the following before initiating campaigns:
 
-## **User Roles & Permissions**
-
-To fully utilize Conversation Profiles, it is important to understand how they interact with **User Roles**. While Profiles determine _what conversations_ a user sees, **User Roles** determine _what actions_ a user can take.
-
-- **User Roles:** Define permissions for each individual user for features such as accessing the inbox, making calls, managing reviews, and changing settings.
-- **Profile Association:** Each user is assigned a role but can be linked to one or multiple Conversation Profiles.
-
-## **Use Cases: Structuring Your Organization**
-
-The most common way to utilize Conversation Profiles is to mirror your internal business structure. For example, having distinct profiles for sales, support and service. 
-
-### **1. Sales**
-
-- **Focus:** Inbound leads and outbound prospecting.
-- **Setup:** Contains sales phone lines and the primary sales email address.
-- **Benefit:** Sales reps focus purely on closing deals without being distracted by technical support queries.
-
-### **2. Support**
-
-- **Focus:** Customer issues, tickets, and troubleshooting.
-- **Setup:** Connected to the support email alias.
-- **Benefit:** Ensures customer issues are centralized and addressed promptly by the support team.
-
-### **3. Service**
-
-- **Focus:** Field operations, scheduling, and existing client maintenance.
-- **Setup:** Contains service dispatch lines.
-- **Benefit:** Keeps logistical communication separate from initial sales conversations.
-
-## **Best Practices**
-
-- **Review Access Regularly:** Periodically check which users are assigned to which profiles to ensure data privacy.
-- **Separate Functions:** Avoid combining distinct departments (like Sales and Support) into one profile to keep metrics and workflows clear.
-- **Test Routing:** Send a test email to your connected Gmail account to verify it appears in the correct Conversation Profile inbox.
+[<u>Platform Policy Overview - Meta</u>](https://developers.facebook.com/docs/messenger-platform/policy/policy-overview/#standard_messaging)
