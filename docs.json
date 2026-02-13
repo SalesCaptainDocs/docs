@@ -24,13 +24,13 @@
                 "group": "Account Setup",
                 "icon": "user-cog",
                 "pages": [
-                  "General/Account/connecting-facebook-to-sales-captain",
                   "General/Account/Account-Settings",
                   "General/Account/Managing-Users",
                   "General/Account/Notifications",
                   "guides/getting-started/account-setup/gmail-integration",
                   "General/Account/conversation-profiles",
                   "General/Account/Connecting-WhatsApp-to-SalesCaptain",
+                  "General/Account/connecting-facebook-to-sales-captain",
                   "General/Account/Billing"
                 ]
               },
