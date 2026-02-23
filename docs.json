@@ -115,7 +115,7 @@
                 "group": "AI Agents",
                 "icon":"bot",
                 "pages": [
-                  "ai-agents"
+                  "Core-Features/AI-Agent/ai-agents"
                 ]
               }
             ]
