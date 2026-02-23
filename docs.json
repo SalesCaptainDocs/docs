@@ -114,7 +114,9 @@
               {
                 "group": "AI Agents",
                 "icon": "microchip-ai",
-                "pages": []
+                "pages": [
+                  "ai-agents"
+                ]
               }
             ]
           }
