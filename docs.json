@@ -113,7 +113,6 @@
               },
               {
                 "group": "AI Agents",
-                "icon": "microchip-ai",
                 "pages": [
                   "ai-agents"
                 ]
