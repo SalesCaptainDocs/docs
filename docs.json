@@ -110,6 +110,11 @@
                   "Core-Features/Website/Webchat-Setup",
                   "Core-Features/Website/Website-Toolkit"
                 ]
+              },
+              {
+                "group": "AI Agents",
+                "icon": "microchip-ai",
+                "pages": []
               }
             ]
           }
