@@ -119,11 +119,8 @@
                 ]
               },
               {
-                "group": "Automations",
-                "pages": [
-                  "automation-triggers",
-                  "untitled-page"
-                ]
+                "group": "Untitled Group",
+                "pages": []
               }
             ]
           }
