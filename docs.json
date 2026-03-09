@@ -119,8 +119,13 @@
                 ]
               },
               {
-                "group": "Untitled Group",
-                "pages": []
+                "group": "Automations",
+                "icon": "workflow",
+                "pages": [
+                  "Core-Features/Automations/Automation-Builder",
+                  "Core-Features/Automations/Automation-Triggers"
+                  
+                ]
               }
             ]
           }
