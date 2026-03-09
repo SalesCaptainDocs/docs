@@ -113,9 +113,16 @@
               },
               {
                 "group": "AI Agents",
-                "icon":"bot",
+                "icon": "bot",
                 "pages": [
                   "Core-Features/AI-Agent/ai-agents"
+                ]
+              },
+              {
+                "group": "Automations",
+                "pages": [
+                  "automation-triggers",
+                  "untitled-page"
                 ]
               }
             ]
