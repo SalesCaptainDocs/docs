@@ -160,6 +160,12 @@
               "api-reference/endpoint/list-of-conversation-profiles",
               "api-reference/endpoint/list-of-conversation-profiles-by-ID"
             ]
+          },
+          {
+            "group":"Contacts",
+            "pages":[
+              "api-reference/endpoint/list-contacts-by-company-ID"
+            ]
           }
         ]
       }
