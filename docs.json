@@ -150,9 +150,8 @@
           {
             "group":"Accounts",
             "pages": [
-              "api-reference/endpoint/Fetching-all-accounts",
+              "api-reference/endpoint/Fetching-all-accounts"
             ] 
-            
           }
         ]
       }
