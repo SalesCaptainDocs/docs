@@ -143,6 +143,7 @@
           {
             "group": "Endpoint examples",
             "pages": [
+              "api-reference/endpoint/Health-Check",
               "api-reference/endpoint/Get-companines"
             ]
           }
