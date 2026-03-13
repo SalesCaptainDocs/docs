@@ -164,7 +164,15 @@
           {
             "group":"Contacts",
             "pages":[
-              "api-reference/endpoint/list-contacts-by-company-ID"
+              "api-reference/endpoint/list-contacts-by-company-ID",
+              "api-reference/endpoint/fetching-contact-by-contact-id"
+            ]
+          },
+          {
+            "group":"Custom Fileds",
+            "pages":[
+              "api-reference/endpoint/list-of-custom-fields-by-company-id",
+              "api-reference/endpoint/list-of-custom-field-by-custom-field-id"
             ]
           }
         ]
