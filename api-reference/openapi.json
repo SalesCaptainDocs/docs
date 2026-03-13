@@ -112,6 +112,1011 @@
           }
         }
       }
+    },
+    "/v1/fetch-company/{company_id}": {
+      "get": {
+        "summary": "Fetch company by ID",
+        "description": "Retrieves detailed information about a specific company by its unique identifier.\n",
+        "operationId": "fetchCompanyById",
+        "tags": ["Companies"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Company fetched successfully!"
+                    },
+                    "company": {
+                      "$ref": "#/components/schemas/Company"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Company fetched successfully!",
+                  "company": {
+                    "company_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                    "name": "Acme Corporation"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Missing required parameters",
+                  "message": "Required parameters missing: company_id"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Company not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Company not found",
+                  "message": "Company not found"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/fetch-all-accounts": {
+      "get": {
+        "summary": "Fetch all accounts for authenticated user",
+        "description": "Retrieves a list of all accounts associated with the authenticated user.\nReturns account details including access level, contact information, and last login time.\n",
+        "operationId": "fetchAllAccounts",
+        "tags": ["Accounts"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Accounts fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Accounts fetched successfully!"
+                    },
+                    "accounts": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/AccountDetail"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Accounts fetched successfully!",
+                  "accounts": [
+                    {
+                      "account_id": "acc-1234-5678-90ab-cdef12345678",
+                      "access_level": "Administrator",
+                      "last_login": "2026-03-12T10:30:00.000Z",
+                      "email": "john.doe@example.com",
+                      "mobile": "+1234567890",
+                      "first_name": "John",
+                      "last_name": "Doe"
+                    },
+                    {
+                      "account_id": "acc-abcd-efgh-ijkl-mnop12345678",
+                      "access_level": "User",
+                      "last_login": "2026-03-10T14:45:00.000Z",
+                      "email": "jane.smith@example.com",
+                      "mobile": "+0987654321",
+                      "first_name": "Jane",
+                      "last_name": "Smith"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/fetch-account/{account_id}": {
+      "get": {
+        "summary": "Fetch account by ID",
+        "description": "Retrieves detailed information about a specific account by its unique identifier.\nReturns account details including access level, contact information, and last login time.\n",
+        "operationId": "fetchAccountById",
+        "tags": ["Accounts"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the account",
+            "schema": {
+              "type": "string",
+              "example": "acc-1234-5678-90ab-cdef12345678"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Account fetched successfully!"
+                    },
+                    "account": {
+                      "$ref": "#/components/schemas/AccountDetail"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Account fetched successfully!",
+                  "account": {
+                    "account_id": "acc-1234-5678-90ab-cdef12345678",
+                    "access_level": "Administrator",
+                    "last_login": "2026-03-12T10:30:00.000Z",
+                    "email": "john.doe@example.com",
+                    "mobile": "+1234567890",
+                    "first_name": "John",
+                    "last_name": "Doe"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Missing required parameters",
+                  "message": "Required parameters missing: account_id"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Account not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Account not found",
+                  "message": "Account not found"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/list-conversation-profiles/{company_id}": {
+      "get": {
+        "summary": "List conversation profiles for a company",
+        "description": "Retrieves all conversation profiles associated with a specific company.\nConversation profiles represent communication channels like phone lines, email addresses, etc.\n",
+        "operationId": "listConversationProfiles",
+        "tags": ["Conversation Profiles"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Conversation profiles fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Conversation profiles fetched successfully!"
+                    },
+                    "account": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ConversationProfile"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Conversation profiles fetched successfully!",
+                  "account": [
+                    {
+                      "conversation_profile_id": "cp-1111-2222-3333-444455556666",
+                      "name": "Main Line",
+                      "number": "+14155551234",
+                      "email": "support@acme.com",
+                      "color": "#4A90D9"
+                    },
+                    {
+                      "conversation_profile_id": "cp-7777-8888-9999-aaaabbbbcccc",
+                      "name": "Sales Line",
+                      "number": "+14155555678",
+                      "email": "sales@acme.com",
+                      "color": "#50C878"
+                    },
+                    {
+                      "conversation_profile_id": "cp-dddd-eeee-ffff-000011112222",
+                      "name": "Email Channel",
+                      "number": null,
+                      "email": "info@acme.com",
+                      "color": "#FF6B6B"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Missing required parameters",
+                  "message": "Required parameters missing: company_id"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/list-conversation-profile/{conversation_profile_id}": {
+      "get": {
+        "summary": "Get a specific conversation profile",
+        "description": "Retrieves detailed information about a specific conversation profile by its unique identifier.\n",
+        "operationId": "listConversationProfile",
+        "tags": ["Conversation Profiles"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "conversation_profile_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the conversation profile",
+            "schema": {
+              "type": "string",
+              "example": "cp-1111-2222-3333-444455556666"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Conversation profile fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Conversation profile fetched successfully!"
+                    },
+                    "account": {
+                      "$ref": "#/components/schemas/ConversationProfile"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Conversation profile fetched successfully!",
+                  "account": {
+                    "conversation_profile_id": "cp-1111-2222-3333-444455556666",
+                    "name": "Main Line",
+                    "number": "+14155551234",
+                    "email": "support@acme.com",
+                    "color": "#4A90D9"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Missing required parameters",
+                  "message": "Required parameters missing: conversation_profile_id"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Conversation profile not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "No conversation profile found!",
+                  "message": "No conversation profile found!"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/list-contacts/{company_id}": {
+      "get": {
+        "summary": "List contacts for a company (paginated)",
+        "description": "Retrieves a paginated list of contacts associated with a specific company.\nSupports filtering, sorting, and pagination options.\n",
+        "operationId": "listContacts",
+        "tags": ["Contacts"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
+          },
+          {
+            "name": "page_number",
+            "in": "query",
+            "required": true,
+            "description": "Page number for pagination (must be a positive integer)",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "example": 1
+            }
+          },
+          {
+            "name": "items_per_page",
+            "in": "query",
+            "required": false,
+            "description": "Number of items per page (10-100, default 10)",
+            "schema": {
+              "type": "integer",
+              "minimum": 10,
+              "maximum": 100,
+              "default": 10,
+              "example": 10
+            }
+          },
+          {
+            "name": "sort_by",
+            "in": "query",
+            "required": false,
+            "description": "Field to sort by",
+            "schema": {
+              "type": "string",
+              "enum": ["name", "number", "email", "created_at"],
+              "example": "created_at"
+            }
+          },
+          {
+            "name": "sort_dir",
+            "in": "query",
+            "required": false,
+            "description": "Sort direction (default desc)",
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "default": "desc",
+              "example": "desc"
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "description": "Filter contacts by channel type",
+            "schema": {
+              "type": "string",
+              "enum": ["phone", "email", "facebook", "instagram", "whatsapp"],
+              "example": "phone"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contacts fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Contacts fetched successfully!"
+                    },
+                    "contacts": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Contact"
+                          }
+                        },
+                        "pagination": {
+                          "$ref": "#/components/schemas/Pagination"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Contacts fetched successfully!",
+                  "contacts": {
+                    "data": [
+                      {
+                        "contact_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                        "name": "John Doe",
+                        "phone": "+14155551234",
+                        "email": "john.doe@example.com",
+                        "created_at": "2024-01-15T10:30:00.000Z",
+                        "updated_at": "2024-02-20T14:45:00.000Z",
+                        "tags": ["VIP", "New Lead", "Follow Up"],
+                        "custom_fields": [
+                          { "cf_name": "Industry", "cf_value": "Technology" },
+                          { "cf_name": "Budget", "cf_value": "50000" },
+                          { "cf_name": "Source", "cf_value": "Website" }
+                        ]
+                      },
+                      {
+                        "contact_id": "c9d8e7f6-5a4b-3c2d-1e0f-9a8b7c6d5e4f",
+                        "name": "Jane Smith",
+                        "phone": "+14155559876",
+                        "email": "jane.smith@company.com",
+                        "created_at": "2024-01-20T08:15:00.000Z",
+                        "updated_at": "2024-03-01T09:30:00.000Z",
+                        "tags": ["Customer", "Premium"],
+                        "custom_fields": [
+                          { "cf_name": "Industry", "cf_value": "Healthcare" },
+                          { "cf_name": "Company Size", "cf_value": "100-500" }
+                        ]
+                      },
+                      {
+                        "contact_id": "b8c7d6e5-4f3a-2b1c-0d9e-8f7a6b5c4d3e",
+                        "name": "Mike Johnson",
+                        "phone": "+14155554567",
+                        "email": null,
+                        "created_at": "2024-02-05T16:00:00.000Z",
+                        "updated_at": null,
+                        "tags": [],
+                        "custom_fields": []
+                      }
+                    ],
+                    "pagination": {
+                      "page_number": 1,
+                      "items_per_page": 10,
+                      "total_count": 156,
+                      "total_pages": 16
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid or missing query parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "missing_page_number": {
+                    "summary": "Missing page number",
+                    "value": {
+                      "error": "Invalid page_number",
+                      "message": "Please provide a valid page_number (must be a positive integer)"
+                    }
+                  },
+                  "invalid_sort_by": {
+                    "summary": "Invalid sort_by value",
+                    "value": {
+                      "error": "Invalid sort_by value",
+                      "message": "sort_by must be one of: name, number, email, created_at"
+                    }
+                  },
+                  "invalid_filter": {
+                    "summary": "Invalid filter value",
+                    "value": {
+                      "error": "Invalid filter value",
+                      "message": "filter must be one of: phone, email, facebook, instagram, whatsapp"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/fetch-contact/{contact_id}": {
+      "get": {
+        "summary": "Fetch a single contact by ID",
+        "description": "Retrieves detailed information about a specific contact by its unique identifier.\n",
+        "operationId": "fetchContact",
+        "tags": ["Contacts"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "contact_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the contact",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contact fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Contact fetched successfully!"
+                    },
+                    "contacts": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/Contact"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Contact fetched successfully!",
+                  "contacts": {
+                    "data": {
+                      "contact_id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                      "name": "John Doe",
+                      "phone": "+14155551234",
+                      "email": "john.doe@example.com",
+                      "created_at": "2024-01-15T10:30:00.000Z",
+                      "updated_at": "2024-02-20T14:45:00.000Z",
+                      "tags": ["VIP", "New Lead", "Follow Up"],
+                      "custom_fields": [
+                        { "cf_name": "Industry", "cf_value": "Technology" },
+                        { "cf_name": "Budget", "cf_value": "50000" },
+                        { "cf_name": "Source", "cf_value": "Website" }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Missing required parameters",
+                  "message": "Required parameters missing: contact_id"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contact not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Contact not found!",
+                  "message": "Contact not found!"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/list-custom-fields/{company_id}": {
+      "get": {
+        "summary": "List all custom fields for a company",
+        "description": "Retrieves all custom field definitions associated with a specific company.\nCustom fields allow companies to store additional contact information.\n",
+        "operationId": "listCustomFields",
+        "tags": ["Custom Fields"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Custom fields fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Custom fields fetched successfully!"
+                    },
+                    "custom_fields": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/CustomFieldDefinition"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Custom fields fetched successfully!",
+                  "custom_fields": {
+                    "data": [
+                      {
+                        "cf_id": "d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a",
+                        "cf_name": "industry",
+                        "cf_label": "Industry",
+                        "cf_datatype": "text",
+                        "cf_description": "Customer's industry sector",
+                        "created_at": "2024-01-10T09:00:00.000Z",
+                        "updated_at": "2024-01-15T11:30:00.000Z"
+                      },
+                      {
+                        "cf_id": "e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f9a0b",
+                        "cf_name": "budget",
+                        "cf_label": "Budget",
+                        "cf_datatype": "number",
+                        "cf_description": "Customer's budget range",
+                        "created_at": "2024-01-12T14:00:00.000Z",
+                        "updated_at": null
+                      },
+                      {
+                        "cf_id": "f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f9a0b1c",
+                        "cf_name": "company_size",
+                        "cf_label": "Company Size",
+                        "cf_datatype": "dropdown",
+                        "cf_description": "Number of employees",
+                        "created_at": "2024-01-20T10:15:00.000Z",
+                        "updated_at": "2024-02-01T08:45:00.000Z"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Missing required parameters",
+                  "message": "Required parameters missing: company_id"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/list-custom-field/{custom_field_id}": {
+      "get": {
+        "summary": "Get a single custom field by ID",
+        "description": "Retrieves detailed information about a specific custom field definition by its unique identifier.\n",
+        "operationId": "listCustomField",
+        "tags": ["Custom Fields"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "custom_field_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the custom field",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Custom field fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Custom field fetched successfully!"
+                    },
+                    "custom_field": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/CustomFieldDefinition"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Custom field fetched successfully!",
+                  "custom_field": {
+                    "data": {
+                      "cf_id": "d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a",
+                      "cf_name": "industry",
+                      "cf_label": "Industry",
+                      "cf_datatype": "text",
+                      "cf_description": "Customer's industry sector",
+                      "created_at": "2024-01-10T09:00:00.000Z",
+                      "updated_at": "2024-01-15T11:30:00.000Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Missing required parameters",
+                  "message": "Required parameters missing: custom_field_id"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Custom field not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "error": "Custom field not found!",
+                  "message": "Custom field not found!"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -258,6 +1263,235 @@
           }
         },
         "required": ["id", "company_id"]
+      },
+      "AccountDetail": {
+        "type": "object",
+        "description": "Detailed account information",
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "description": "Unique account identifier",
+            "example": "acc-1234-5678-90ab-cdef12345678"
+          },
+          "access_level": {
+            "type": "string",
+            "description": "User's access level within the account",
+            "example": "Administrator"
+          },
+          "last_login": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp of the user's last login",
+            "example": "2026-03-12T10:30:00.000Z"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User's email address",
+            "example": "john.doe@example.com"
+          },
+          "mobile": {
+            "type": "string",
+            "description": "User's mobile phone number",
+            "example": "+1234567890"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "User's first name",
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "User's last name",
+            "example": "Doe"
+          }
+        },
+        "required": ["account_id", "access_level", "email", "first_name", "last_name"]
+      },
+      "ConversationProfile": {
+        "type": "object",
+        "description": "Conversation profile representing a communication channel",
+        "properties": {
+          "conversation_profile_id": {
+            "type": "string",
+            "description": "Unique identifier for the conversation profile",
+            "example": "cp-1111-2222-3333-444455556666"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name for the conversation profile",
+            "example": "Main Line"
+          },
+          "number": {
+            "type": "string",
+            "nullable": true,
+            "description": "Phone number associated with the profile (null if not applicable)",
+            "example": "+14155551234"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address associated with the profile",
+            "example": "support@acme.com"
+          },
+          "color": {
+            "type": "string",
+            "description": "Hex color code for UI display",
+            "example": "#4A90D9"
+          }
+        },
+        "required": ["conversation_profile_id", "name"]
+      },
+      "Contact": {
+        "type": "object",
+        "description": "Contact information object",
+        "properties": {
+          "contact_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the contact",
+            "example": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+          },
+          "name": {
+            "type": "string",
+            "description": "Contact's full name",
+            "example": "John Doe"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true,
+            "description": "Contact's phone number",
+            "example": "+14155551234"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "nullable": true,
+            "description": "Contact's email address",
+            "example": "john.doe@example.com"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the contact was created",
+            "example": "2024-01-15T10:30:00.000Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Timestamp when the contact was last updated",
+            "example": "2024-02-20T14:45:00.000Z"
+          },
+          "tags": {
+            "type": "array",
+            "description": "List of tags associated with the contact",
+            "items": {
+              "type": "string"
+            },
+            "example": ["VIP", "New Lead", "Follow Up"]
+          },
+          "custom_fields": {
+            "type": "array",
+            "description": "List of custom fields for the contact",
+            "items": {
+              "$ref": "#/components/schemas/CustomField"
+            }
+          }
+        },
+        "required": ["contact_id", "name"]
+      },
+      "CustomField": {
+        "type": "object",
+        "description": "Custom field key-value pair",
+        "properties": {
+          "cf_name": {
+            "type": "string",
+            "description": "Custom field name",
+            "example": "Industry"
+          },
+          "cf_value": {
+            "type": "string",
+            "description": "Custom field value",
+            "example": "Technology"
+          }
+        },
+        "required": ["cf_name", "cf_value"]
+      },
+      "Pagination": {
+        "type": "object",
+        "description": "Pagination metadata",
+        "properties": {
+          "page_number": {
+            "type": "integer",
+            "description": "Current page number",
+            "example": 1
+          },
+          "items_per_page": {
+            "type": "integer",
+            "description": "Number of items per page",
+            "example": 10
+          },
+          "total_count": {
+            "type": "integer",
+            "description": "Total number of items across all pages",
+            "example": 156
+          },
+          "total_pages": {
+            "type": "integer",
+            "description": "Total number of pages",
+            "example": 16
+          }
+        },
+        "required": ["page_number", "items_per_page", "total_count", "total_pages"]
+      },
+      "CustomFieldDefinition": {
+        "type": "object",
+        "description": "Custom field definition object",
+        "properties": {
+          "cf_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the custom field",
+            "example": "d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a"
+          },
+          "cf_name": {
+            "type": "string",
+            "description": "Internal name of the custom field (lowercase, no spaces)",
+            "example": "industry"
+          },
+          "cf_label": {
+            "type": "string",
+            "description": "Display label for the custom field",
+            "example": "Industry"
+          },
+          "cf_datatype": {
+            "type": "string",
+            "description": "Data type of the custom field",
+            "enum": ["text", "number", "dropdown", "date", "checkbox", "textarea"],
+            "example": "text"
+          },
+          "cf_description": {
+            "type": "string",
+            "nullable": true,
+            "description": "Description of the custom field's purpose",
+            "example": "Customer's industry sector"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the custom field was created",
+            "example": "2024-01-10T09:00:00.000Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Timestamp when the custom field was last updated",
+            "example": "2024-01-15T11:30:00.000Z"
+          }
+        },
+        "required": ["cf_id", "cf_name", "cf_label", "cf_datatype"]
       }
     },
     "responses": {
@@ -372,6 +1606,22 @@
     {
       "name": "Companies",
       "description": "Company management and retrieval operations"
+    },
+    {
+      "name": "Accounts",
+      "description": "Account management and retrieval operations"
+    },
+    {
+      "name": "Conversation Profiles",
+      "description": "Conversation profile management for communication channels"
+    },
+    {
+      "name": "Contacts",
+      "description": "Contact management and retrieval operations"
+    },
+    {
+      "name": "Custom Fields",
+      "description": "Custom field definition management"
     }
   ],
   "externalDocs": {
