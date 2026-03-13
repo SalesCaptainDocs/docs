@@ -141,12 +141,18 @@
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Companies",
             "pages": [
               "api-reference/endpoint/Get-companines",
-              "api-reference/endpoint/Get-companines-by-Id",
-              "api-reference/endpoint/Fetching-all-accounts"
+              "api-reference/endpoint/Get-companines-by-Id"
             ]
+          },
+          {
+            "group":"Accounts",
+            "pages": [
+              "api-reference/endpoint/Fetching-all-accounts",
+            ] 
+            
           }
         ]
       }
