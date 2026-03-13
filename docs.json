@@ -153,6 +153,12 @@
               "api-reference/endpoint/Fetching-all-accounts",
               "api-reference/endpoint/Fteching-account-by-ID"
             ] 
+          },
+          {
+            "group":"Conversation Profile",
+            "pages":[
+              "api-reference/endpoint/list-of-conversation-profiles"
+            ]
           }
         ]
       }
