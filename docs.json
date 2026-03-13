@@ -143,8 +143,9 @@
           {
             "group": "Endpoint examples",
             "pages": [
+              "api-reference/endpoint/Get-companines",
               "api-reference/endpoint/Get-companines-by-Id",
-              "api-reference/endpoint/Get-companines"
+              "api-reference/endpoint/Fetching-all-accounts"
             ]
           }
         ]
