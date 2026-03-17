@@ -155,6 +155,12 @@
             ] 
           },
           {
+            "group":"Conversations",
+            "pages":[
+              "api-reference/endpoint/listing-conversations-by-company-ID"
+            ]
+          },
+          {
             "group":"Conversation Profile",
             "pages":[
               "api-reference/endpoint/list-of-conversation-profiles",
