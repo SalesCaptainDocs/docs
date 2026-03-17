@@ -171,8 +171,11 @@
           {
             "group":"Contacts",
             "pages":[
+              "api-reference/endpoint/create-contact",
+              "api-reference/endpoint/update-contact-by-contact-id",
               "api-reference/endpoint/list-contacts-by-company-ID",
-              "api-reference/endpoint/fetching-contact-by-contact-id"
+              "api-reference/endpoint/fetching-contact-by-contact-id",
+              "api-reference/endpoint/delete-contact-by-company-id-contact-id"
             ]
           },
           {
