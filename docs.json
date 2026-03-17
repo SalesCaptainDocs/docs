@@ -179,7 +179,7 @@
             "group":"Messages",
             "pages":[
               "api-reference/endpoint/fetching-messages-by-message-ID",
-              "api-reference/endpoint Fetching-messages-by-company-ID-conversation-ID"
+              "api-reference/endpoint/Fetching-messages-by-company-ID-conversation-ID"
             ]
           },
           {
