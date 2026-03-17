@@ -157,7 +157,8 @@
           {
             "group":"Conversations",
             "pages":[
-              "api-reference/endpoint/listing-conversations-by-company-ID"
+              "api-reference/endpoint/list-of-custom-fields-by-company-id",
+              "api-reference/endpoint/Fetching-conversations-by-conversation-id"
             ]
           },
           {
