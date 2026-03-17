@@ -201,11 +201,17 @@
     "dark": "/logo/Salescaptain-white.png"
   },
   "navbar": {
-    "primary": {
+    "primary": [{
       "type": "button",
       "label": "Dashboard",
       "href": "https://app.salescaptain.com/login"
+    },
+    {
+      "type":"button",
+      "label":"Talk to Us",
+      "href":"https://calendly.com/aleks-salescaptain/salescaptain-demo"
     }
+    ]
   },
   "footer": {
     "socials": {
