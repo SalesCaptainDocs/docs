@@ -124,7 +124,6 @@
                 "pages": [
                   "Core-Features/Automations/Automation-Builder",
                   "Core-Features/Automations/Automation-Triggers"
-                  
                 ]
               }
             ]
@@ -148,48 +147,48 @@
             ]
           },
           {
-            "group":"Accounts",
+            "group": "Accounts",
             "pages": [
               "api-reference/endpoint/Fetching-all-accounts",
               "api-reference/endpoint/Fetching-account-by-ID"
-            ] 
+            ]
           },
           {
-            "group":"Conversations",
-            "pages":[
+            "group": "Conversations",
+            "pages": [
               "api-reference/endpoint/list-of-conversations-by-company-ID",
               "api-reference/endpoint/Fetching-conversations-by-conversation-id"
             ]
           },
           {
-            "group":"Conversation Profile",
-            "pages":[
+            "group": "Conversation Profile",
+            "pages": [
               "api-reference/endpoint/list-of-conversation-profiles",
               "api-reference/endpoint/list-of-conversation-profiles-by-ID"
             ]
           },
           {
-            "group":"Contacts",
-            "pages":[
-              "api-reference/endpoint/create-contact",
-              "api-reference/endpoint/update-contact-by-contact-id",
+            "group": "Contacts",
+            "pages": [
               "api-reference/endpoint/list-contacts-by-company-ID",
+              "api-reference/endpoint/create-contact",
               "api-reference/endpoint/fetching-contact-by-contact-id",
-              "api-reference/endpoint/delete-contact-by-company-id-contact-id"
+              "api-reference/endpoint/delete-contact-by-company-id-contact-id",
+              "api-reference/endpoint/update-contact-by-contact-id"
             ]
           },
           {
-            "group":"Messages",
-            "pages":[
+            "group": "Messages",
+            "pages": [
               "api-reference/endpoint/fetching-messages-by-message-ID",
-              "api-reference/endpoint/Fetching-messages-by-company-ID-conversation-ID"
+              "api-reference/endpoint/list-of-custom-fields-by-company-id"
             ]
           },
           {
-            "group":"Custom Fileds",
-            "pages":[
-              "api-reference/endpoint/list-of-custom-fields-by-company-id",
-              "api-reference/endpoint/list-of-custom-field-by-custom-field-id"
+            "group": "Custom Fileds",
+            "pages": [
+              "api-reference/endpoint/list-of-custom-field-by-custom-field-id",
+              "api-reference/endpoint/Fetching-messages-by-company-ID-conversation-ID"
             ]
           }
         ]
