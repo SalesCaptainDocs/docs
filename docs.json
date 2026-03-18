@@ -144,7 +144,7 @@
             "group": "Companies",
             "pages": [
               "api-reference/endpoint/Get-companies",
-              "api-reference/endpoint/Get-companines-by-Id"
+              "api-reference/endpoint/Fetching-companies-by-Id"
             ]
           },
           {
