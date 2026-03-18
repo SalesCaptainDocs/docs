@@ -151,7 +151,7 @@
             "group":"Accounts",
             "pages": [
               "api-reference/endpoint/Fetching-all-accounts",
-              "api-reference/endpoint/Fteching-account-by-ID"
+              "api-reference/endpoint/Fetching-account-by-ID"
             ] 
           },
           {
