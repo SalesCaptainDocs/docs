@@ -3,115 +3,163 @@ title: "Introduction"
 description: "Welcome to the SalesCaptain API Reference — your gateway to integrating powerful CRM, automation, and lead management features directly into your applications."
 ---
 
-Our APIs are designed for developers to seamlessly access SalesCaptain’s suite of tools, including lead capture, customer communication, analytics, and campaign automation.
+The SalesCaptain API enables developers to seamlessly interact with core platform features including:
+
+- Company & account management
+- Contact and lead handling
+- Conversations and messaging
+- Custom field management
+- Communication channel profiles
+
+Whether you're building a SaaS platform, CRM integration, or automation workflow, our APIs provide a scalable and flexible solution.
 
 <Note>
-  Tip: Use this API documentation to explore, test, and integrate SalesCaptain features into your platform efficiently.
+  Use this documentation to explore endpoints, test APIs, and integrate SalesCaptain features efficiently into your system.
 </Note>
 
-There are two primary ways to use our API:
+---
 
-- **OpenAPI Specification** — for direct endpoint testing and integration.
-- **MDX Components** — for interactive documentation and embedded code examples.
+## **How to Use This API**
 
-## Authentication
+There are two primary ways to work with the SalesCaptain API:
 
-All API requests to SalesCaptain are authenticated using **Bearer tokens**.\
-To access our endpoints:
+### 1. OpenAPI Specification
 
-1. Generate your API key from your **SalesCaptain Developer Dashboard**.
-2. Include the token in the header of every request as shown below.
+- Use for direct API integration
+- Supports tools like Postman, Swagger, and SDK generation
 
-OpenAPI Security Block:
+### 2. Interactive Documentation (MDX)
 
-```json
+- Embedded examples and UI-based testing
+- Ideal for frontend developers and quick testing
+
+---
+
+## **Authentication**
+
+All API requests require authentication using a **Bearer Token**.
+
+### Steps:
+
+1. Generate your API key from the SalesCaptain Developer Dashboard
+2. Include it in every request header
+
+### Example:
+
+```text
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+### OpenAPI Security:
+
+```text
 "security": [
   {
-    "bearerAuth": []
+    "BearerAuth": []
   }
 ]
 ```
 
-Or, as a raw HTTP header:
+---
 
-```
-Authorization: Bearer YOUR_API_TOKEN
-```
+## **API Overview**
 
-## Company Management
+The SalesCaptain API is organized into the following core modules:
 
-The Companies API allows you to fetch all companies linked to the authenticated user.
+---
 
-This includes:
+### **1. Companies**
 
-- Company IDs
-- Company names
-- Relationship based on accounts
-- Permission-bound access
+Manage and retrieve company-level data.
 
-<Note>
-  You can filter leads by date, status, or source using query parameters.
-</Note>
+**Endpoints:**
 
-# Endpoints
+- `GET /v1/fetch-companies` → Get all companies
+- `GET /v1/fetch-company/{company_id}` → Get company by ID
 
-### **GET /v1 — Health Check**
+---
 
-The Health Check endpoint allows developers and monitoring systems to verify that the **SalesCaptain API Documentation Service** is running correctly.\
-It returns the current service version, uptime status, and ensures that the gateway is responsive before making further API calls.
+### **2. Accounts**
 
-This is especially useful for:
+Access user account information linked to companies.
 
-- Automated monitoring systems
-- CI/CD pipelines
-- Internal dashboards
-- Integration testing
+**Endpoints:**
 
-### **What It Does**
+- `GET /v1/fetch-all-accounts` → Get all accounts
+- `GET /v1/fetch-account/{account_id}` → Get account by ID
 
-- Confirms that the API is reachable
-- Returns the current API version
-- Helps prevent unnecessary requests if the service is down
+---
 
-### Response Example
+### **3. Conversation Profiles**
 
-```
+Represents communication channels like phone, email, etc.
+
+**Endpoints:**
+
+- `GET /v1/list-conversation-profiles/{company_id}` → List profiles
+- `GET /v1/list-conversation-profile/{conversation_profile_id}` → Get profile
+
+---
+
+### **4. Conversations**
+
+Manage and retrieve conversations between contacts and businesses.
+
+**Endpoints:**
+
+- `GET /v1/list-conversations/{company_id}` → List conversations (paginated)
+- `GET /v1/fetch-conversation/{conversation_id}` → Get conversation by ID
+
+---
+
+### **5. Messages**
+
+Retrieve messages within conversations.
+
+**Endpoints:**
+
+- `GET /v1/fetch-messages/{company_id}/{conversation_id}` → List messages
+- `GET /v1/fetch-message/{message_id}` → Get message by ID
+
+---
+
+### **6. Contacts**
+
+Create, update, fetch, and delete contacts.
+
+**Endpoints:**
+
+- `POST /v1/create-contact` → Create contact
+- `PUT /v1/update-contact/{contact_id}` → Update contact
+- `GET /v1/list-contacts/{company_id}` → List contacts
+- `GET /v1/fetch-contact/{contact_id}` → Get contact
+- `DELETE /v1/delete-contact/{company_id}/{contact_id}` → Delete contact
+
+---
+
+### **7. Custom Fields**
+
+Manage additional structured data for contacts.
+
+**Endpoints:**
+
+- `GET /v1/list-custom-fields/{company_id}` → List custom fields
+- `GET /v1/list-custom-field/{custom_field_id}` → Get custom field
+
+---
+
+### **8. Health Check**
+
+Check API availability and service status.
+
+**Endpoint:**
+
+- `GET /v1` → Health check
+
+**Response Example:**
+
+```text
 {
   "message": "SalesCaptain API [Service version - 0.1]"
-}
-```
-
-### **GET /v1/fetch-companies — Fetch Companies**
-
-This endpoint retrieves all companies associated with the authenticated user.\
-SalesCaptain users often manage multiple accounts/locations, and each account is linked to a company.\
-This API collects all those company records and returns them in a clean, structured format.
-
-### **What This Endpoint Does**
-
-- Authenticates the request using the user’s Bearer token
-- Identifies which accounts the user belongs to
-- Extracts the company IDs from those accounts
-- Fetches full company details
-- Returns all companies the user has access to
-
-### **Example Use Cases**
-
-- Building a dashboard showing all organizations the user manages
-- Multi-tenant SaaS applications pulling business profiles
-- CRM systems syncing company metadata
-- Showing users a list of their locations or franchises
-
-### **Response Example**
-
-```
-{
-  "message": "Companies fetched successfully!",
-  "companies": [
-    {
-      "company_id": "00000000-0000-0000-0000-000000000000",
-      "name": "salescaptain"
-    }
-  ]
 }
 ```
