@@ -200,13 +200,23 @@
     "light": "/logo/Salescaptain-black.png",
     "dark": "/logo/Salescaptain-white.png"
   },
-  "navbar": {
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://app.salescaptain.com/login"
+"navbar": {
+  "links": [
+    {
+      "label": "Home",
+      "href": "https://salescaptain.com"
+    },
+    {
+      "label": "Pricing",
+      "href": "https://salescaptain.com/pricing"
     }
-  },
+  ],
+  "primary": {
+    "type": "button",
+    "label": "Dashboard",
+    "href": "https://app.salescaptain.com/login"
+  }
+},
   "footer": {
     "socials": {
       "website": "https://salescaptain.com/",
