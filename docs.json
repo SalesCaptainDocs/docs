@@ -181,14 +181,14 @@
             "group": "Messages",
             "pages": [
               "api-reference/endpoint/fetching-messages-by-message-ID",
-              "api-reference/endpoint/list-of-custom-fields-by-company-id"
+              "api-reference/endpoint/Fetching-messages-by-company-ID-conversation-ID"
             ]
           },
           {
             "group": "Custom Fileds",
             "pages": [
               "api-reference/endpoint/list-of-custom-field-by-custom-field-id",
-              "api-reference/endpoint/Fetching-messages-by-company-ID-conversation-ID"
+              "api-reference/endpoint/list-of-custom-fields-by-company-id"
             ]
           }
         ]
