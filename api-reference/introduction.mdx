@@ -62,88 +62,84 @@ Authorization: Bearer YOUR_API_TOKEN
 
 ---
 
-## **API Overview**
+## API Modules
 
-The SalesCaptain API is organized into the following core modules:
+The SalesCaptain API is organized into the following resources:
 
----
+### Companies
 
-### **1. Companies**
+Manage company-level data.
 
-Manage and retrieve company-level data.
-
-**Endpoints:**
-
-- `GET /v1/fetch-companies` → Get all companies
-- `GET /v1/fetch-company/{company_id}` → Get company by ID
+| Method | Endpoint | Description |
+| :-- | :-- | :-- |
+| GET | `/fetch-companies` | Retrieve all companies |
+| GET | `/fetch-company/{company_id}` | Retrieve a company by ID |
 
 ---
 
-### **2. Accounts**
+### Accounts
 
-Access user account information linked to companies.
+Access user accounts linked to companies.
 
-**Endpoints:**
-
-- `GET /v1/fetch-all-accounts` → Get all accounts
-- `GET /v1/fetch-account/{account_id}` → Get account by ID
-
----
-
-### **3. Conversation Profiles**
-
-Represents communication channels like phone, email, etc.
-
-**Endpoints:**
-
-- `GET /v1/list-conversation-profiles/{company_id}` → List profiles
-- `GET /v1/list-conversation-profile/{conversation_profile_id}` → Get profile
+| Method | Endpoint | Description |
+| :-- | :-- | :-- |
+| GET | `/fetch-all-accounts` | Retrieve all accounts |
+| GET | `/fetch-account/{account_id}` | Retrieve an account by ID |
 
 ---
 
-### **4. Conversations**
+### Conversation Profiles
 
-Manage and retrieve conversations between contacts and businesses.
+Represents communication channels (phone, email, etc.).
 
-**Endpoints:**
-
-- `GET /v1/list-conversations/{company_id}` → List conversations (paginated)
-- `GET /v1/fetch-conversation/{conversation_id}` → Get conversation by ID
+| Method | Endpoint | Description |
+| :-- | :-- | :-- |
+| GET | `/list-conversation-profiles/{company_id}` | List conversation profiles |
+| GET | `/list-conversation-profile/{conversation_profile_id}` | Get profile by ID |
 
 ---
 
-### **5. Messages**
+### Conversations
+
+Manage conversations between contacts and businesses.
+
+| Method | Endpoint | Description |
+| :-- | :-- | :-- |
+| GET | `/list-conversations/{company_id}` | List conversations |
+| GET | `/fetch-conversation/{conversation_id}` | Get conversation by ID |
+
+---
+
+### Messages
 
 Retrieve messages within conversations.
 
-**Endpoints:**
-
-- `GET /v1/fetch-messages/{company_id}/{conversation_id}` → List messages
-- `GET /v1/fetch-message/{message_id}` → Get message by ID
-
----
-
-### **6. Contacts**
-
-Create, update, fetch, and delete contacts.
-
-**Endpoints:**
-
-- `POST /v1/create-contact` → Create contact
-- `PUT /v1/update-contact/{contact_id}` → Update contact
-- `GET /v1/list-contacts/{company_id}` → List contacts
-- `GET /v1/fetch-contact/{contact_id}` → Get contact
-- `DELETE /v1/delete-contact/{company_id}/{contact_id}` → Delete contact
+| Method | Endpoint | Description |
+| :-- | :-- | :-- |
+| GET | `/fetch-messages/{company_id}/{conversation_id}` | List messages |
+| GET | `/fetch-message/{message_id}` | Get message by ID |
 
 ---
 
-### **7. Custom Fields**
+### Contacts
 
-Manage additional structured data for contacts.
+Create, update, and manage contacts.
 
-**Endpoints:**
-
-- `GET /v1/list-custom-fields/{company_id}` → List custom fields
-- `GET /v1/list-custom-field/{custom_field_id}` → Get custom field
+| Method | Endpoint | Description |
+| :-- | :-- | :-- |
+| POST | `/create-contact` | Create a contact |
+| PUT | `/update-contact/{contact_id}` | Update a contact |
+| GET | `/list-contacts/{company_id}` | List contacts |
+| GET | `/fetch-contact/{contact_id}` | Get contact by ID |
+| DELETE | `/delete-contact/{company_id}/{contact_id}` | Delete a contact |
 
 ---
+
+### Custom Fields
+
+Manage structured custom data for contacts.
+
+| Method | Endpoint | Description |
+| :-- | :-- | :-- |
+| GET | `/list-custom-fields/{company_id}` | List custom fields |
+| GET | `/list-custom-field/{custom_field_id}` | Get custom field by ID |
