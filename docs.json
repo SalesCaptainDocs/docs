@@ -161,7 +161,7 @@
             ]
           },
           {
-            "group": "Conversation Profile",
+            "group": "Conversation Profiles",
             "pages": [
               "api-reference/endpoint/list-of-conversation-profiles",
               "api-reference/endpoint/list-of-conversation-profiles-by-ID"
