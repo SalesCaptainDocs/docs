@@ -91,7 +91,9 @@
                   "companies": [
                     {
                       "company_id": "00000000-0000-0000-0000-000000000000",
-                      "name": "salescaptain"
+                      "name": "salescaptain",
+                      "company_type": "single",
+                      "status": "active"
                     }
                   ]
                 }
@@ -158,7 +160,9 @@
                   "message": "Company fetched successfully!",
                   "company": {
                     "company_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-                    "name": "Acme Corporation"
+                    "name": "Acme Corporation",
+                    "company_type": "parent",
+                    "status": "active"
                   }
                 }
               }
@@ -172,8 +176,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Missing required parameters",
-                  "message": "Required parameters missing: company_id"
+                  "status": "failure",
+                  "error": "Required parameters missing: company_id"
                 }
               }
             }
@@ -186,17 +190,28 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Company not found",
-                  "message": "Company not found"
+                  "status": "failure",
+                  "error": "Problem encountered while fetching company!"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "You don't have access to view this company!"
                 }
               }
             }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "403": {
-            "$ref": "#/components/responses/ForbiddenError"
           },
           "429": {
             "$ref": "#/components/responses/RateLimitError"
@@ -207,15 +222,28 @@
         }
       }
     },
-    "/v1/fetch-all-accounts": {
+    "/v1/fetch-all-accounts/{company_id}": {
       "get": {
         "summary": "Fetch all accounts for authenticated user",
-        "description": "Retrieves a list of all accounts associated with the authenticated user.\nReturns account details including access level, contact information, and last login time.\n",
+        "description": "Retrieves a list of all accounts associated with the authenticated user for a specific company.\nReturns account details including access level, contact information, and last login time.\n",
         "operationId": "fetchAllAccounts",
         "tags": ["Accounts"],
         "security": [
           {
             "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
           }
         ],
         "responses": {
@@ -243,7 +271,7 @@
                   "accounts": [
                     {
                       "account_id": "acc-1234-5678-90ab-cdef12345678",
-                      "access_level": "Administrator",
+                      "access_level": "administrator",
                       "last_login": "2026-03-12T10:30:00.000Z",
                       "email": "john.doe@example.com",
                       "mobile": "+1234567890",
@@ -252,7 +280,7 @@
                     },
                     {
                       "account_id": "acc-abcd-efgh-ijkl-mnop12345678",
-                      "access_level": "User",
+                      "access_level": "user",
                       "last_login": "2026-03-10T14:45:00.000Z",
                       "email": "jane.smith@example.com",
                       "mobile": "+0987654321",
@@ -260,6 +288,20 @@
                       "last_name": "Smith"
                     }
                   ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Missing or invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "Required parameters missing: company_id"
                 }
               }
             }
@@ -323,7 +365,7 @@
                   "message": "Account fetched successfully!",
                   "account": {
                     "account_id": "acc-1234-5678-90ab-cdef12345678",
-                    "access_level": "Administrator",
+                    "access_level": "administrator",
                     "last_login": "2026-03-12T10:30:00.000Z",
                     "email": "john.doe@example.com",
                     "mobile": "+1234567890",
@@ -342,8 +384,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Missing required parameters",
-                  "message": "Required parameters missing: account_id"
+                  "status": "failure",
+                  "error": "Required parameters missing: account_id"
                 }
               }
             }
@@ -356,17 +398,28 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Account not found",
-                  "message": "Account not found"
+                  "status": "failure",
+                  "error": "Problem encountered while fetching account!"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "You don't have access to view this account!"
                 }
               }
             }
           },
           "401": {
             "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "403": {
-            "$ref": "#/components/responses/ForbiddenError"
           },
           "429": {
             "$ref": "#/components/responses/RateLimitError"
@@ -458,8 +511,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Missing required parameters",
-                  "message": "Required parameters missing: company_id"
+                  "status": "failure",
+                  "error": "Required parameters missing: company_id"
                 }
               }
             }
@@ -540,8 +593,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Missing required parameters",
-                  "message": "Required parameters missing: conversation_profile_id"
+                  "status": "failure",
+                  "error": "Required parameters missing: conversation_profile_id"
                 }
               }
             }
@@ -554,8 +607,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "No conversation profile found!",
-                  "message": "No conversation profile found!"
+                  "status": "failure",
+                  "error": "Problem encountered while fetching conversation profiles!"
                 }
               }
             }
@@ -744,30 +797,29 @@
                   "missing_page_number": {
                     "summary": "Missing page number",
                     "value": {
-                      "error": "Invalid page_number",
-                      "message": "Please provide a valid page_number (must be a positive integer)"
+                      "status": "failure",
+                      "error": "Please provide a valid page_number (must be a positive integer)"
                     }
                   },
                   "invalid_sort_by": {
                     "summary": "Invalid sort_by value",
                     "value": {
-                      "error": "Invalid sort_by value",
-                      "message": "sort_by must be one of: last_update"
+                      "status": "failure",
+                      "error": "sort_by must be one of: last_update"
                     }
                   },
                   "invalid_filter": {
                     "summary": "Invalid filter value",
                     "value": {
-                      "error": "Invalid filter value",
-                      "message": "filter must be one of: conversation_profile_id, number, email, chat_status"
+                      "status": "failure",
+                      "error": "filter must be one of: conversation_profile_id, number, email, chat_status"
                     }
                   },
                   "missing_company_id": {
                     "summary": "Missing company_id",
                     "value": {
-                      "is_error": true,
-                      "error": "Problem encountered while listing conversations!",
-                      "message": "company_id is required!"
+                      "status": "failure",
+                      "error": "Required parameters missing: company_id"
                     }
                   }
                 }
@@ -782,9 +834,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "is_error": true,
-                  "error": "Problem encountered while fetching conversation!",
-                  "message": "Company not found"
+                  "status": "failure",
+                  "error": "Problem encountered while listing conversations!"
                 }
               }
             }
@@ -882,9 +933,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "is_error": true,
-                  "error": "Problem encountered while fetching conversation!",
-                  "message": "conversation_id is required!"
+                  "status": "failure",
+                  "error": "Required parameters missing: conversation_id"
                 }
               }
             }
@@ -897,9 +947,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "is_error": true,
-                  "error": "Problem encountered while fetching conversation!",
-                  "message": "Conversation not found!"
+                  "status": "failure",
+                  "error": "Problem encountered while fetching conversation!"
                 }
               }
             }
@@ -1250,6 +1299,144 @@
         }
       }
     },
+    "/v1/send-message/{company_id}/{conversation_id}": {
+      "post": {
+        "summary": "Send a message in a conversation",
+        "description": "Sends an outbound message in the given conversation for the specified company.\n`company_id` and `conversation_id` are taken from the URL path. `message_body` is required in the JSON body.\n`account_id` is resolved from the authenticated user's account that matches `company_id` (same as other company-scoped routes).\nThe request is forwarded to the chat service as a POST with `company_id` and `conversation_id` in the path.\n",
+        "operationId": "sendMessage",
+        "tags": ["Conversations"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
+          },
+          {
+            "name": "conversation_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the conversation",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["message_body"],
+                "properties": {
+                  "message_body": {
+                    "type": "string",
+                    "description": "Plain text body of the message to send",
+                    "example": "Hi — this is a test message from the api-doc send endpoint."
+                  }
+                }
+              },
+              "example": {
+                "message_body": "Hi — this is a test message from the api-doc send endpoint."
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Message sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Message sent successfully!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/SentMessage"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Message sent successfully!",
+                  "data": {
+                    "conversation_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                    "author": "Jane Doe",
+                    "body": "Hi — this is a test message from the api-doc send endpoint.",
+                    "date_created": "2025-03-23T18:30:00.000Z",
+                    "is_me": true,
+                    "message_type": "sms_message",
+                    "sent_by_id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+                    "sent_by_username": "Jane Doe",
+                    "message_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request (missing fields, invalid IDs, or no account for company)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "missing_required": {
+                    "summary": "Missing conversation_id, account_id context, or message_body",
+                    "value": {
+                      "status": "failure",
+                      "error": "conversation_id, account_id, and message_body must be provided!"
+                    }
+                  },
+                  "invalid_company_id": {
+                    "summary": "Invalid company UUID",
+                    "value": {
+                      "status": "failure",
+                      "error": "Invalid company ID"
+                    }
+                  },
+                  "invalid_conversation_id": {
+                    "summary": "Invalid conversation UUID",
+                    "value": {
+                      "status": "failure",
+                      "error": "Invalid conversation ID"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
     "/v1/list-contacts/{company_id}": {
       "get": {
         "summary": "List contacts for a company (paginated)",
@@ -1424,22 +1611,22 @@
                   "missing_page_number": {
                     "summary": "Missing page number",
                     "value": {
-                      "error": "Invalid page_number",
-                      "message": "Please provide a valid page_number (must be a positive integer)"
+                      "status": "failure",
+                      "error": "Please provide a valid page_number (must be a positive integer)"
                     }
                   },
                   "invalid_sort_by": {
                     "summary": "Invalid sort_by value",
                     "value": {
-                      "error": "Invalid sort_by value",
-                      "message": "sort_by must be one of: name, number, email, created_at"
+                      "status": "failure",
+                      "error": "sort_by must be one of: name, number, email, created_at"
                     }
                   },
                   "invalid_filter": {
                     "summary": "Invalid filter value",
                     "value": {
-                      "error": "Invalid filter value",
-                      "message": "filter must be one of: phone, email, facebook, instagram, whatsapp"
+                      "status": "failure",
+                      "error": "filter must be one of: phone, email, facebook, instagram, whatsapp"
                     }
                   }
                 }
@@ -1537,8 +1724,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Missing required parameters",
-                  "message": "Required parameters missing: contact_id"
+                  "status": "failure",
+                  "error": "Required parameters missing: contact_id"
                 }
               }
             }
@@ -1551,8 +1738,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Contact not found!",
-                  "message": "Contact not found!"
+                  "status": "failure",
+                  "error": "Problem encountered while fetching contact!"
                 }
               }
             }
@@ -1719,15 +1906,22 @@
                   "missing_company_id": {
                     "summary": "Missing company_id",
                     "value": {
-                      "error": "company_id is required!",
-                      "message": "company_id is required!"
+                      "status": "failure",
+                      "error": "company_id is required"
                     }
                   },
                   "missing_contact_info": {
                     "summary": "Missing phone and email",
                     "value": {
-                      "error": "Either phone or email must be provided!",
-                      "message": "Either phone or email must be provided!"
+                      "status": "failure",
+                      "error": "At least one of contact_phone or contact_email must be provided"
+                    }
+                  },
+                  "invalid_custom_field": {
+                    "summary": "Invalid or inactive custom field for company",
+                    "value": {
+                      "status": "failure",
+                      "error": "Invalid or inactive custom field for this company: d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a"
                     }
                   }
                 }
@@ -1742,8 +1936,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "You don't have permission to create contact!",
-                  "message": "You don't have permission to create contact!"
+                  "status": "failure",
+                  "error": "You don't have permission to create contact!"
                 }
               }
             }
@@ -1756,8 +1950,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Contact with this phone already exists!",
-                  "message": "Contact with this phone already exists!"
+                  "status": "failure",
+                  "error": "Contact with this phone already exists!"
                 }
               }
             }
@@ -1935,29 +2129,29 @@
                   "missing_company_id": {
                     "summary": "Missing company_id",
                     "value": {
-                      "error": "company_id is required",
-                      "message": "company_id is required"
+                      "status": "failure",
+                      "error": "company_id is required"
                     }
                   },
                   "missing_update_fields": {
                     "summary": "No update fields provided",
                     "value": {
-                      "error": "Missing update fields",
-                      "message": "At least one of name, phone, email, or custom_fields must be provided"
+                      "status": "failure",
+                      "error": "At least one of name, phone, email, or custom_fields must be provided"
                     }
                   },
                   "invalid_phone": {
                     "summary": "Invalid phone format",
                     "value": {
-                      "error": "Invalid phone",
-                      "message": "phone must be a valid phone number (e.g., +14155551234)"
+                      "status": "failure",
+                      "error": "phone must be a valid phone number (e.g., +14155551234)"
                     }
                   },
                   "invalid_email": {
                     "summary": "Invalid email format",
                     "value": {
-                      "error": "Invalid email",
-                      "message": "email must be a valid email address"
+                      "status": "failure",
+                      "error": "email must be a valid email address"
                     }
                   }
                 }
@@ -1972,8 +2166,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "You don't have permission to update contact!",
-                  "message": "You don't have permission to update contact!"
+                  "status": "failure",
+                  "error": "You don't have permission to update contact!"
                 }
               }
             }
@@ -1986,8 +2180,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Contact not found!",
-                  "message": "Contact not found!"
+                  "status": "failure",
+                  "error": "Problem encountered while updating contact!"
                 }
               }
             }
@@ -2003,15 +2197,15 @@
                   "duplicate_phone": {
                     "summary": "Phone already exists",
                     "value": {
-                      "error": "Contact with this phone already exists!",
-                      "message": "Contact with this phone already exists!"
+                      "status": "failure",
+                      "error": "Contact with this phone already exists!"
                     }
                   },
                   "duplicate_email": {
                     "summary": "Email already exists",
                     "value": {
-                      "error": "Contact with this email already exists!",
-                      "message": "Contact with this email already exists!"
+                      "status": "failure",
+                      "error": "Contact with this email already exists!"
                     }
                   }
                 }
@@ -2112,8 +2306,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "contact_id is required!",
-                  "message": "contact_id is required!"
+                  "status": "failure",
+                  "error": "Required parameters missing: contact_id"
                 }
               }
             }
@@ -2126,8 +2320,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "You don't have permission to delete contact!",
-                  "message": "You don't have permission to delete contact!"
+                  "status": "failure",
+                  "error": "You don't have permission to delete contact!"
                 }
               }
             }
@@ -2140,8 +2334,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Contact not found!",
-                  "message": "Contact not found!"
+                  "status": "failure",
+                  "error": "Problem encountered while deleting contact!"
                 }
               }
             }
@@ -2252,8 +2446,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Missing required parameters",
-                  "message": "Required parameters missing: company_id"
+                  "status": "failure",
+                  "error": "Required parameters missing: company_id"
                 }
               }
             }
@@ -2344,8 +2538,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Missing required parameters",
-                  "message": "Required parameters missing: custom_field_id"
+                  "status": "failure",
+                  "error": "Required parameters missing: custom_field_id"
                 }
               }
             }
@@ -2358,8 +2552,8 @@
                   "$ref": "#/components/schemas/Error"
                 },
                 "example": {
-                  "error": "Custom field not found!",
-                  "message": "Custom field not found!"
+                  "status": "failure",
+                  "error": "Problem encountered while fetching custom field!"
                 }
               }
             }
@@ -2404,9 +2598,21 @@
             "type": "string",
             "description": "Company name",
             "example": "salescaptain"
+          },
+          "company_type": {
+            "type": "string",
+            "description": "Type of the company in the hierarchy",
+            "enum": ["parent", "child", "single"],
+            "example": "single"
+          },
+          "status": {
+            "type": "string",
+            "description": "Current status of the company",
+            "enum": ["active", "paused"],
+            "example": "active"
           }
         },
-        "required": ["company_id", "name"]
+        "required": ["company_id", "name", "company_type", "status"]
       },
       "Address": {
         "type": "object",
@@ -2537,7 +2743,8 @@
           "access_level": {
             "type": "string",
             "description": "User's access level within the account",
-            "example": "Administrator"
+            "enum": ["owner", "administrator", "user"],
+            "example": "administrator"
           },
           "last_login": {
             "type": "string",
@@ -2822,6 +3029,67 @@
           }
         },
         "required": ["conversation_id", "message_id", "contact_id", "conversation_profile_id", "type_of_message", "direction", "created_at"]
+      },
+      "SentMessage": {
+        "type": "object",
+        "description": "Message as returned after a successful send (chat service response)",
+        "properties": {
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+          },
+          "author": {
+            "type": "string",
+            "description": "Display name of the message author",
+            "example": "Jane Doe"
+          },
+          "body": {
+            "type": "string",
+            "description": "Message text",
+            "example": "Hi — this is a test message from the api-doc send endpoint."
+          },
+          "date_created": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-03-23T18:30:00.000Z"
+          },
+          "is_me": {
+            "type": "boolean",
+            "description": "Whether the message was sent by the authenticated account",
+            "example": true
+          },
+          "message_type": {
+            "type": "string",
+            "description": "Channel/type of the message",
+            "example": "sms_message"
+          },
+          "sent_by_id": {
+            "type": "string",
+            "description": "Account ID of the sender",
+            "example": "d4e5f6a7-b8c9-0123-def1-234567890123"
+          },
+          "sent_by_username": {
+            "type": "string",
+            "example": "Jane Doe"
+          },
+          "message_id": {
+            "type": "string",
+            "description": "Unique message identifier from the chat service",
+            "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+          }
+        },
+        "required": [
+          "conversation_id",
+          "author",
+          "body",
+          "date_created",
+          "is_me",
+          "message_type",
+          "sent_by_id",
+          "sent_by_username",
+          "message_id"
+        ]
       },
       "FailureResponse": {
         "type": "object",
@@ -3134,7 +3402,9 @@
           "companies": [
             {
               "company_id": "00000000-0000-0000-0000-000000000000",
-              "name": "salescaptain"
+              "name": "salescaptain",
+              "company_type": "single",
+              "status": "active"
             }
           ]
         }
