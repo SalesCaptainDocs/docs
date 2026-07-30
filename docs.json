@@ -10,7 +10,10 @@
   "icons": {
     "library": "lucide"
   },
-  "favicon": "/logo/logo_chatbot.svg",
+  "favicon": {
+    "light": "/logo/logo_chatbot.svg",
+    "dark": "/logo/logo_chatbot.svg"
+  },
   "navigation": {
     "tabs": [
       {
