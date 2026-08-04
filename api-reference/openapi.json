@@ -699,14 +699,46 @@
             }
           },
           {
-            "name": "filter",
+            "name": "number",
             "in": "query",
             "required": false,
-            "description": "Filter conversations by field",
+            "description": "Filter conversations by contact phone number",
             "schema": {
               "type": "string",
-              "enum": ["conversation_profile_id", "number", "email", "chat_status"],
-              "example": "chat_status"
+              "example": "+1234567890"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": false,
+            "description": "Filter conversations by contact email address",
+            "schema": {
+              "type": "string",
+              "format": "email",
+              "example": "john.doe@example.com"
+            }
+          },
+          {
+            "name": "conversation_profile_id",
+            "in": "query",
+            "required": false,
+            "description": "Filter conversations by conversation profile ID",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c3d4e5f6-a7b8-9012-cdef-123456789012"
+            }
+          },
+          {
+            "name": "chat_status",
+            "in": "query",
+            "required": false,
+            "description": "Filter conversations by chat status",
+            "schema": {
+              "type": "string",
+              "enum": ["open", "closed"],
+              "example": "open"
             }
           }
         ],
@@ -808,11 +840,32 @@
                       "error": "sort_by must be one of: last_update"
                     }
                   },
-                  "invalid_filter": {
-                    "summary": "Invalid filter value",
+                  "invalid_number": {
+                    "summary": "Invalid number filter",
                     "value": {
                       "status": "failure",
-                      "error": "filter must be one of: conversation_profile_id, number, email, chat_status"
+                      "error": "number must be a valid phone number"
+                    }
+                  },
+                  "invalid_email": {
+                    "summary": "Invalid email filter",
+                    "value": {
+                      "status": "failure",
+                      "error": "email must be a valid email address"
+                    }
+                  },
+                  "invalid_conversation_profile_id": {
+                    "summary": "Invalid conversation_profile_id filter",
+                    "value": {
+                      "status": "failure",
+                      "error": "conversation_profile_id must be a valid UUID"
+                    }
+                  },
+                  "invalid_chat_status": {
+                    "summary": "Invalid chat_status filter",
+                    "value": {
+                      "status": "failure",
+                      "error": "chat_status must be one of: open, closed"
                     }
                   },
                   "missing_company_id": {
@@ -1101,6 +1154,10 @@
                             "conversation_profile_number": "+1987654321",
                             "type_of_message": "sms_message",
                             "direction": "inbound",
+                            "message": "Hi, I'd like to schedule an appointment.",
+                            "media": null,
+                            "call_status": null,
+                            "call_duration": null,
                             "assigned_account_id": "d4e5f6a7-b8c9-0123-def1-234567890123",
                             "created_at": "2026-03-15T08:00:00.000Z"
                           }
@@ -1235,6 +1292,10 @@
                         "conversation_profile_number": "+1987654321",
                         "type_of_message": "sms_message",
                         "direction": "inbound",
+                        "message": "Hi, I'd like to schedule an appointment.",
+                        "media": null,
+                        "call_status": null,
+                        "call_duration": null,
                         "assigned_account_id": "d4e5f6a7-b8c9-0123-def1-234567890123",
                         "created_at": "2026-03-15T08:00:00.000Z"
                       }
@@ -3013,6 +3074,33 @@
             "description": "Direction of the message",
             "enum": ["inbound", "outbound"],
             "example": "inbound"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true,
+            "description": "Message body/text content",
+            "example": "Hi, I'd like to schedule an appointment."
+          },
+          "media": {
+            "type": "array",
+            "nullable": true,
+            "description": "Media attachments associated with the message (e.g. image/file URLs)",
+            "items": {
+              "type": "string"
+            },
+            "example": ["https://cdn.example.com/media/image1.jpg"]
+          },
+          "call_status": {
+            "type": "string",
+            "nullable": true,
+            "description": "Status of the call when the message is a call (null for non-call messages)",
+            "example": "completed"
+          },
+          "call_duration": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Call duration in seconds when the message is a call (null for non-call messages)",
+            "example": 125
           },
           "assigned_account_id": {
             "type": "string",
