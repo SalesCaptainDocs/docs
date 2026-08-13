@@ -132,43 +132,43 @@
       },
       {
         "tab": "API reference",
-        "groups": [
+        "dropdowns": [
           {
-            "group": "API documentation",
+            "dropdown": "API documentation",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
-            "group": "Companies",
+            "dropdown": "Companies",
             "pages": [
               "api-reference/endpoint/List-companies-by-ID",
               "api-reference/endpoint/Fetching-companies-by-Id"
             ]
           },
           {
-            "group": "Accounts",
+            "dropdown": "Accounts",
             "pages": [
               "api-reference/endpoint/Fetching-all-accounts",
               "api-reference/endpoint/Fetching-account-by-ID"
             ]
           },
           {
-            "group": "Conversations",
+            "dropdown": "Conversations",
             "pages": [
               "api-reference/endpoint/list-of-conversations-by-company-ID",
               "api-reference/endpoint/Fetching-conversations-by-conversation-id"
             ]
           },
           {
-            "group": "Conversation Profiles",
+            "dropdown": "Conversation Profiles",
             "pages": [
               "api-reference/endpoint/list-of-conversation-profiles",
               "api-reference/endpoint/list-of-conversation-profiles-by-ID"
             ]
           },
           {
-            "group": "Contacts",
+            "dropdown": "Contacts",
             "pages": [
               "api-reference/endpoint/list-contacts-by-company-ID",
               "api-reference/endpoint/create-contact",
@@ -178,7 +178,7 @@
             ]
           },
           {
-            "group": "Messages",
+            "dropdown": "Messages",
             "pages": [
               "api-reference/endpoint/fetching-messages-by-message-ID",
               "api-reference/endpoint/send-message-by-id",
@@ -186,7 +186,7 @@
             ]
           },
           {
-            "group": "Tags",
+            "dropdown": "Tags",
             "pages": [
               "api-reference/endpoint/List-tags-for-a-company",
               "api-reference/endpoint/Create-a-new-tag",
@@ -196,20 +196,20 @@
             ]
           },
           {
-            "group": "Templates",
+            "dropdown": "Templates",
             "pages": [
               "api-reference/endpoint/List-all-SMS-templates"
             ]
           },
           {
-            "group": "Custom Fileds",
+            "dropdown": "Custom Fileds",
             "pages": [
               "api-reference/endpoint/list-of-custom-field-by-custom-field-id",
               "api-reference/endpoint/list-of-custom-fields-by-company-id"
             ]
           },
           {
-            "group": "Analytics",
+            "dropdown": "Analytics",
             "pages": [
               "api-reference/endpoint/Fetch-call-analytics-by-company"
             ]
