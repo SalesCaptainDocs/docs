@@ -188,17 +188,17 @@
           {
             "group": "Tags",
             "pages": [
-              "api-reference/endpoint/untitled-page",
+              "api-reference/endpoint/List-tags-for-a-company",
               "api-reference/endpoint/Create-a-new-tag",
-              "api-reference/endpoint/untitled-page-5",
-              "api-reference/endpoint/untitled-page-3",
-              "api-reference/endpoint/untitled-page-4"
+              "api-reference/endpoint/Delete-a-tag",
+              "api-reference/endpoint/Add-a-tag-to-a-contact",
+              "api-reference/endpoint/Remove-a-tag-from-a-contact"
             ]
           },
           {
             "group": "Templates",
             "pages": [
-              "api-reference/endpoint/untitled-page-6"
+              "api-reference/endpoint/List-all-SMS-templates"
             ]
           },
           {
@@ -211,7 +211,7 @@
           {
             "group": "Analytics",
             "pages": [
-              "api-reference/endpoint/untitled-page-7"
+              "api-reference/endpoint/Fetch-call-analytics-by-company"
             ]
           }
         ]
