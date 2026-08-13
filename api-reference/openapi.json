@@ -740,6 +740,16 @@
               "enum": ["open", "closed"],
               "example": "open"
             }
+          },
+          {
+            "name": "awaiting_reply",
+            "in": "query",
+            "required": false,
+            "description": "When `true`, returns only conversations that are awaiting a reply",
+            "schema": {
+              "type": "boolean",
+              "example": true
+            }
           }
         ],
         "responses": {
@@ -788,7 +798,8 @@
                         "updated_at": "2026-03-17T10:30:00.000Z",
                         "created_at": "2026-03-15T08:00:00.000Z",
                         "seen_by": "e5f6a7b8-c9d0-1234-ef12-345678901234",
-                        "is_chat_opened": true
+                        "is_chat_opened": true,
+                        "is_viewed": true
                       },
                       {
                         "contact_id": "f6a7b8c9-d0e1-2345-f123-456789012345",
@@ -804,7 +815,8 @@
                         "updated_at": "2026-03-16T14:20:00.000Z",
                         "created_at": "2026-03-10T12:00:00.000Z",
                         "seen_by": null,
-                        "is_chat_opened": false
+                        "is_chat_opened": false,
+                        "is_viewed": false
                       }
                     ],
                     "pagination": {
@@ -971,7 +983,8 @@
                       "updated_at": "2026-03-17T10:30:00.000Z",
                       "created_at": "2026-03-15T08:00:00.000Z",
                       "seen_by": "e5f6a7b8-c9d0-1234-ef12-345678901234",
-                      "is_chat_opened": true
+                      "is_chat_opened": true,
+                      "is_viewed": true
                     }
                   }
                 }
@@ -1401,7 +1414,7 @@
     "/v1/send-message/{company_id}/{conversation_id}": {
       "post": {
         "summary": "Send a message in a conversation",
-        "description": "Sends an outbound message in the given conversation for the specified company.\n`company_id` and `conversation_id` are taken from the URL path. `message_body` is required in the JSON body.\n`account_id` is resolved from the authenticated user's account that matches `company_id` (same as other company-scoped routes).\nThe request is forwarded to the chat service as a POST with `company_id` and `conversation_id` in the path.\n",
+        "description": "Sends an outbound message in the given conversation for the specified company.\n`company_id` and `conversation_id` are taken from the URL path. `message_body` is required in the JSON body.\nOptional `template_id` can be provided to send a template message.\n`account_id` is resolved from the authenticated user's account that matches `company_id` (same as other company-scoped routes).\nThe request is forwarded to the chat service as a POST with `company_id` and `conversation_id` in the path.\n",
         "operationId": "sendMessage",
         "tags": ["Conversations"],
         "security": [
@@ -1445,11 +1458,29 @@
                     "type": "string",
                     "description": "Plain text body of the message to send",
                     "example": "Hi — this is a test message from the api-doc send endpoint."
+                  },
+                  "template_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Optional SMS template ID used when sending a template message",
+                    "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
                   }
                 }
               },
-              "example": {
-                "message_body": "Hi — this is a test message from the api-doc send endpoint."
+              "examples": {
+                "plain_message": {
+                  "summary": "Plain text message",
+                  "value": {
+                    "message_body": "Hi — this is a test message from the api-doc send endpoint."
+                  }
+                },
+                "template_message": {
+                  "summary": "Template message",
+                  "value": {
+                    "message_body": "Hi {{name}}, just checking in!",
+                    "template_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                  }
+                }
               }
             }
           }
@@ -1539,7 +1570,7 @@
     "/v1/list-contacts/{company_id}": {
       "get": {
         "summary": "List contacts for a company (paginated)",
-        "description": "Retrieves a paginated list of contacts associated with a specific company.\nSupports filtering, sorting, and pagination options.\n",
+        "description": "Retrieves a paginated list of contacts associated with a specific company.\nSupports filtering, sorting, pagination, and optional `search_key`.\n",
         "operationId": "listContacts",
         "tags": ["Contacts"],
         "security": [
@@ -1615,6 +1646,16 @@
               "type": "string",
               "enum": ["phone", "email", "facebook", "instagram", "whatsapp"],
               "example": "phone"
+            }
+          },
+          {
+            "name": "search_key",
+            "in": "query",
+            "required": false,
+            "description": "Search contacts by name, phone, or email",
+            "schema": {
+              "type": "string",
+              "example": "john"
             }
           }
         ],
@@ -2451,6 +2492,692 @@
         }
       }
     },
+    "/v1/list-tags/{company_id}": {
+      "get": {
+        "summary": "List tags for a company",
+        "description": "Retrieves tags associated with a specific company.\nOptionally filter by `search_key` or `tag_name`.\n",
+        "operationId": "listTags",
+        "tags": ["Tags"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "7f22b96a-f75b-461e-9a1d-b8ff6f53f519"
+            }
+          },
+          {
+            "name": "search_key",
+            "in": "query",
+            "required": false,
+            "description": "Search tags by partial name match",
+            "schema": {
+              "type": "string",
+              "example": "vip"
+            }
+          },
+          {
+            "name": "tag_name",
+            "in": "query",
+            "required": false,
+            "description": "Filter tags by exact or specific tag name",
+            "schema": {
+              "type": "string",
+              "example": "VIP"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tags fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Tags fetched successfully!"
+                    },
+                    "tags": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Tag"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Tags fetched successfully!",
+                  "tags": {
+                    "data": [
+                      {
+                        "tag_id": "c9d8e7f6-a5b4-3210-9876-543210fedcba",
+                        "company_id": "7f22b96a-f75b-461e-9a1d-b8ff6f53f519",
+                        "tag_name": "VIP Customer",
+                        "created_at": "2026-08-11T12:26:00.000Z",
+                        "updated_at": null
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "company_id must be a valid UUID"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/create-tag": {
+      "post": {
+        "summary": "Create a new tag",
+        "description": "Creates a new tag for a specific company.\n`status` is optional and defaults to `true`.\nUser must have 'contacts' access role to create tags.\n`account_id` is derived from the authenticated user's account for the company.\n",
+        "operationId": "createTag",
+        "tags": ["Tags"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "company_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for the company",
+                    "example": "7f22b96a-f75b-461e-9a1d-b8ff6f53f519"
+                  },
+                  "tag_name": {
+                    "type": "string",
+                    "description": "Display name of the tag",
+                    "example": "VIP Customer"
+                  },
+                  "status": {
+                    "type": "boolean",
+                    "description": "Whether the tag is active (defaults to true)",
+                    "default": true,
+                    "example": true
+                  }
+                },
+                "required": ["company_id", "tag_name"]
+              },
+              "examples": {
+                "with_status": {
+                  "summary": "Create tag with explicit status",
+                  "value": {
+                    "company_id": "7f22b96a-f75b-461e-9a1d-b8ff6f53f519",
+                    "tag_name": "VIP Customer",
+                    "status": true
+                  }
+                },
+                "default_status": {
+                  "summary": "Create tag with default status",
+                  "value": {
+                    "company_id": "7f22b96a-f75b-461e-9a1d-b8ff6f53f519",
+                    "tag_name": "VIP Customer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Tag created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Tag created successfully!"
+                    },
+                    "tag": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/TagCreated"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Tag created successfully!",
+                  "tag": {
+                    "data": {
+                      "tag_id": "c9d8e7f6-a5b4-3210-9876-543210fedcba",
+                      "company_id": "7f22b96a-f75b-461e-9a1d-b8ff6f53f519",
+                      "tag_name": "VIP Customer",
+                      "status": true,
+                      "created_at": "2026-08-11T12:26:00.000Z",
+                      "message": "Tag created successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "missing_company_id": {
+                    "summary": "Missing company_id",
+                    "value": {
+                      "status": "failure",
+                      "error": "company_id is required"
+                    }
+                  },
+                  "missing_tag_name": {
+                    "summary": "Missing tag_name",
+                    "value": {
+                      "status": "failure",
+                      "error": "tag_name is required"
+                    }
+                  },
+                  "invalid_status": {
+                    "summary": "Invalid status",
+                    "value": {
+                      "status": "failure",
+                      "error": "status must be a boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access forbidden or permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "You don't have permission to create tag!"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/delete-tag/{company_id}/{tag_id}": {
+      "delete": {
+        "summary": "Delete a tag",
+        "description": "Permanently deletes a tag from the system.\nUser must have 'contacts' access role to delete tags.\n",
+        "operationId": "deleteTag",
+        "tags": ["Tags"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "7f22b96a-f75b-461e-9a1d-b8ff6f53f519"
+            }
+          },
+          {
+            "name": "tag_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the tag to delete",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "c9d8e7f6-a5b4-3210-9876-543210fedcba"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tag deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Tag deleted successfully!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "object",
+                          "properties": {
+                            "tag_id": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "ID of the deleted tag",
+                              "example": "c9d8e7f6-a5b4-3210-9876-543210fedcba"
+                            },
+                            "message": {
+                              "type": "string",
+                              "example": "Tag deleted successfully"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Tag deleted successfully!",
+                  "data": {
+                    "data": {
+                      "tag_id": "c9d8e7f6-a5b4-3210-9876-543210fedcba",
+                      "message": "Tag deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "Required parameters missing: tag_id"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access forbidden or permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "You don't have permission to delete tag!"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Tag not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "Problem encountered while deleting tag!"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/add-tag-to-contact/{company_id}": {
+      "post": {
+        "summary": "Add a tag to a contact",
+        "description": "Assigns an existing tag to a contact.\nUser must have 'contacts' access role.\n`account_id` is derived from the authenticated user's account for the company.\n",
+        "operationId": "addTagToContact",
+        "tags": ["Tags"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "7f22b96a-f75b-461e-9a1d-b8ff6f53f519"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contact_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for the contact",
+                    "example": "11111111-1111-1111-1111-111111111111"
+                  },
+                  "tag_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for the tag to assign",
+                    "example": "c9d8e7f6-a5b4-3210-9876-543210fedcba"
+                  }
+                },
+                "required": ["contact_id", "tag_id"]
+              },
+              "example": {
+                "contact_id": "11111111-1111-1111-1111-111111111111",
+                "tag_id": "c9d8e7f6-a5b4-3210-9876-543210fedcba"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tag assigned to contact successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Tag assigned to contact successfully!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/ContactTagAssigned"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Tag assigned to contact successfully!",
+                  "data": {
+                    "data": {
+                      "tag_track_id": "dddddddd-dddd-dddd-dddd-dddddddddddd",
+                      "contact_id": "11111111-1111-1111-1111-111111111111",
+                      "tag_id": "c9d8e7f6-a5b4-3210-9876-543210fedcba",
+                      "tag_name": "VIP Customer",
+                      "created_at": "2026-08-11T15:20:00.000Z",
+                      "message": "Tag assigned to contact successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "missing_contact_id": {
+                    "summary": "Missing contact_id",
+                    "value": {
+                      "status": "failure",
+                      "error": "contact_id is required"
+                    }
+                  },
+                  "missing_tag_id": {
+                    "summary": "Missing tag_id",
+                    "value": {
+                      "status": "failure",
+                      "error": "tag_id is required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access forbidden or permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "You don't have permission to add tag to contact!"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/remove-tag-from-contact/{company_id}": {
+      "delete": {
+        "summary": "Remove a tag from a contact",
+        "description": "Removes an assigned tag from a contact.\nUser must have 'contacts' access role.\n`account_id` is derived from the authenticated user's account for the company.\n",
+        "operationId": "removeTagFromContact",
+        "tags": ["Tags"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "7f22b96a-f75b-461e-9a1d-b8ff6f53f519"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "contact_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for the contact",
+                    "example": "11111111-1111-1111-1111-111111111111"
+                  },
+                  "tag_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Unique identifier for the tag to remove",
+                    "example": "c9d8e7f6-a5b4-3210-9876-543210fedcba"
+                  }
+                },
+                "required": ["contact_id", "tag_id"]
+              },
+              "example": {
+                "contact_id": "11111111-1111-1111-1111-111111111111",
+                "tag_id": "c9d8e7f6-a5b4-3210-9876-543210fedcba"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tag removed from contact successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Tag removed from contact successfully!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "$ref": "#/components/schemas/ContactTagRemoved"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Tag removed from contact successfully!",
+                  "data": {
+                    "data": {
+                      "tag_track_id": "dddddddd-dddd-dddd-dddd-dddddddddddd",
+                      "contact_id": "11111111-1111-1111-1111-111111111111",
+                      "tag_id": "c9d8e7f6-a5b4-3210-9876-543210fedcba",
+                      "message": "Tag removed from contact successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "missing_contact_id": {
+                    "summary": "Missing contact_id",
+                    "value": {
+                      "status": "failure",
+                      "error": "contact_id is required"
+                    }
+                  },
+                  "missing_tag_id": {
+                    "summary": "Missing tag_id",
+                    "value": {
+                      "status": "failure",
+                      "error": "tag_id is required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access forbidden or permission denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "You don't have permission to remove tag from contact!"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
     "/v1/list-custom-fields/{company_id}": {
       "get": {
         "summary": "List all custom fields for a company",
@@ -2653,6 +3380,285 @@
                 "example": {
                   "status": "failure",
                   "error": "Problem encountered while fetching custom field!"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/call-analytics": {
+      "post": {
+        "summary": "Fetch call analytics by company",
+        "description": "Retrieves inbound and outbound call analytics grouped by account for one or more companies.\n`company_ids` is required (comma-separated UUIDs).\n`start_time` and `end_time` are optional; if either is missing, the last 6 months is used.\nDurations are in seconds.\n`call_count` / `total_duration` are inbound; `outgoing_*` are outbound.\n",
+        "operationId": "callAnalytics",
+        "tags": ["Analytics"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "company_ids": {
+                    "type": "string",
+                    "description": "Comma-separated list of company UUIDs",
+                    "example": "52cd5521-394d-4676-a5dd-16f1a9d488c1,a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                  },
+                  "start_time": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Start of the analytics window (must be provided with end_time)",
+                    "example": "2026-02-12T00:00:00.000Z"
+                  },
+                  "end_time": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "End of the analytics window (must be provided with start_time)",
+                    "example": "2026-08-12T23:59:59.999Z"
+                  }
+                },
+                "required": ["company_ids"]
+              },
+              "examples": {
+                "with_date_range": {
+                  "summary": "With explicit date range",
+                  "value": {
+                    "company_ids": "52cd5521-394d-4676-a5dd-16f1a9d488c1,a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                    "start_time": "2026-02-12T00:00:00.000Z",
+                    "end_time": "2026-08-12T23:59:59.999Z"
+                  }
+                },
+                "default_last_6_months": {
+                  "summary": "Defaults to last 6 months",
+                  "value": {
+                    "company_ids": "52cd5521-394d-4676-a5dd-16f1a9d488c1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Call analytics fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Call analytics fetched successfully!"
+                    },
+                    "analytics": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CallAnalyticsAccount"
+                      }
+                    },
+                    "start_time": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2026-02-12T00:00:00.000Z"
+                    },
+                    "end_time": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2026-08-12T23:59:59.999Z"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Call analytics fetched successfully!",
+                  "analytics": [
+                    {
+                      "account_id": "11111111-2222-3333-4444-555555555555",
+                      "name": "Jane Doe",
+                      "call_count": 12,
+                      "total_duration": 1840,
+                      "outgoing_call_count": 5,
+                      "outgoing_total_duration": 720
+                    },
+                    {
+                      "account_id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+                      "name": "John Smith",
+                      "call_count": 3,
+                      "total_duration": 410,
+                      "outgoing_call_count": 1,
+                      "outgoing_total_duration": 95
+                    }
+                  ],
+                  "start_time": "2026-02-12T00:00:00.000Z",
+                  "end_time": "2026-08-12T23:59:59.999Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "missing_company_ids": {
+                    "summary": "Missing company_ids",
+                    "value": {
+                      "status": "failure",
+                      "error": "company_ids is required"
+                    }
+                  },
+                  "invalid_date_range": {
+                    "summary": "Incomplete date range",
+                    "value": {
+                      "status": "failure",
+                      "error": "Both start_time and end_time must be provided together, or omit both to use the last 6 months"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Access forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "You don't have access to call analytics for one or more companies!"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/sms/list-templates/{company_id}": {
+      "get": {
+        "summary": "List all SMS templates for a company",
+        "description": "Retrieves all active SMS templates associated with a specific company, grouped by template type (custom, review, refer, cx) plus an all list.\n",
+        "operationId": "listSmsTemplates",
+        "tags": ["Templates"],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "SMS templates fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "SMS templates fetched successfully!"
+                    },
+                    "templates": {
+                      "$ref": "#/components/schemas/SmsTemplatesGrouped"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "SMS templates fetched successfully!",
+                  "templates": {
+                    "custom": [
+                      {
+                        "template_sms_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                        "template_type_": "Custom text",
+                        "template_name": "Follow up",
+                        "message": "Hi {{name}}, just checking in!",
+                        "referral_image": null
+                      }
+                    ],
+                    "review": [
+                      {
+                        "template_sms_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                        "template_type_": "Review request text",
+                        "template_name": "Ask for review",
+                        "message": "Hi {{name}}, we'd love your feedback!",
+                        "referral_image": null
+                      }
+                    ],
+                    "refer": [],
+                    "cx": [],
+                    "all": [
+                      {
+                        "template_sms_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                        "template_type_": "Custom text",
+                        "template_name": "Follow up",
+                        "message": "Hi {{name}}, just checking in!",
+                        "referral_image": null
+                      },
+                      {
+                        "template_sms_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                        "template_type_": "Review request text",
+                        "template_name": "Ask for review",
+                        "message": "Hi {{name}}, we'd love your feedback!",
+                        "referral_image": null
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "Required parameters missing: company_id"
                 }
               }
             }
@@ -3057,9 +4063,14 @@
             "type": "boolean",
             "description": "Whether the chat is currently open",
             "example": true
+          },
+          "is_viewed": {
+            "type": "boolean",
+            "description": "Whether the conversation has been viewed",
+            "example": true
           }
         },
-        "required": ["contact_id", "contact_name", "conversation_id", "conversation_profile_id", "updated_at", "created_at", "is_chat_opened"]
+        "required": ["contact_id", "contact_name", "conversation_id", "conversation_profile_id", "updated_at", "created_at", "is_chat_opened", "is_viewed"]
       },
       "Message": {
         "type": "object",
@@ -3388,6 +4399,154 @@
         },
         "required": ["contact_id", "name", "conversation_id", "created_at"]
       },
+      "TagCreated": {
+        "type": "object",
+        "description": "Created tag response object",
+        "properties": {
+          "tag_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the tag",
+            "example": "c9d8e7f6-a5b4-3210-9876-543210fedcba"
+          },
+          "company_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the company",
+            "example": "7f22b96a-f75b-461e-9a1d-b8ff6f53f519"
+          },
+          "tag_name": {
+            "type": "string",
+            "description": "Display name of the tag",
+            "example": "VIP Customer"
+          },
+          "status": {
+            "type": "boolean",
+            "description": "Whether the tag is active",
+            "example": true
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the tag was created",
+            "example": "2026-08-11T12:26:00.000Z"
+          },
+          "message": {
+            "type": "string",
+            "description": "Success message from the create operation",
+            "example": "Tag created successfully"
+          }
+        },
+        "required": ["tag_id", "company_id", "tag_name", "status", "created_at"]
+      },
+      "Tag": {
+        "type": "object",
+        "description": "Tag information object",
+        "properties": {
+          "tag_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the tag",
+            "example": "c9d8e7f6-a5b4-3210-9876-543210fedcba"
+          },
+          "company_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the company",
+            "example": "7f22b96a-f75b-461e-9a1d-b8ff6f53f519"
+          },
+          "tag_name": {
+            "type": "string",
+            "description": "Display name of the tag",
+            "example": "VIP Customer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the tag was created",
+            "example": "2026-08-11T12:26:00.000Z"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Timestamp when the tag was last updated",
+            "example": null
+          }
+        },
+        "required": ["tag_id", "company_id", "tag_name", "created_at"]
+      },
+      "ContactTagAssigned": {
+        "type": "object",
+        "description": "Response object after assigning a tag to a contact",
+        "properties": {
+          "tag_track_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the tag assignment record",
+            "example": "dddddddd-dddd-dddd-dddd-dddddddddddd"
+          },
+          "contact_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the contact",
+            "example": "11111111-1111-1111-1111-111111111111"
+          },
+          "tag_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the tag",
+            "example": "c9d8e7f6-a5b4-3210-9876-543210fedcba"
+          },
+          "tag_name": {
+            "type": "string",
+            "description": "Display name of the assigned tag",
+            "example": "VIP Customer"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the tag was assigned",
+            "example": "2026-08-11T15:20:00.000Z"
+          },
+          "message": {
+            "type": "string",
+            "description": "Success message from the assignment operation",
+            "example": "Tag assigned to contact successfully"
+          }
+        },
+        "required": ["tag_track_id", "contact_id", "tag_id", "tag_name", "created_at"]
+      },
+      "ContactTagRemoved": {
+        "type": "object",
+        "description": "Response object after removing a tag from a contact",
+        "properties": {
+          "tag_track_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the removed tag assignment record",
+            "example": "dddddddd-dddd-dddd-dddd-dddddddddddd"
+          },
+          "contact_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the contact",
+            "example": "11111111-1111-1111-1111-111111111111"
+          },
+          "tag_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the tag",
+            "example": "c9d8e7f6-a5b4-3210-9876-543210fedcba"
+          },
+          "message": {
+            "type": "string",
+            "description": "Success message from the removal operation",
+            "example": "Tag removed from contact successfully"
+          }
+        },
+        "required": ["tag_track_id", "contact_id", "tag_id"]
+      },
       "CustomFieldDefinition": {
         "type": "object",
         "description": "Custom field definition object",
@@ -3435,6 +4594,126 @@
           }
         },
         "required": ["cf_id", "cf_name", "cf_label", "cf_datatype"]
+      },
+      "SmsTemplate": {
+        "type": "object",
+        "description": "SMS template object",
+        "properties": {
+          "template_sms_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the SMS template",
+            "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+          },
+          "template_type_": {
+            "type": "string",
+            "description": "Type of the SMS template",
+            "enum": [
+              "Custom text",
+              "Review request text",
+              "Referral text",
+              "Customer experience text"
+            ],
+            "example": "Custom text"
+          },
+          "template_name": {
+            "type": "string",
+            "description": "Display name of the template",
+            "example": "Follow up"
+          },
+          "message": {
+            "type": "string",
+            "description": "SMS message body",
+            "example": "Hi {{name}}, just checking in!"
+          },
+          "referral_image": {
+            "type": "string",
+            "nullable": true,
+            "description": "Optional referral image URL associated with the template",
+            "example": null
+          }
+        },
+        "required": ["template_sms_id", "template_type_", "template_name", "message"]
+      },
+      "CallAnalyticsAccount": {
+        "type": "object",
+        "description": "Per-account inbound and outbound call analytics",
+        "properties": {
+          "account_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the account",
+            "example": "11111111-2222-3333-4444-555555555555"
+          },
+          "name": {
+            "type": "string",
+            "description": "Display name of the account holder",
+            "example": "Jane Doe"
+          },
+          "call_count": {
+            "type": "integer",
+            "description": "Number of inbound calls",
+            "example": 12
+          },
+          "total_duration": {
+            "type": "integer",
+            "description": "Total inbound call duration in seconds",
+            "example": 1840
+          },
+          "outgoing_call_count": {
+            "type": "integer",
+            "description": "Number of outbound calls",
+            "example": 5
+          },
+          "outgoing_total_duration": {
+            "type": "integer",
+            "description": "Total outbound call duration in seconds",
+            "example": 720
+          }
+        },
+        "required": ["account_id", "name", "call_count", "total_duration", "outgoing_call_count", "outgoing_total_duration"]
+      },
+      "SmsTemplatesGrouped": {
+        "type": "object",
+        "description": "SMS templates grouped by type",
+        "properties": {
+          "custom": {
+            "type": "array",
+            "description": "Custom text templates",
+            "items": {
+              "$ref": "#/components/schemas/SmsTemplate"
+            }
+          },
+          "review": {
+            "type": "array",
+            "description": "Review request text templates",
+            "items": {
+              "$ref": "#/components/schemas/SmsTemplate"
+            }
+          },
+          "refer": {
+            "type": "array",
+            "description": "Referral text templates",
+            "items": {
+              "$ref": "#/components/schemas/SmsTemplate"
+            }
+          },
+          "cx": {
+            "type": "array",
+            "description": "Customer experience text templates",
+            "items": {
+              "$ref": "#/components/schemas/SmsTemplate"
+            }
+          },
+          "all": {
+            "type": "array",
+            "description": "All active SMS templates",
+            "items": {
+              "$ref": "#/components/schemas/SmsTemplate"
+            }
+          }
+        },
+        "required": ["custom", "review", "refer", "cx", "all"]
       }
     },
     "responses": {
@@ -3569,8 +4848,20 @@
       "description": "Contact management and retrieval operations"
     },
     {
+      "name": "Tags",
+      "description": "Tag listing, creation, deletion, and contact assignment operations"
+    },
+    {
       "name": "Custom Fields",
       "description": "Custom field definition management"
+    },
+    {
+      "name": "Templates",
+      "description": "SMS template retrieval operations"
+    },
+    {
+      "name": "Analytics",
+      "description": "Call analytics and reporting operations"
     }
   ],
   "externalDocs": {

@@ -186,10 +186,32 @@
             ]
           },
           {
+            "group": "Tags",
+            "pages": [
+              "untitled-page",
+              "untitled-page-2",
+              "untitled-page-5",
+              "untitled-page-3",
+              "untitled-page-4"
+            ]
+          },
+          {
+            "group": "Templates",
+            "pages": [
+              "untitled-page-6"
+            ]
+          },
+          {
             "group": "Custom Fileds",
             "pages": [
               "api-reference/endpoint/list-of-custom-field-by-custom-field-id",
               "api-reference/endpoint/list-of-custom-fields-by-company-id"
+            ]
+          },
+          {
+            "group": "Analytics",
+            "pages": [
+              "untitled-page-7"
             ]
           }
         ]
