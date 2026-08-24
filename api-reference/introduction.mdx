@@ -1,22 +1,6 @@
 ---
 title: "Introduction"
-description: "Welcome to the SalesCaptain API Reference — your gateway to integrating powerful CRM, automation, and lead management features directly into your applications."
----
-
-The SalesCaptain API enables developers to seamlessly interact with core platform features including:
-
-- Company & account management
-- Contact and lead handling
-- Conversations and messaging
-- Custom field management
-- Communication channel profiles
-
-Whether you're building a SaaS platform, CRM integration, or automation workflow, our APIs provide a scalable and flexible solution.
-
-<Note>
-  Use this documentation to explore endpoints, test APIs, and integrate SalesCaptain features efficiently into your system.
-</Note>
-
+description: "Welcome to the SalesCaptain API Reference  your gateway to integrating powerful CRM, automation, and lead management features directly into your applications."
 ---
 
 ## **How to Use This API**
@@ -41,9 +25,7 @@ All API requests require authentication using a Bearer Token.
 
 ### Steps:
 
-1. Generate your API key from the **SalesCaptain** [Dashboard](https://app.salescaptain.com/dashboard/settings/your-profile):\
-   **Sidebar → Settings → Your Profile → API Key**\
-   You can copy your API key from there.
+1. Generate your API key from the **SalesCaptain** [Dashboard](https://app.salescaptain.com/dashboard/settings/your-profile):<br />**Sidebar → Settings → Your Profile → API Key**<br />You can copy your API key from there.
    <Frame>
      ![Api Key](/images/ApiKey.jpeg)
    </Frame>
@@ -149,3 +131,39 @@ Manage structured custom data for contacts.
 | :-- | :-- | :-- |
 | GET | `/list-custom-fields/{company_id}` | List custom fields |
 | GET | `/list-custom-field/{custom_field_id}` | Get custom field by ID |
+
+---
+
+### Tags
+
+Create and manage tags and assign them to contacts.
+
+| Method | Endpoint | Description |
+| :-- | :-- | :-- |
+| GET | `/list-tags/{company_id}` | List tags for a company |
+| POST | `/create-tag` | Create a new tag |
+| DELETE | `/delete-tag/{company_id}/{tag_id}` | Delete a tag |
+| POST | `/add-tag-to-contact/{company_id}` | Add a tag to a contact |
+| DELETE | `/remove-tag-from-contact/{company_id}` | Remove a tag from a contact |
+
+---
+
+### Templates
+
+Manage SMS templates.
+
+| Method | Endpoint | Description |
+| :-- | :-- | :-- |
+| GET | `/sms/list-templates/{company_id}` | List all SMS templates for a company |
+
+---
+
+### Analytics
+
+Retrieve call analytics and reporting data.
+
+| Method | Endpoint | Description |
+| :-- | :-- | :-- |
+| POST | `/call-analytics` | Fetch call analytics by company |
+
+---
