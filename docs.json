@@ -225,19 +225,19 @@
           {
             "group": "MCP",
             "pages": [
-              "MCP-Serve"
+              "mcp/MCP-Serve"
             ]
           },
           {
             "group": "Tools",
             "pages": [
-              "Available-Tools"
+              "mcp/Available-Tools"
             ]
           },
           {
             "group": "MCP Examples",
             "pages": [
-              "Examples"
+              "mcp/Examples"
             ]
           }
         ]
