@@ -1,0 +1,94 @@
+---
+title: "MCP Server"
+description: "Connect to the SalesCaptain MCP server from Claude, Cursor, VS Code, and other MCP-compatible clients to manage calls, contacts, messaging, invoices, reviews, and more."
+---
+
+SalesCaptain exposes a remote [Model Context Protocol (MCP)](https://modelcontextprotocol.io) server that lets any compatible AI client manage your calls, contacts, messaging, website leads, payments, reviews, and pipeline stages.
+
+Connect to the SalesCaptain MCP server natively in Claude, Cursor, and other clients, or use [`mcp-remote`](https://www.npmjs.com/package/mcp-remote) for clients that don't yet support remote MCP.
+
+```text
+https://external-mcp.salescaptain.com/mcp
+```
+
+<Info>
+  You'll need a SalesCaptain API key. Get one from **Account Settings \> API Keys**. The server handles OAuth automatically — you'll be prompted to sign in and authorize access the first time you connect.
+</Info>
+
+## Setup
+
+### Claude
+
+Navigate to **Settings \> Connectors** and add a new MCP integration with the URL:
+
+```text
+https://external-mcp.salescaptain.com/mcp
+```
+
+### Cursor
+
+1. Open Cursor Settings (Cmd/Ctrl \+ Shift \+ J)
+2. Go to **MCP** and click **Add new MCP server**
+3. Select **Type: SSE** and enter the server URL:
+
+```text
+https://external-mcp.salescaptain.com/mcp
+```
+
+### VS Code
+
+Add the following to your `.vscode/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "salescaptain": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://external-mcp.salescaptain.com/mcp"]
+    }
+  }
+}
+```
+
+### Windsurf
+
+1. Open Windsurf settings (Cmd/Ctrl \+ ,)
+2. Scroll to **Cascade \> MCP servers**
+3. Select **Add Server \> Add custom server**
+4. Add:
+
+```json
+{
+  "mcpServers": {
+    "salescaptain": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://external-mcp.salescaptain.com/mcp"]
+    }
+  }
+}
+```
+
+## What's Next
+
+<CardGroup cols={2}>
+  <Card title="Available Tools" icon="wrench" href="/MCP/Available-Tools">
+    Full reference of every tool the MCP server exposes, grouped by resource — Contacts, Messaging, Call Flows, Payments, and more.
+  </Card>
+
+  <Card title="Examples" icon="message-square-text" href="/MCP/Examples">
+    Example prompts and end-to-end workflows to try once you're connected.
+  </Card>
+
+  <Card title="API Reference" icon="code" href="/API-reference/API-documentation/Introduction">
+    Prefer calling SalesCaptain directly? Use the REST API instead of MCP.
+  </Card>
+
+  <Card title="Core Features" icon="layers" href="/Core-Features/Calls/Call-Flows/Creating-Call-Flows">
+    Full documentation on calls, contacts, messaging, and website tools.
+  </Card>
+</CardGroup>
+
+## Need Help?
+
+- Browse our [Knowledge Base](https://docs.salescaptain.com/)
+- Reach out to support for setup help

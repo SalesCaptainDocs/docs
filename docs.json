@@ -128,7 +128,8 @@
               }
             ]
           }
-        ]
+        ],
+        "icon": "book-open-text"
       },
       {
         "tab": "API reference",
@@ -212,6 +213,31 @@
             "group": "Analytics",
             "pages": [
               "api-reference/endpoint/Fetch-call-analytics-by-company"
+            ]
+          }
+        ],
+        "icon": "separator-vertical"
+      },
+      {
+        "tab": "MCP",
+        "icon": "server",
+        "groups": [
+          {
+            "group": "MCP",
+            "pages": [
+              "MCP-Serve"
+            ]
+          },
+          {
+            "group": "Tools",
+            "pages": [
+              "untitled-page"
+            ]
+          },
+          {
+            "group": "MCP Examples",
+            "pages": [
+              "untitled-page-2"
             ]
           }
         ]

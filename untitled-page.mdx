@@ -1,0 +1,128 @@
+---
+title: "Available Tools"
+description: "Full reference of every tool the SalesCaptain MCP server exposes, grouped by resource."
+---
+
+The SalesCaptain MCP server exposes tools across the same resources as the [API reference](/API-reference/API-documentation/Introduction)  Companies, Accounts, Conversations, Contacts, Messages, Tags, Templates, Custom Fields, and Analytics — plus account and pipeline management.
+
+> **Note:** Tool names and parameters below are a starting template. Confirm the exact names, parameters, and return shapes with whoever owns the MCP server implementation before publishing.
+
+## Companies
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `list_companies` | List companies on your account, with search and pagination | `search`, `limit`, `page` |
+| `get_company` | Fetch a single company by ID | `company_id` |
+
+## Accounts
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `get_account_settings` | Fetch current business and account configuration | — |
+| `list_team_members` | List users on your account and their roles | `role`, `limit` |
+
+## Conversations
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `list_conversations` | List inbox conversations, filterable by channel or status | `channel`, `status`, `limit` |
+| `get_conversation` | Fetch full message history for a conversation | `conversation_id` |
+
+## Conversation Profiles
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `list_conversation_profiles` | List configured conversation profiles (routing/assignment rules) | `limit` |
+| `get_conversation_profile` | Fetch a single conversation profile by ID | `profile_id` |
+
+## Contacts
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `list_contacts` | List contacts, with search, tag, and stage filtering | `search`, `tags`, `stage`, `limit` |
+| `get_contact` | Fetch a single contact's full record by ID | `contact_id` |
+| `create_contact` | Add a new contact with name, details, tags, and custom fields | `name`, `email`, `phone`, `tags` |
+| `update_contact` | Update an existing contact's details, tags, or stage | `contact_id`, fields to update |
+| `delete_contact` | Remove a contact from your account | `contact_id` |
+
+## Messages
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `send_message` | Send an email, text, or social message to a contact | `contact_id`, `channel`, `body` |
+| `get_message` | Fetch a single message by ID | `message_id` |
+
+## Tags
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `list_tags` | List all tags available on your account | — |
+| `create_tag` | Create a new tag | `name`, `color` |
+
+## Templates
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `list_templates` | List message/email templates | `channel` |
+| `get_template` | Fetch a single template by ID | `template_id` |
+
+## Custom Fields
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `list_custom_fields` | List custom fields configured on contacts or companies | `object_type` |
+
+## Analytics
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `fetch_call_analytics` | Fetch call analytics for a company over a date range | `company_id`, `start_date`, `end_date` |
+
+## Call Flows
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `list_call_flows` | List configured call flows and IVR menus | `limit` |
+| `get_call_flow` | Fetch a single call flow's configuration | `flow_id` |
+| `get_call_logs` | Retrieve call history and recordings for a date range | `start_date`, `end_date` |
+
+## Stages & Pipeline
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `list_stages` | List pipeline stages and the contacts in each | — |
+| `move_contact_stage` | Move a contact to a different stage | `contact_id`, `stage_id` |
+
+## Website Tools
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `list_web_leads` | List leads captured through your website or webchat widget | `limit`, `date_range` |
+| `get_webchat_config` | Fetch your webchat widget's current configuration | — |
+
+## Payments
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `list_invoices` | List invoices with filtering by status and date | `status`, `start_date`, `end_date` |
+| `create_invoice` | Create and send a new invoice to a contact | `contact_id`, `amount`, `due_date` |
+| `get_payment_status` | Check the payment status of an invoice | `invoice_id` |
+
+## Reviews
+
+| Tool | Description | Key parameters |
+| --- | --- | --- |
+| `list_reviews` | List reviews collected across connected platforms | `platform`, `responded` |
+| `respond_to_review` | Post a response to a review | `review_id`, `response` |
+
+## See Also
+
+<CardGroup cols={2}>
+  <Card title="MCP Server" icon="plug" href="/MCP/MCP-Server">
+    Connection URL and client setup instructions.
+  </Card>
+
+  <Card title="Examples" icon="message-square-text" href="/MCP/Examples">
+    See these tools used together in example prompts.
+  </Card>
+</CardGroup>
