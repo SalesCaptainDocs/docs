@@ -25,6 +25,19 @@ Navigate to **Settings \> Connectors** and add a new MCP integration with the UR
 https://external-mcp.salescaptain.com/mcp
 ```
 
+### ChatGPT
+
+1. Open **Settings \> Connectors**
+2. Click **Create** (or **Add connector**) and enter the server URL:
+
+```text
+https://external-mcp.salescaptain.com/mcp
+```
+
+<Info>
+  ChatGPT's connectors require the server to support full OAuth 2.1 with dynamic client registration — a plain API key/bearer token is not accepted. Confirm this is supported before advertising ChatGPT compatibility.
+</Info>
+
 ### Cursor
 
 1. Open Cursor Settings (Cmd/Ctrl \+ Shift \+ J)
@@ -35,7 +48,7 @@ https://external-mcp.salescaptain.com/mcp
 https://external-mcp.salescaptain.com/mcp
 ```
 
-### VS Code
+### VS Code (GitHub Copilot)
 
 Add the following to your `.vscode/mcp.json`:
 
@@ -67,6 +80,39 @@ Add the following to your `.vscode/mcp.json`:
   }
 }
 ```
+
+### Cline (VS Code extension)
+
+1. Open the Cline panel and click the **MCP Servers** icon
+2. Select **Remote Servers \> Add Server**
+3. Enter a name (`salescaptain`) and the server URL:
+
+```text
+https://external-mcp.salescaptain.com/mcp
+```
+
+### Claude Code
+
+Run:
+
+```bash
+claude mcp add --transport http salescaptain https://external-mcp.salescaptain.com/mcp
+```
+
+### Continue
+
+Add the following to your `config.yaml`:
+
+```yaml
+mcpServers:
+  - name: salescaptain
+    type: streamable-http
+    url: https://external-mcp.salescaptain.com/mcp
+```
+
+<Note>
+  Client configuration formats change frequently if a client's MCP settings look different from what's shown here, check that client's own docs for the current syntax.
+</Note>
 
 ## Need Help?
 
