@@ -241,6 +241,17 @@
             ]
           }
         ]
+      },
+      {
+        "tab": "Changelogs",
+        "versions": [
+          {
+            "version": "test 1"
+          },
+          {
+            "version": "test2"
+          }
+        ]
       }
     ]
   },
