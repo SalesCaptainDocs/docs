@@ -183,7 +183,17 @@
             "pages": [
               "api-reference/endpoint/fetching-messages-by-message-ID",
               "api-reference/endpoint/send-message-by-id",
-              "api-reference/endpoint/Fetching-messages-by-company-ID-conversation-ID"
+              "api-reference/endpoint/Fetching-messages-by-company-ID-conversation-ID",
+              "api-reference/endpoint/send-sms",
+              "api-reference/endpoint/send-email"
+            ]
+          },
+          {
+            "group": "Stages",
+            "pages": [
+              "api-reference/endpoint/list-stages",
+              "api-reference/endpoint/fetch-conversation-stage",
+              "api-reference/endpoint/update-conversation-stage"
             ]
           },
           {
