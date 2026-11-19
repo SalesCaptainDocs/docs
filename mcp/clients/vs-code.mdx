@@ -1,0 +1,23 @@
+---
+title: "Connect VS Code (GitHub Copilot)"
+sidebarTitle: "VS Code (GitHub Copilot)"
+description: "Add the SalesCaptain MCP server to VS Code for GitHub Copilot."
+icon: "code"
+keywords:
+  - "vs code"
+  - "github copilot"
+  - "mcp"
+---
+
+Add the following to your `.vscode/mcp.json`:
+
+```json .vscode/mcp.json
+{
+  "mcpServers": {
+    "salescaptain": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://external-mcp.salescaptain.com/mcp"]
+    }
+  }
+}
+```

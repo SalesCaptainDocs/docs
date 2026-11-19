@@ -231,7 +231,16 @@
           },
           {
             "group": "Connect a client",
-            "pages": []
+            "pages": [
+              "mcp/clients/claude",
+              "mcp/clients/chatgpt",
+              "mcp/clients/claude-code",
+              "mcp/clients/cursor",
+              "mcp/clients/vs-code",
+              "mcp/clients/windsurf",
+              "mcp/clients/cline",
+              "mcp/clients/continue"
+            ]
           },
           {
             "group": "Tools",

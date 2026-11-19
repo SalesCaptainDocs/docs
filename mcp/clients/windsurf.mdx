@@ -1,0 +1,33 @@
+---
+title: "Connect Windsurf"
+sidebarTitle: "Windsurf"
+description: "Add the SalesCaptain MCP server to Windsurf."
+icon: "wind"
+keywords:
+  - "windsurf"
+  - "cascade"
+  - "mcp"
+---
+
+<Steps>
+  <Step title="Open Windsurf settings">
+    Open Windsurf settings (Cmd/Ctrl + ,).
+  </Step>
+  <Step title="Find MCP servers">
+    Scroll to **Cascade > MCP servers**.
+  </Step>
+  <Step title="Add a custom server">
+    Select **Add Server > Add custom server** and add:
+
+    ```json
+    {
+      "mcpServers": {
+        "salescaptain": {
+          "command": "npx",
+          "args": ["-y", "mcp-remote", "https://external-mcp.salescaptain.com/mcp"]
+        }
+      }
+    }
+    ```
+  </Step>
+</Steps>
