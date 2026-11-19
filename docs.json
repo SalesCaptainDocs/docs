@@ -157,8 +157,8 @@
           {
             "group": "Conversations",
             "pages": [
-              "api-reference/endpoint/list-of-conversations-by-company-ID",
-              "api-reference/endpoint/Fetching-conversations-by-conversation-id"
+              "api-reference/endpoint/Fetching-conversations-by-conversation-id",
+              "api-reference/endpoint/list-of-conversations-by-company-ID"
             ]
           },
           {
@@ -173,19 +173,19 @@
             "pages": [
               "api-reference/endpoint/list-contacts-by-company-ID",
               "api-reference/endpoint/create-contact",
-              "api-reference/endpoint/fetching-contact-by-contact-id",
               "api-reference/endpoint/delete-contact-by-company-id-contact-id",
+              "api-reference/endpoint/fetching-contact-by-contact-id",
               "api-reference/endpoint/update-contact-by-contact-id"
             ]
           },
           {
             "group": "Messages",
             "pages": [
-              "api-reference/endpoint/fetching-messages-by-message-ID",
-              "api-reference/endpoint/send-message-by-id",
-              "api-reference/endpoint/Fetching-messages-by-company-ID-conversation-ID",
               "api-reference/endpoint/send-sms",
-              "api-reference/endpoint/send-email"
+              "api-reference/endpoint/send-email",
+              "api-reference/endpoint/send-message-by-id",
+              "api-reference/endpoint/fetching-messages-by-message-ID",
+              "api-reference/endpoint/Fetching-messages-by-company-ID-conversation-ID"
             ]
           },
           {
@@ -199,10 +199,10 @@
           {
             "group": "Tags",
             "pages": [
-              "api-reference/endpoint/List-tags-for-a-company",
-              "api-reference/endpoint/Create-a-new-tag",
               "api-reference/endpoint/Delete-a-tag",
+              "api-reference/endpoint/Create-a-new-tag",
               "api-reference/endpoint/Add-a-tag-to-a-contact",
+              "api-reference/endpoint/List-tags-for-a-company",
               "api-reference/endpoint/Remove-a-tag-from-a-contact"
             ]
           },
