@@ -19,11 +19,66 @@ https://external-mcp.salescaptain.com/mcp
 
 ### Claude
 
-Navigate to **Settings > Connectors** and add a new MCP integration with the URL:
+Connecting Claude to SalesCaptain takes about two minutes. You'll need:
+
+- The **Claude** app (desktop or web)
+- A **SalesCaptain** account you can log in to
+
+#### Step 1: Create an MCP client in SalesCaptain
+
+1. Open the SalesCaptain app and go to **Settings > API & Webhooks**.
+2. Scroll down to **MCP authentication** and click **\+ Add client**.
+3. Your new client appears with a **Client ID** and **Client Secret**. Keep this page open, because you'll copy both values in Step 3.
+
+The **MCP Server URL** is shown on the same page:
 
 ```text
 https://external-mcp.salescaptain.com/mcp
 ```
+
+![01 Salescaptain Api Webhooks](/images/01-salescaptain-api-webhooks.png "01 Salescaptain Api Webhooks")
+
+> **Keep your Client Secret private.** Don't share it or paste it anywhere except the Claude connector settings.
+
+#### Step 2: Add a custom connector in Claude
+
+1. In Claude, open **Settings > Customize > Connectors**.
+2. Click **Add custom connector**.
+3. Fill in:
+   - **Name:** `Salescaptain`
+   - **URL:** `https://external-mcp.salescaptain.com/mcp`
+4. Click **Continue**.
+
+![02 Claude Add Custom Connector](/images/02-claude-add-custom-connector.png "02 Claude Add Custom Connector")
+
+#### Step 3: Paste your OAuth client details
+
+1. Select **Use your own OAuth client**.
+2. Paste the **Client ID** from SalesCaptain into **OAuth client ID**.
+3. Paste the **Client Secret** from SalesCaptain into **OAuth client secret**.
+4. Save to create the connector.
+
+![03 Claude Oauth Client](/images/03-claude-oauth-client.png "03 Claude Oauth Client")
+
+#### Step 4: Connect
+
+Open the new **Salescaptain** connector and click **Connect**.
+
+![04 Claude Connect](/images/04-claude-connect.png "04 Claude Connect")
+
+#### Step 5: Log in with SalesCaptain
+
+A SalesCaptain login window opens. Sign in with your SalesCaptain email and password, then click **Sign In**.
+
+![05 Salescaptain Login](/images/05-salescaptain-login.png "05 Salescaptain Login")
+
+#### Step 6: You're connected
+
+Claude returns to the connector page and shows **"Connected to Salescaptain."** The available SalesCaptain tools are listed under **Tool permissions**. Use these settings to choose whether each tool runs automatically, needs your approval, or is blocked.
+
+![06 Claude Connected](/images/06-claude-connected.png "06 Claude Connected")
+
+You can now ask Claude things like _"List my recent contacts in SalesCaptain"_ or _"Show call analytics for last month."_
 
 ### ChatGPT
 
