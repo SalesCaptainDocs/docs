@@ -1,0 +1,49 @@
+---
+title: "Create an MCP client"
+sidebarTitle: "Create an MCP client"
+description: "Create the OAuth Client ID and Client Secret that AI clients use to connect to the SalesCaptain MCP server."
+icon: "key"
+keywords:
+  - "mcp"
+  - "oauth"
+  - "client id"
+  - "client secret"
+  - "api & webhooks"
+---
+
+Some AI clients, such as Claude, connect to SalesCaptain with an OAuth client you create in the SalesCaptain app. The client gives you a **Client ID** and **Client Secret** to paste into the AI client.
+
+<Steps>
+  <Step title="Open API & Webhooks">
+    In the SalesCaptain app, go to **Settings > API & Webhooks**.
+  </Step>
+  <Step title="Add a client">
+    Scroll down to **MCP authentication** and click **+ Add client**.
+  </Step>
+  <Step title="Copy your client details">
+    Your new client appears with a **Client ID** and **Client Secret**. Keep this page open while you set up your AI client, so you can copy both values.
+
+    The **MCP server URL** is shown on the same page:
+
+    ```text
+    https://external-mcp.salescaptain.com/mcp
+    ```
+
+    ![SalesCaptain API & Webhooks settings showing the MCP authentication section with the server URL, Client ID and Client Secret](/images/01-salescaptain-api-webhooks.png)
+  </Step>
+</Steps>
+
+<Warning>
+  Keep your Client Secret private. Don't share it or paste it anywhere except your AI client's connector settings. If it's exposed, delete the client and create a new one.
+</Warning>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Connect Claude" icon="message-circle" href="/mcp/clients/claude">
+    Use your client details to connect Claude.
+  </Card>
+  <Card title="All clients" icon="plug" href="/mcp/MCP-Server">
+    See every supported AI client.
+  </Card>
+</Columns>

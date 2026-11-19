@@ -225,8 +225,13 @@
           {
             "group": "MCP",
             "pages": [
-              "mcp/MCP-Server"
+              "mcp/MCP-Server",
+              "mcp/create-mcp-client"
             ]
+          },
+          {
+            "group": "Connect a client",
+            "pages": []
           },
           {
             "group": "Tools",
