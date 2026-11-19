@@ -794,6 +794,7 @@
                         "conversation_profile_number": "+1987654321",
                         "conversation_profile_email": "support@company.com",
                         "last_message": "Hey, I need help with my order",
+                        "last_message_timestamp": "2026-10-08T14:46:00.123Z",
                         "assigned_to": "d4e5f6a7-b8c9-0123-def1-234567890123",
                         "updated_at": "2026-03-17T10:30:00.000Z",
                         "created_at": "2026-03-15T08:00:00.000Z",
@@ -811,6 +812,7 @@
                         "conversation_profile_number": "+1987654321",
                         "conversation_profile_email": "support@company.com",
                         "last_message": "Thanks for the update!",
+                        "last_message_timestamp": "2026-10-07T11:20:00.456Z",
                         "assigned_to": null,
                         "updated_at": "2026-03-16T14:20:00.000Z",
                         "created_at": "2026-03-10T12:00:00.000Z",
@@ -979,6 +981,7 @@
                       "conversation_profile_number": "+1987654321",
                       "conversation_profile_email": "support@company.com",
                       "last_message": "Hey, I need help with my order",
+                      "last_message_timestamp": "2026-10-08T14:46:00.123Z",
                       "assigned_to": "d4e5f6a7-b8c9-0123-def1-234567890123",
                       "updated_at": "2026-03-17T10:30:00.000Z",
                       "created_at": "2026-03-15T08:00:00.000Z",
@@ -1546,6 +1549,349 @@
                     "value": {
                       "status": "failure",
                       "error": "Invalid conversation ID"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/send-sms/{company_id}": {
+      "post": {
+        "summary": "Send an SMS to a phone number (starts a conversation if needed)",
+        "description": "Sends an SMS directly to a phone number from the conversation profile (one of your numbers) you choose.\n\n- If no contact exists for `to_phone`, a contact is created.\n- If the contact has no conversation on the chosen conversation profile yet, one is created.\n- The message is then sent from that profile's number.\n\nMessages can be free-form text written at send time; no pre-approved template is required.\n`template_id` is optional and only fills in a saved SMS template (see `/v1/sms/list-templates/{company_id}`).\n\nSending requires the company's A2P (10DLC) registration to be complete and is subject to the\ncompany's hourly and per-minute messaging limits.\n`account_id` is resolved from the authenticated user's account that matches `company_id`.\n",
+        "operationId": "sendSms",
+        "tags": [
+          "Conversations"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "to_phone",
+                  "conversation_profile_id"
+                ],
+                "properties": {
+                  "to_phone": {
+                    "type": "string",
+                    "description": "Recipient phone number. E.164 format is recommended (e.g. +14155551234). Spaces, dashes, dots and parentheses are ignored.",
+                    "example": "+14155551234"
+                  },
+                  "conversation_profile_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "The conversation profile (your number) to send from. Use `/v1/list-conversation-profiles/{company_id}` to list them.",
+                    "example": "c3d4e5f6-a7b8-9012-cdef-123456789012"
+                  },
+                  "message_body": {
+                    "type": "string",
+                    "description": "Free-form message text. Required unless `template_id` is provided.",
+                    "example": "Hi John, your technician is on the way and should arrive in 20 minutes."
+                  },
+                  "template_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Optional saved SMS template to send instead of / in addition to `message_body`.",
+                    "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                  },
+                  "contact_name": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "Optional name used when a new contact is created. If the contact already exists, its first name is updated to this value.",
+                    "example": "John Smith"
+                  }
+                }
+              },
+              "examples": {
+                "free_form": {
+                  "summary": "Free-form SMS to a new or existing number",
+                  "value": {
+                    "to_phone": "+14155551234",
+                    "conversation_profile_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+                    "message_body": "Hi John, your technician is on the way and should arrive in 20 minutes.",
+                    "contact_name": "John Smith"
+                  }
+                },
+                "template": {
+                  "summary": "SMS using a saved template",
+                  "value": {
+                    "to_phone": "+14155551234",
+                    "conversation_profile_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+                    "template_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "SMS sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "SMS sent successfully!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/OutboundSmsResult"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "SMS sent successfully!",
+                  "data": {
+                    "contact_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+                    "conversation_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                    "conversation_profile_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+                    "from_number": "+14155559876",
+                    "to_number": "+14155551234",
+                    "message": {
+                      "conversation_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                      "author": "Jane Doe",
+                      "body": "Hi John, your technician is on the way and should arrive in 20 minutes.",
+                      "date_created": "2026-11-19T10:30:00.000Z",
+                      "is_me": true,
+                      "message_type": "sms_message",
+                      "sent_by_id": "d4e5f6a7-b8c9-0123-def1-234567890123",
+                      "sent_by_username": "Jane Doe",
+                      "message_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request or the message could not be sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "invalid_phone": {
+                    "summary": "Invalid phone number",
+                    "value": {
+                      "status": "failure",
+                      "error": "to_phone must be a valid phone number, preferably in E.164 format (e.g. +14155551234)"
+                    }
+                  },
+                  "missing_body": {
+                    "summary": "No message body or template",
+                    "value": {
+                      "status": "failure",
+                      "error": "message_body or template_id must be provided"
+                    }
+                  },
+                  "unknown_profile": {
+                    "summary": "Conversation profile does not belong to the company",
+                    "value": {
+                      "status": "failure",
+                      "error": "Conversation profile not found for this company"
+                    }
+                  },
+                  "no_number": {
+                    "summary": "Profile has no phone number",
+                    "value": {
+                      "status": "failure",
+                      "error": "This conversation profile has no phone number to send SMS from"
+                    }
+                  },
+                  "a2p": {
+                    "summary": "A2P registration not complete",
+                    "value": {
+                      "status": "failure",
+                      "error": "A2P not verified!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/send-email/{company_id}": {
+      "post": {
+        "summary": "Send an email to an address",
+        "description": "Sends an email to an email address from the email connected to the conversation profile you choose.\n\n- If no contact exists for `to_email`, a contact is created.\n- If the contact has no conversation on the chosen conversation profile yet, one is created.\n- The email is sent through the profile's connected mailbox (Gmail / Outlook) or SalesCaptain's mail\n  delivery, and is threaded into the conversation like any inbox email.\n\n`message_body` may contain HTML; plain-text line breaks are converted to `<br/>`.\nThe conversation profile must have an email address configured (see `/v1/list-conversation-profiles/{company_id}`).\nSubject to the company's hourly and per-minute email limits.\n`account_id` is resolved from the authenticated user's account that matches `company_id`.\n",
+        "operationId": "sendEmail",
+        "tags": [
+          "Conversations"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "to_email",
+                  "conversation_profile_id",
+                  "subject",
+                  "message_body"
+                ],
+                "properties": {
+                  "to_email": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Recipient email address",
+                    "example": "john.smith@example.com"
+                  },
+                  "conversation_profile_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "The conversation profile whose email address the email is sent from",
+                    "example": "c3d4e5f6-a7b8-9012-cdef-123456789012"
+                  },
+                  "subject": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "example": "Your appointment is confirmed"
+                  },
+                  "message_body": {
+                    "type": "string",
+                    "description": "Email body (HTML or plain text)",
+                    "example": "Hi John,<br/>Your appointment is confirmed for Friday at 10 AM.<br/>Thanks!"
+                  },
+                  "contact_name": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "description": "Optional name used when a new contact is created. If the contact already exists, its first name is updated to this value.",
+                    "example": "John Smith"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email sent successfully!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/OutboundEmailResult"
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Email sent successfully!",
+                  "data": {
+                    "contact_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+                    "conversation_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                    "conversation_profile_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+                    "from_email": "support@acme.com",
+                    "to_email": "john.smith@example.com",
+                    "message": {}
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request or the email could not be sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "invalid_email": {
+                    "summary": "Invalid email address",
+                    "value": {
+                      "status": "failure",
+                      "error": "to_email is required and must be a valid email address"
+                    }
+                  },
+                  "missing_subject": {
+                    "summary": "Missing subject",
+                    "value": {
+                      "status": "failure",
+                      "error": "subject is required"
+                    }
+                  },
+                  "no_profile_email": {
+                    "summary": "Profile has no email configured",
+                    "value": {
+                      "status": "failure",
+                      "error": "This conversation profile has no email address to send from"
                     }
                   }
                 }
@@ -3677,6 +4023,403 @@
           }
         }
       }
+    },
+    "/v1/list-stages/{company_id}": {
+      "get": {
+        "summary": "List conversation stages",
+        "description": "Lists the conversation stages (inbox folders) available to the company, ordered as shown in the inbox.\nThe stage with `is_default: true` is the default \"General\" stage that conversations are in when they\nhave not been moved anywhere else.\n",
+        "operationId": "listStages",
+        "tags": [
+          "Stages"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stages fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Stages fetched successfully!"
+                    },
+                    "stages": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Stage"
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Stages fetched successfully!",
+                  "stages": [
+                    {
+                      "stage_id": "d4e5f6a7-0007-4a5b-8c9d-1234567890ab",
+                      "name": "General",
+                      "emoji": null,
+                      "order": 0,
+                      "is_default": true,
+                      "is_spam": false,
+                      "is_lead": false,
+                      "is_lost": false
+                    },
+                    {
+                      "stage_id": "e5f6a7b8-0008-4a5b-8c9d-1234567890ab",
+                      "name": "Job Scheduled",
+                      "emoji": "📅",
+                      "order": 1,
+                      "is_default": false,
+                      "is_spam": false,
+                      "is_lead": true,
+                      "is_lost": false
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "Required parameters missing: company_id"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/fetch-conversation-stage/{company_id}/{conversation_id}": {
+      "get": {
+        "summary": "Get a conversation's current stage",
+        "operationId": "fetchConversationStage",
+        "tags": [
+          "Stages"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
+          },
+          {
+            "name": "conversation_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the conversation",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Conversation stage fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Conversation stage fetched successfully!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "conversation_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "contact_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "conversation_profile_id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "nullable": true
+                        },
+                        "stage": {
+                          "$ref": "#/components/schemas/Stage"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Conversation stage fetched successfully!",
+                  "data": {
+                    "conversation_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                    "contact_id": "e5f6a7b8-c9d0-1234-ef12-345678901234",
+                    "conversation_profile_id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+                    "stage": {
+                      "stage_id": "e5f6a7b8-0008-4a5b-8c9d-1234567890ab",
+                      "name": "Job Scheduled",
+                      "emoji": "📅",
+                      "order": 1,
+                      "is_default": false,
+                      "is_spam": false,
+                      "is_lead": true,
+                      "is_lost": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "404": {
+            "description": "Conversation not found for this company",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "Conversation not found"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    },
+    "/v1/update-conversation-stage/{company_id}/{conversation_id}": {
+      "put": {
+        "summary": "Move a conversation to a stage",
+        "description": "Moves the conversation to the given stage (use `stage_id` values from `/v1/list-stages/{company_id}`).\nThis behaves exactly like moving the conversation between folders in the inbox: the move is recorded on\nthe conversation, \"Stage Change\" automations run, and a `conversation.stage_change` webhook event is sent.\nIf the conversation is already in that stage nothing changes and `changed` is `false`.\n",
+        "operationId": "updateConversationStage",
+        "tags": [
+          "Stages"
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the company",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            }
+          },
+          {
+            "name": "conversation_id",
+            "in": "path",
+            "required": true,
+            "description": "Unique identifier for the conversation",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "example": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "stage_id"
+                ],
+                "properties": {
+                  "stage_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "e5f6a7b8-0008-4a5b-8c9d-1234567890ab"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Conversation stage updated (or already in that stage)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Conversation stage updated successfully!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "conversation_id": {
+                          "type": "string",
+                          "format": "uuid"
+                        },
+                        "changed": {
+                          "type": "boolean",
+                          "description": "false when the conversation was already in the requested stage"
+                        },
+                        "previous_stage": {
+                          "$ref": "#/components/schemas/Stage"
+                        },
+                        "stage": {
+                          "$ref": "#/components/schemas/Stage"
+                        }
+                      }
+                    }
+                  }
+                },
+                "example": {
+                  "message": "Conversation stage updated successfully!",
+                  "data": {
+                    "conversation_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+                    "changed": true,
+                    "previous_stage": {
+                      "stage_id": "d4e5f6a7-0007-4a5b-8c9d-1234567890ab",
+                      "name": "General",
+                      "emoji": null,
+                      "order": 0,
+                      "is_default": true,
+                      "is_spam": false,
+                      "is_lead": false,
+                      "is_lost": false
+                    },
+                    "stage": {
+                      "stage_id": "e5f6a7b8-0008-4a5b-8c9d-1234567890ab",
+                      "name": "Job Scheduled",
+                      "emoji": "📅",
+                      "order": 1,
+                      "is_default": false,
+                      "is_spam": false,
+                      "is_lead": true,
+                      "is_lost": false
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "stage_id is required and must be a valid UUID"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenError"
+          },
+          "404": {
+            "description": "Conversation or stage not found for this company",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "status": "failure",
+                  "error": "Stage not found"
+                }
+              }
+            }
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimitError"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -3689,6 +4432,407 @@
       }
     },
     "schemas": {
+      "OutboundSmsResult": {
+        "type": "object",
+        "description": "Result of sending an SMS to a phone number",
+        "properties": {
+          "contact_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Contact the SMS was sent to (created if it did not exist)"
+          },
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Conversation the SMS was posted in (created if it did not exist)"
+          },
+          "conversation_profile_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "from_number": {
+            "type": "string",
+            "description": "Your number the SMS was sent from",
+            "example": "+14155559876"
+          },
+          "to_number": {
+            "type": "string",
+            "description": "Recipient number as stored on the contact",
+            "example": "+14155551234"
+          },
+          "message": {
+            "$ref": "#/components/schemas/SentMessage"
+          }
+        }
+      },
+      "OutboundEmailResult": {
+        "type": "object",
+        "description": "Result of sending an email to an address",
+        "properties": {
+          "contact_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Contact the email was sent to (created if it did not exist)"
+          },
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Conversation the email was posted in (created if it did not exist)"
+          },
+          "conversation_profile_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "from_email": {
+            "type": "string",
+            "format": "email",
+            "example": "support@acme.com"
+          },
+          "to_email": {
+            "type": "string",
+            "format": "email",
+            "example": "john.smith@example.com"
+          },
+          "message": {
+            "type": "object",
+            "description": "The sent email message as recorded in the conversation",
+            "additionalProperties": true
+          }
+        }
+      },
+      "Stage": {
+        "type": "object",
+        "description": "A conversation stage (inbox folder)",
+        "properties": {
+          "stage_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "example": "Job Scheduled"
+          },
+          "emoji": {
+            "type": "string",
+            "nullable": true
+          },
+          "order": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Display order in the inbox"
+          },
+          "is_default": {
+            "type": "boolean",
+            "description": "true for the default \"General\" stage"
+          },
+          "is_spam": {
+            "type": "boolean"
+          },
+          "is_lead": {
+            "type": "boolean"
+          },
+          "is_lost": {
+            "type": "boolean"
+          }
+        }
+      },
+      "WebhookContactEvent": {
+        "type": "object",
+        "description": "Payload for `contact.create`, `contact.update` and `contact.delete`",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "contact.create",
+              "contact.update",
+              "contact.delete"
+            ]
+          },
+          "contact_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "source": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tag_id": {
+                  "type": "string"
+                },
+                "tag_name": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "custom_fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cf_id": {
+                  "type": "string"
+                },
+                "cf_name": {
+                  "type": "string"
+                },
+                "cf_field_value": {
+                  "nullable": true
+                },
+                "cf_datatype": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "consent": {
+            "type": "object",
+            "properties": {
+              "email_opt_in": {
+                "type": "boolean"
+              },
+              "text_opt_in": {
+                "type": "boolean"
+              },
+              "ai_opt_in": {
+                "type": "boolean"
+              }
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "example": {
+          "action": "contact.create",
+          "contact_id": "b630fb3c-d058-4e18-826d-b3e091719b79",
+          "name": "James",
+          "phone": "+12294251122",
+          "email": null,
+          "source": "website",
+          "tags": [],
+          "custom_fields": [],
+          "consent": {
+            "email_opt_in": false,
+            "text_opt_in": true,
+            "ai_opt_in": true
+          },
+          "created_at": "2026-07-14T12:41:01.181Z",
+          "updated_at": "2026-07-14T12:41:01.181Z"
+        }
+      },
+      "WebhookMessageEvent": {
+        "type": "object",
+        "description": "Payload for `message.sms`, `message.email`, `message.webchat`, `message.fb` and `message.ig`",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "message.sms",
+              "message.email",
+              "message.webchat",
+              "message.fb",
+              "message.ig"
+            ]
+          },
+          "direction": {
+            "type": "string",
+            "enum": [
+              "inbound",
+              "outbound"
+            ]
+          },
+          "timestamp": {
+            "type": "string",
+            "description": "Time of the message"
+          },
+          "channel": {
+            "type": "string",
+            "enum": [
+              "sms",
+              "email",
+              "webchat",
+              "fb",
+              "ig"
+            ]
+          },
+          "body": {
+            "type": "string"
+          },
+          "media": {
+            "nullable": true,
+            "description": "Media URL(s) attached to the message, if any"
+          },
+          "from": {
+            "type": "string",
+            "description": "SMS only. Sender phone number"
+          },
+          "to": {
+            "type": "string",
+            "description": "SMS only. Recipient phone number"
+          },
+          "name": {
+            "type": "string",
+            "description": "Outbound only. Name of the team member who sent the message"
+          },
+          "email": {
+            "type": "string",
+            "description": "Outbound only. Email of the team member who sent the message"
+          }
+        },
+        "example": {
+          "action": "message.sms",
+          "direction": "outbound",
+          "timestamp": "7/14/2026, 8:43 AM",
+          "channel": "sms",
+          "body": "Hello charlie",
+          "media": null,
+          "from": "+14155559876",
+          "to": "+14155551234",
+          "name": "Jane Doe",
+          "email": "jane@acme.com"
+        }
+      },
+      "WebhookWorkflowEvent": {
+        "type": "object",
+        "description": "Payload for `campaign.opt_out`, `campaign.replied`, `automation.opt_out` and `automation.replied`",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "campaign.opt_out",
+              "campaign.replied",
+              "automation.opt_out",
+              "automation.replied"
+            ]
+          },
+          "contact_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "company_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "workflow_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "workflow_name": {
+            "type": "string"
+          },
+          "contact_name": {
+            "type": "string"
+          },
+          "contact_email": {
+            "type": "string",
+            "nullable": true
+          },
+          "contact_phone": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "example": {
+          "action": "campaign.replied",
+          "contact_id": "a1b2c3d4-0001-4a5b-8c9d-1234567890ab",
+          "company_id": "f0e1d2c3-0002-4a5b-8c9d-1234567890ab",
+          "workflow_id": "9a8b7c6d-0003-4a5b-8c9d-1234567890ab",
+          "workflow_name": "Summer Promo Campaign",
+          "contact_name": "John Doe",
+          "contact_email": "john.doe@example.com",
+          "contact_phone": "+15551234567"
+        }
+      },
+      "WebhookStageChangeEvent": {
+        "type": "object",
+        "description": "Payload for `conversation.stage_change`",
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "conversation.stage_change"
+            ]
+          },
+          "conversation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "contact_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "conversation_profile_id": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "previous_stage": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "stage_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "stage": {
+            "type": "object",
+            "properties": {
+              "stage_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "name": {
+                "type": "string"
+              }
+            }
+          },
+          "changed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "example": {
+          "action": "conversation.stage_change",
+          "conversation_id": "5b7c1d2e-0005-4a5b-8c9d-1234567890ab",
+          "contact_id": "a1b2c3d4-0001-4a5b-8c9d-1234567890ab",
+          "conversation_profile_id": "c3d4e5f6-0006-4a5b-8c9d-1234567890ab",
+          "previous_stage": {
+            "stage_id": "d4e5f6a7-0007-4a5b-8c9d-1234567890ab",
+            "name": "New Lead"
+          },
+          "stage": {
+            "stage_id": "e5f6a7b8-0008-4a5b-8c9d-1234567890ab",
+            "name": "Job Scheduled"
+          },
+          "changed_at": "2026-11-18T12:00:00.000Z"
+        }
+      },
       "Company": {
         "type": "object",
         "description": "Company information object",
@@ -4032,6 +5176,13 @@
             "nullable": true,
             "description": "Content of the last message in the conversation",
             "example": "Hey, I need help with my order"
+          },
+          "last_message_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Timestamp of the last message in the conversation",
+            "example": "2026-10-08T14:46:00.123Z"
           },
           "assigned_to": {
             "type": "string",
@@ -4862,6 +6013,14 @@
     {
       "name": "Analytics",
       "description": "Call analytics and reporting operations"
+    },
+    {
+      "name": "Stages",
+      "description": "Conversation stages (inbox folders). List the stages, read a conversation's stage and move a conversation\nto another stage. Stage moves made in the app or through the API fire the `conversation.stage_change` webhook.\n"
+    },
+    {
+      "name": "Webhooks",
+      "description": "**Webhook Subscriptions** send an HTTP request to your URL when an event happens in SalesCaptain.\nSubscriptions are created in the SalesCaptain app: pick the events you want, your URL and the HTTP\nmethod (default `POST`). Each request body is the event payload as JSON, with the\nevent name in `action`.\n\n| Event | When it fires | Payload schema |\n|---|---|---|\n| `contact.create` | A contact is created | `WebhookContactEvent` |\n| `contact.update` | A contact is updated | `WebhookContactEvent` |\n| `contact.delete` | A contact is deleted | `WebhookContactEvent` |\n| `message.sms` | An SMS is sent or received | `WebhookMessageEvent` |\n| `message.email` | An email is sent or received | `WebhookMessageEvent` |\n| `message.webchat` | A web chat message is sent or received | `WebhookMessageEvent` |\n| `message.fb` | A Facebook message is sent or received | `WebhookMessageEvent` |\n| `message.ig` | An Instagram message is sent or received | `WebhookMessageEvent` |\n| `campaign.opt_out` | A contact opts out of a campaign message | `WebhookWorkflowEvent` |\n| `campaign.replied` | A contact replies to a campaign message | `WebhookWorkflowEvent` |\n| `automation.opt_out` | A contact opts out of an automation message | `WebhookWorkflowEvent` |\n| `automation.replied` | A contact replies to an automation message | `WebhookWorkflowEvent` |\n| `conversation.stage_change` | A conversation is moved to a different stage | `WebhookStageChangeEvent` |\n\nExample `message.sms` request body:\n\n```json\n{\n  \"action\": \"message.sms\",\n  \"direction\": \"inbound\",\n  \"timestamp\": \"7/14/2026, 8:43 AM\",\n  \"channel\": \"sms\",\n  \"body\": \"Yes, Friday works for me\",\n  \"media\": null,\n  \"from\": \"+14155551234\",\n  \"to\": \"+14155559876\"\n}\n```\n\nRespond with any 2xx status. Failed deliveries are not retried.\n"
     }
   ],
   "externalDocs": {
