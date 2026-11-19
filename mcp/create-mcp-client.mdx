@@ -1,7 +1,6 @@
 ---
 title: "Create an MCP client"
-sidebarTitle: "Create an MCP client"
-description: "Create the OAuth Client ID and Client Secret that AI clients use to connect to the SalesCaptain MCP server."
+description: "Create the OAuth Client ID and Client Secret that AI clients such as Claude use to connect securely to the SalesCaptain MCP server."
 keywords:
   - "mcp"
   - "oauth"
@@ -10,7 +9,21 @@ keywords:
   - "api & webhooks"
 ---
 
-Some AI clients, such as Claude, connect to SalesCaptain with an OAuth client you create in the SalesCaptain app. The client gives you a **Client ID** and **Client Secret** to paste into the AI client.
+Some AI clients, such as Claude, connect to SalesCaptain through an OAuth client that you create in the SalesCaptain app. The client gives you a **Client ID** and **Client Secret**, which you paste into the AI client's connector settings.
+
+You only need to create a client once. You can reuse it, or create a separate client for each AI tool you connect.
+
+```text
+https://external-mcp.salescaptain.com/mcp
+```
+
+## Before you begin
+
+You need:
+
+- A **SalesCaptain** account with access to **Settings**
+
+## Create the client
 
 <Steps>
   <Step title="Open API & Webhooks">
@@ -22,11 +35,7 @@ Some AI clients, such as Claude, connect to SalesCaptain with an OAuth client yo
   <Step title="Copy your client details">
     Your new client appears with a **Client ID** and **Client Secret**. Keep this page open while you set up your AI client, so you can copy both values.
 
-    The **MCP server URL** is shown on the same page:
-
-    ```text
-    https://external-mcp.salescaptain.com/mcp
-    ```
+    The **MCP server URL** is shown on the same page.
 
     ![SalesCaptain API & Webhooks settings showing the MCP authentication section with the server URL, Client ID and Client Secret](/images/01-salescaptain-api-webhooks.png)
   </Step>
@@ -38,11 +47,5 @@ Some AI clients, such as Claude, connect to SalesCaptain with an OAuth client yo
 
 ## Next steps
 
-<Columns cols={2}>
-  <Card title="Connect Claude" icon="message-circle" href="/mcp/clients/claude">
-    Use your client details to connect Claude.
-  </Card>
-  <Card title="All clients" icon="plug" href="/mcp/MCP-Server">
-    See every supported AI client.
-  </Card>
-</Columns>
+- Connect [Claude](/mcp/clients/claude) with your new client details.
+- See every supported AI client on the [MCP Server](/mcp/MCP-Server) overview.
