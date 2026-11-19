@@ -225,7 +225,7 @@
           {
             "group": "MCP",
             "pages": [
-              "mcp/MCP-Serve"
+              "mcp/MCP-Server"
             ]
           },
           {
