@@ -1,15 +1,18 @@
 ---
 title: "Connect ChatGPT"
 sidebarTitle: "ChatGPT"
-description: "Add SalesCaptain as a connector in ChatGPT to manage calls, contacts, messaging, reviews, and more from your chats."
+description: "Add SalesCaptain as a custom MCP plugin in ChatGPT to manage calls, contacts, messaging, reviews, and more from your chats."
 keywords:
   - "chatgpt"
   - "openai"
   - "mcp"
-  - "connector"
+  - "plugin"
+  - "oauth"
 ---
 
-ChatGPT connects to the SalesCaptain MCP server through a connector. Once connected, ChatGPT can look up and act on your SalesCaptain calls, contacts, messaging, website leads, payments, reviews, and pipeline stages.
+ChatGPT connects to the SalesCaptain MCP server as a custom plugin. Once connected, ChatGPT can look up and act on your SalesCaptain calls, contacts, messaging, website leads, payments, reviews, and pipeline stages.
+
+Setup takes a few minutes. You create an OAuth client in SalesCaptain, add SalesCaptain as a custom MCP server in ChatGPT, then sign in with your SalesCaptain account.
 
 ```text
 https://external-mcp.salescaptain.com/mcp
@@ -21,21 +24,68 @@ You need:
 
 - A **ChatGPT** account
 - A **SalesCaptain** account you can log in to
+- A **Client ID** and **Client Secret** from SalesCaptain. If you don't have them yet, follow [Create an MCP client](/mcp/create-mcp-client).
 
 ## Connect ChatGPT
 
 <Steps>
-  <Step title="Open connector settings">
-    In ChatGPT, open **Settings > Connectors**.
-  </Step>
-  <Step title="Add the SalesCaptain server">
-    Click **Create** (or **Add connector**) and enter the server URL:
+  <Step title="Copy your client details from SalesCaptain">
+    In the SalesCaptain app, go to **Settings > API & Webhooks**. Under **MCP authentication**, copy the **Client ID** and **Client Secret** of your MCP client.
 
-    ```text
-    https://external-mcp.salescaptain.com/mcp
-    ```
+    ![SalesCaptain API & Webhooks settings showing the MCP authentication section with the server URL, Client ID and Client Secret](/images/01-salescaptain-api-webhooks.png)
+  </Step>
+  <Step title="Open Plugins in ChatGPT">
+    In ChatGPT, click **Plugins** in the sidebar. Then click **Add** in the top-right corner and choose to add a custom MCP server.
+
+    ![ChatGPT Plugins page with the Add button in the top-right corner](/images/07-chatgpt-plugins.png)
+  </Step>
+  <Step title="Enter the server details">
+    In the **Add custom MCP server** dialog, fill in:
+
+    - **Name:** `Salescaptain`
+    - **Connection:** select **Server URL**, then enter `https://external-mcp.salescaptain.com/mcp`
+    - **Authentication:** `OAuth`
+
+    ![ChatGPT's Add custom MCP server dialog with the name Salescaptain, the SalesCaptain server URL and OAuth authentication](/images/08-chatgpt-add-custom-mcp.png)
+  </Step>
+  <Step title="Paste your OAuth client details">
+    1. Click **Advanced OAuth settings**.
+    2. Set **Registration method** to **User-Defined OAuth Client**.
+    3. Paste the **Client ID** from SalesCaptain into **OAuth client ID**.
+    4. Paste the **Client Secret** from SalesCaptain into **OAuth client secret**.
+
+    ![ChatGPT's Advanced OAuth settings with User-Defined OAuth Client selected and the OAuth client ID and secret fields filled in](/images/09-chatgpt-oauth-settings.png)
+  </Step>
+  <Step title="Create the plugin">
+    Select **I understand and want to continue**, then click **Create as a plugin**.
+  </Step>
+  <Step title="Connect to SalesCaptain">
+    ChatGPT shows **Connect Salescaptain**. Click **Continue to Salescaptain**.
+
+    ![ChatGPT's Connect Salescaptain dialog with the Continue to Salescaptain button](/images/10-chatgpt-connect.png)
+  </Step>
+  <Step title="Log in with SalesCaptain">
+    A SalesCaptain login window opens. Sign in with your SalesCaptain email and password, then click **Sign In**.
+
+    ![SalesCaptain login screen with email and password fields](/images/05-salescaptain-login.png)
+  </Step>
+  <Step title="Check the connection">
+    **Salescaptain** now appears in your installed plugins. Use the permission setting next to it to choose when ChatGPT asks for your approval before using SalesCaptain tools.
+
+    ![ChatGPT plugin settings showing Salescaptain installed with its permission setting](/images/11-chatgpt-connected.png)
   </Step>
 </Steps>
+
+<Warning>
+  Only add MCP servers you trust. Keep your Client Secret private and paste it only into ChatGPT's OAuth settings.
+</Warning>
+
+## Try it
+
+Ask ChatGPT something like:
+
+- _List my recent contacts in SalesCaptain._
+- _Show call analytics for last month._
 
 ## Next steps
 
